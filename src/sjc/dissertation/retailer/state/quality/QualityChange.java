@@ -1,10 +1,10 @@
 package sjc.dissertation.retailer.state.quality;
 
-//TODO Javadoc
+//TODO Javadoc QuCh
 public enum QualityChange {
-	DecreaseQuality("<--Q>", "Decrease Quality"),
-	MaintainQuality("<~~Q>", "Maintain Quality"),
-	IncreaseQuality("<++Q>", "Increase Quality");
+	DecreaseQuality("<-Q>", "Decrease Quality"),
+	MaintainQuality("<~Q>", "Maintain Quality"),
+	IncreaseQuality("<+Q>", "Increase Quality");
 
 	/** Human readable description of the Quality*/
 	private String desc;

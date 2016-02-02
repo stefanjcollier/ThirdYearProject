@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import sjc.dissertation.retailer.state.quality.QualityChange;
-
 /**
  * A JUnit test for the methods of {@link QualityChange}.
  *
@@ -22,8 +20,8 @@ public class QualityChangeTest {
 	@Test
 	public void testIncreaseValue() {
 		final QualityChange qc = QualityChange.IncreaseQuality;
-		assertEquals("The 'IncreaseQuality' should have code: <++Q>",
-				"<++Q>", qc.getSymbol());
+		assertEquals("The 'IncreaseQuality' should have code: <+Q>",
+				"<+Q>", qc.getSymbol());
 	}
 
 	/**
@@ -34,8 +32,8 @@ public class QualityChangeTest {
 	@Test
 	public void testMaintainValue() {
 		final QualityChange qc = QualityChange.MaintainQuality;
-		assertEquals("The 'MaintainQuality' should have code: <~~Q>",
-				"<~~Q>", qc.getSymbol());
+		assertEquals("The 'MaintainQuality' should have code: <~Q>",
+				"<~Q>", qc.getSymbol());
 	}
 
 	/**
@@ -46,8 +44,8 @@ public class QualityChangeTest {
 	@Test
 	public void testDecreaseValue() {
 		final QualityChange qc = QualityChange.DecreaseQuality;
-		assertEquals("The 'DecreaseQuality' should have code: <--Q>",
-				"<--Q>", qc.getSymbol());
+		assertEquals("The 'DecreaseQuality' should have code: <-Q>",
+				"<-Q>", qc.getSymbol());
 	}
 
 }

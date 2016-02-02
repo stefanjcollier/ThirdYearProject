@@ -1,6 +1,6 @@
 package sjc.dissertation.retailer.state.profit;
 
-//TODO javadoc PM
+//TODO javadoc PrMa
 public enum ProfitMargin {
 	HighProfitMargin("<P++>","Very High Profit Margin",0.2){
 		@Override
@@ -10,7 +10,7 @@ public enum ProfitMargin {
 				return this;
 			}
 			case DecreaseProfitMargin: {
-				return PositiveProfitMargin;
+				return LowProfitMargin;
 			}
 			default: {
 				throw new InvalidProfitMarginException(this, pm);
@@ -18,7 +18,7 @@ public enum ProfitMargin {
 			}
 		}
 	},
-	PositiveProfitMargin("<P+>","High Profit Margin",0.1){
+	LowProfitMargin("<P+>","High Profit Margin",0.1){
 		@Override
 		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
 			switch(pm){
@@ -48,7 +48,7 @@ public enum ProfitMargin {
 				return NegativeProfitMargin;
 			}
 			case IncreaseProfitMargin: {
-				return PositiveProfitMargin;
+				return LowProfitMargin;
 			}
 			default: {
 				throw new InvalidProfitMarginException(this, pm);
@@ -67,7 +67,7 @@ public enum ProfitMargin {
 				return NegativeProfitMargin;
 			}
 			case IncreaseProfitMargin: {
-				return PositiveProfitMargin;
+				return LowProfitMargin;
 			}
 			default: {
 				throw new InvalidProfitMarginException(this, pm);
@@ -76,8 +76,13 @@ public enum ProfitMargin {
 		}
 	};
 
+	/** A shorthand notation for the quality*/
 	private final String sym;
+
+	/** Human readable description of the profit margin*/
 	private final String desc;
+
+	/** The percentage representation of profit margin */
 	private final double prof;
 
 	private ProfitMargin(final String symbol, final String description, final double margin){

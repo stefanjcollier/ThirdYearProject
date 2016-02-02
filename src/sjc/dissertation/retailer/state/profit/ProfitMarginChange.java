@@ -1,5 +1,6 @@
 package sjc.dissertation.retailer.state.profit;
 
+//TODO Javadoc PrMaCh
 public enum ProfitMarginChange {
 	DecreaseProfitMargin("<-P>", "Decrease Profit Margin"),
 	MaintainProfitMargin("<~P>", "Maintain Profit Margin"),

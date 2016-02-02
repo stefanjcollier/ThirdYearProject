@@ -6,10 +6,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import sjc.dissertation.retailer.state.quality.InvalidQualityException;
-import sjc.dissertation.retailer.state.quality.Quality;
-import sjc.dissertation.retailer.state.quality.QualityChange;
-
 public class QualityTest {
 
 	final double HIGH_QUALITY_COST = 3;
@@ -86,6 +82,33 @@ public class QualityTest {
 		assertEquals("'High + Decrease = Medium' is not true", Quality.MediumQuality, q_minusQ);
 	}
 
+	/**
+	 * A test to see that MediumQuality behaves correctly under all quality change commands.
+	 *
+	 * Methods Under Test: Constructor, changeQuality()
+	 * @throws InvalidQualityException -- The unexpected error caused from changing the quality level
+	 */
+	@Test
+	public void testMediumQualityChangeCommands() throws InvalidQualityException {
+		fail("Not Implemented");
+	}
+
+	/**
+	 * A test to see that LowQuality behaves correctly under all quality change commands.
+	 *
+	 * Methods Under Test: Constructor, changeQuality()
+	 * @throws InvalidQualityException -- The unexpected error caused from changing the quality level
+	 */
+	@Test
+	public void testLowQualityChangeCommands() throws InvalidQualityException {
+		fail("Not Implemented");
+	}
+
+	/**
+	 * A test to ensure the cost of each level is correct.
+	 *
+	 * Methods Under Test: Constructor, getCost()
+	 */
 	@Test
 	public void testThatTheValuesAreCorrect(){
 		//GIVEN each Quality instance
