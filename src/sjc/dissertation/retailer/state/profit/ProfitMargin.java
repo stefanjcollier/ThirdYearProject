@@ -2,10 +2,79 @@ package sjc.dissertation.retailer.state.profit;
 
 //TODO javadoc PM
 public enum ProfitMargin {
-	VeryHighProfitMargin("<++P>","Very High Profit Margin",0.2),
-	HighProfitMargin("<+P>","High Profit Margin",0.1),
-	NoProfitMargin("<0P>","No Profit (Margin)",0),
-	NegativeProfitMargin("<-P>","Negative Profit Margin", -0.1);
+	HighProfitMargin("<P++>","Very High Profit Margin",0.2){
+		@Override
+		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
+			switch(pm){
+			case MaintainProfitMargin: {
+				return this;
+			}
+			case DecreaseProfitMargin: {
+				return PositiveProfitMargin;
+			}
+			default: {
+				throw new InvalidProfitMarginException(this, pm);
+			}
+			}
+		}
+	},
+	PositiveProfitMargin("<P+>","High Profit Margin",0.1){
+		@Override
+		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
+			switch(pm){
+			case MaintainProfitMargin: {
+				return this;
+			}
+			case DecreaseProfitMargin: {
+				return NoProfitMargin;
+			}
+			case IncreaseProfitMargin: {
+				return HighProfitMargin;
+			}
+			default: {
+				throw new InvalidProfitMarginException(this, pm);
+			}
+			}
+		}
+	},
+	NoProfitMargin("<0P>","No Profit (Margin)",0) {
+		@Override
+		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
+			switch(pm){
+			case MaintainProfitMargin: {
+				return this;
+			}
+			case DecreaseProfitMargin: {
+				return NegativeProfitMargin;
+			}
+			case IncreaseProfitMargin: {
+				return PositiveProfitMargin;
+			}
+			default: {
+				throw new InvalidProfitMarginException(this, pm);
+			}
+			}
+		}
+	},
+	NegativeProfitMargin("<P->","Negative Profit Margin", -0.1){
+		@Override
+		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
+			switch(pm){
+			case MaintainProfitMargin: {
+				return this;
+			}
+			case DecreaseProfitMargin: {
+				return NegativeProfitMargin;
+			}
+			case IncreaseProfitMargin: {
+				return PositiveProfitMargin;
+			}
+			default: {
+				throw new InvalidProfitMarginException(this, pm);
+			}
+			}
+		}
+	};
 
 	private final String sym;
 	private final String desc;
