@@ -45,7 +45,7 @@ public enum Quality {
 				return this;
 			}
 			case IncreaseQuality: {
-				return HighQuality;
+				return MediumQuality;
 			}
 			default: {
 				throw new InvalidQualityException(this, change);
