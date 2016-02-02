@@ -1,18 +1,47 @@
 package sjc.dissertation.state;
 
+//TODO Javadoc
 public enum QualityChange {
-	DecreaseQuality("<--Q>"),
-	MaintainQuality("<~~Q>"),
-	IncreaseQuality("<++Q>");
+	DecreaseQuality("<--Q>", "Decrease Quality"),
+	MaintainQuality("<~~Q>", "Maintain Quality"),
+	IncreaseQuality("<++Q>", "Increase Quality");
 
-	private final String symbol;
+	/** Human readable description of the Quality*/
+	private String desc;
 
-	private QualityChange(final String sym){
+	/** A shorthand notation for the quality*/
+	private String symbol;
+
+	private QualityChange(final String sym, final String description){
 		this.symbol = sym;
+		this.desc = description;
 	}
 
+	/**
+	 * Get the shorthand notation for the quality change.
+	 *
+	 * e.g. Increasing quality is "++Q"
+	 *
+	 * @return short string indicating quality change
+	 */
 	public String getSymbol(){
 		return this.symbol;
+	}
+
+	@Override
+	public String toString(){
+		return this.desc;
+	}
+
+	/**
+	 * Determines if two instances of {@link QualityChange} are the same.
+	 *
+	 * @param other -- Another quality change
+	 * @return true if they are the same
+	 */
+	public boolean equals(final QualityChange other){
+		return (this.getSymbol() == other.getSymbol())
+				&& (this.toString() == other.toString());
 	}
 
 

@@ -1,9 +1,10 @@
 package sjc.dissertation.state;
 
+//TODO give Javadoc
 public enum Quality {
 	HighQuality("<+Q>","High Quality", 3){
 		@Override
-		public Quality changeValue(final QualityChange change) throws InvalidQualityException {
+		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
 			case DecreaseQuality: {
 				return MediumQuality;
@@ -19,7 +20,7 @@ public enum Quality {
 	},
 	MediumQuality("<~Q>","Medium Quality", 2){
 		@Override
-		public Quality changeValue(final QualityChange change) throws InvalidQualityException {
+		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
 			case DecreaseQuality: {
 				return LowQuality;
@@ -38,7 +39,7 @@ public enum Quality {
 	},
 	LowQuality("<-Q>","Low Quality", 1){
 		@Override
-		public Quality changeValue(final QualityChange change) throws InvalidQualityException {
+		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
 			case MaintainQuality: {
 				return this;
@@ -54,7 +55,7 @@ public enum Quality {
 		}
 	};
 
-	/** Human Readable description of the Quality*/
+	/** Human readable description of the Quality*/
 	private String desc;
 
 	/** A shorthand notation for the quality*/
@@ -80,7 +81,7 @@ public enum Quality {
 	 *
 	 * @return cost of the quality
 	 */
-	public double getValue(){
+	public double getCost(){
 		return this.cost;
 	}
 
@@ -89,7 +90,7 @@ public enum Quality {
 	 *
 	 * e.g. High quality is "+Q"
 	 *
-	 * @return cost of the quality
+	 * @return short string indicating quality
 	 */
 	public String getSymbol(){
 		return this.symbol;
@@ -102,7 +103,8 @@ public enum Quality {
 	 * @return true if they are the same
 	 */
 	public boolean equals(final Quality other){
-		return (this.getValue() == other.getValue())
+		return (this.getCost() == other.getCost())
+				&& (this.getSymbol() == other.getSymbol())
 				&& (this.toString() == other.toString());
 	}
 
@@ -114,7 +116,7 @@ public enum Quality {
 	 *
 	 * @throws InvalidQualityException -- When a quality level cannot apply a particular change.
 	 */
-	public abstract Quality changeValue(QualityChange change) throws InvalidQualityException;
+	public abstract Quality changeQuality(QualityChange change) throws InvalidQualityException;
 
 
 }
