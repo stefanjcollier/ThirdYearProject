@@ -80,22 +80,112 @@ public class ProfitMarginTest {
 	}
 
 	@Test
-	public void testHighProfitMarginChangeWorks(){
-		fail("Not Implemented");
+	public void testHighProfitMarginChangeWorks() throws InvalidProfitMarginException{
+		//GIVEN a profit Margin
+		final ProfitMargin pm = ProfitMargin.HighProfitMargin;
+
+		//AND all change commands
+		final ProfitMarginChange plus_pm = ProfitMarginChange.IncreaseProfitMargin;
+		final ProfitMarginChange main_pm = ProfitMarginChange.MaintainProfitMargin;
+		final ProfitMarginChange minus_pm = ProfitMarginChange.DecreaseProfitMargin;
+
+		//WHEN commanding the margin to change
+		final ProfitMargin pm_main_pm = pm.changeProfitMargin(main_pm);
+		final ProfitMargin pm_minus_pm = pm.changeProfitMargin(minus_pm);
+
+		//THEN High + Increase = throw exception
+		try{
+			pm.changeProfitMargin(plus_pm);
+			fail("An exception should have been thrown.");
+
+		}catch (final InvalidProfitMarginException e){
+			// We wanted to catch an exception
+		}
+
+		//AND High + Maintain = High
+		assertEquals("'High + Maintain = High' is not true", pm_main_pm, ProfitMargin.HighProfitMargin);
+
+		//AND High + Decrease = Low
+		assertEquals("'High + Decrease = Low' is not true", pm_minus_pm, ProfitMargin.LowProfitMargin);
 	}
 
 	@Test
-	public void testLowProfitMarginChangeWorks(){
-		fail("Not Implemented");
+	public void testLowProfitMarginChangeWorks() throws InvalidProfitMarginException{
+		//GIVEN a profit Margin
+		final ProfitMargin pm = ProfitMargin.LowProfitMargin;
+
+		//AND all change commands
+		final ProfitMarginChange plus_pm = ProfitMarginChange.IncreaseProfitMargin;
+		final ProfitMarginChange main_pm = ProfitMarginChange.MaintainProfitMargin;
+		final ProfitMarginChange minus_pm = ProfitMarginChange.DecreaseProfitMargin;
+
+		//WHEN commanding the margin to change
+		final ProfitMargin pm_plus_pm = pm.changeProfitMargin(plus_pm);
+		final ProfitMargin pm_main_pm = pm.changeProfitMargin(main_pm);
+		final ProfitMargin pm_minus_pm = pm.changeProfitMargin(minus_pm);
+
+		//THEN Low + Increase = High
+		assertEquals("'High + Maintain = High' is not true", pm_plus_pm, ProfitMargin.HighProfitMargin);
+
+		//AND Low + Maintain = Low
+		assertEquals("'High + Maintain = High' is not true", pm_main_pm, ProfitMargin.LowProfitMargin);
+
+		//AND Low + Decrease = No Profit
+		assertEquals("'High + Decrease = Low' is not true", pm_minus_pm, ProfitMargin.NoProfitMargin);
 	}
 
 	@Test
-	public void testNoProfitMarginChangeWorks(){
-		fail("Not Implemented");
+	public void testNoProfitMarginChangeWorks() throws InvalidProfitMarginException{
+		//GIVEN a profit Margin
+		final ProfitMargin pm = ProfitMargin.NoProfitMargin;
+
+		//AND all change commands
+		final ProfitMarginChange plus_pm = ProfitMarginChange.IncreaseProfitMargin;
+		final ProfitMarginChange main_pm = ProfitMarginChange.MaintainProfitMargin;
+		final ProfitMarginChange minus_pm = ProfitMarginChange.DecreaseProfitMargin;
+
+		//WHEN commanding the margin to change
+		final ProfitMargin pm_plus_pm = pm.changeProfitMargin(plus_pm);
+		final ProfitMargin pm_main_pm = pm.changeProfitMargin(main_pm);
+		final ProfitMargin pm_minus_pm = pm.changeProfitMargin(minus_pm);
+
+		//THEN No Profit + Increase = Low
+		assertEquals("'No Profit + Maintain = Low' is not true", pm_plus_pm, ProfitMargin.LowProfitMargin);
+
+		//AND No Profit + Maintain = No Profit
+		assertEquals("'No Profit + Maintain = No Profit' is not true", pm_main_pm, ProfitMargin.NoProfitMargin);
+
+		//AND No Profit + Decrease = Negative
+		assertEquals("'No Profit + Decrease = Negative' is not true", pm_minus_pm, ProfitMargin.NegativeProfitMargin);
 	}
 
 	@Test
-	public void testNegativeProfitMarginChangeWorks(){
-		fail("Not Implemented");
+	public void testNegativeProfitMarginChangeWorks() throws InvalidProfitMarginException{
+		//GIVEN a profit Margin
+		final ProfitMargin pm = ProfitMargin.NegativeProfitMargin;
+
+		//AND all change commands
+		final ProfitMarginChange plus_pm = ProfitMarginChange.IncreaseProfitMargin;
+		final ProfitMarginChange main_pm = ProfitMarginChange.MaintainProfitMargin;
+		final ProfitMarginChange minus_pm = ProfitMarginChange.DecreaseProfitMargin;
+
+		//WHEN commanding the margin to change
+		final ProfitMargin pm_plus_pm = pm.changeProfitMargin(plus_pm);
+		final ProfitMargin pm_main_pm = pm.changeProfitMargin(main_pm);
+
+		//THEN Negative + Increase = No Profit
+		assertEquals("'Negative + Increase = No Profit' is not true", ProfitMargin.NoProfitMargin, pm_plus_pm);
+
+		//AND Negative + Maintain = Negative
+		assertEquals("'Negative + Maintain = Negative' is not true", ProfitMargin.NegativeProfitMargin, pm_main_pm);
+
+		//AND Negative + Decrease = throw Exception
+		try{
+			pm.changeProfitMargin(minus_pm);
+			fail("Negative cannot be reduced any further, an exception should have been thrown.");
+
+		}catch (final InvalidProfitMarginException e){
+			//We wanted an exception to be thrown
+		}
 	}
 }

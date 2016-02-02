@@ -63,11 +63,8 @@ public enum ProfitMargin {
 			case MaintainProfitMargin: {
 				return this;
 			}
-			case DecreaseProfitMargin: {
-				return NegativeProfitMargin;
-			}
 			case IncreaseProfitMargin: {
-				return LowProfitMargin;
+				return NoProfitMargin;
 			}
 			default: {
 				throw new InvalidProfitMarginException(this, pm);
