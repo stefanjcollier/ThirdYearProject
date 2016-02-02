@@ -1,10 +1,14 @@
-package sjc.dissertation.state;
+package sjc.dissertation.retailer.state.quality;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import sjc.dissertation.retailer.state.quality.InvalidQualityException;
+import sjc.dissertation.retailer.state.quality.Quality;
+import sjc.dissertation.retailer.state.quality.QualityChange;
 
 public class QualityTest {
 

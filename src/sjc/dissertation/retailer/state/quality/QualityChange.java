@@ -1,4 +1,4 @@
-package sjc.dissertation.state;
+package sjc.dissertation.retailer.state.quality;
 
 //TODO Javadoc
 public enum QualityChange {

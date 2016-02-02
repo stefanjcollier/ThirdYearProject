@@ -1,8 +1,10 @@
-package sjc.dissertation.state;
+package sjc.dissertation.retailer.state.quality;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import sjc.dissertation.retailer.state.quality.QualityChange;
 
 /**
  * A JUnit test for the methods of {@link QualityChange}.

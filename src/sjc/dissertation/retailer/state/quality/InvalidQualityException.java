@@ -1,4 +1,4 @@
-package sjc.dissertation.state;
+package sjc.dissertation.retailer.state.quality;
 
 /**
  * An exception to indicated that a {@link Quality} cannot be changed by a certain {@link QualityChange}.
