@@ -44,4 +44,16 @@ public enum ProfitMargin {
 	public double getProfitMargin(){
 		return this.prof;
 	}
+
+
+	/**
+	 * Apply a change in profit margin and get the new {@link ProfitMargin} level.
+	 *
+	 * @param change - The instruction to increase/maintain/decrease the profit margin
+	 * @return the new profit margin level
+	 *
+	 * @throws InvalidProfitMarginException -- When a quality level cannot apply a particular change.
+	 */
+
+	public abstract ProfitMargin changeProfitMargin(ProfitMarginChange pm) throws InvalidProfitMarginException;
 }
