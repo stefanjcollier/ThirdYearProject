@@ -2,7 +2,7 @@ package sjc.dissertation.retailer.state.quality;
 
 //TODO give Javadoc
 public enum Quality {
-	HighQuality("<+Q>","High Quality", 3){
+	HighQuality("<HQ>","High Quality", 3){
 		@Override
 		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
@@ -18,7 +18,7 @@ public enum Quality {
 			}
 		}
 	},
-	MediumQuality("<~Q>","Medium Quality", 2){
+	MediumQuality("<MQ>","Medium Quality", 2){
 		@Override
 		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
@@ -37,7 +37,7 @@ public enum Quality {
 			}
 		}
 	},
-	LowQuality("<-Q>","Low Quality", 1){
+	LowQuality("<LQ>","Low Quality", 1){
 		@Override
 		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
