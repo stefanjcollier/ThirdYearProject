@@ -1,6 +1,6 @@
 package sjc.dissertation.retailer.state;
 
-import java.util.List;
+import java.util.Set;
 
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
@@ -22,21 +22,17 @@ public class RetailerState {
 	static final int NOT_INFORMED_OF_CUSTOMERS = -99;
 
 	private Quality quality;
-	private ProfitMargin margin;
+	private ProfitMargin profit;
 	private int numberOfCustomers;
 
 	public RetailerState(){
 		this.quality = Quality.MediumQuality;
-		this.margin = ProfitMargin.LowProfitMargin;
+		this.profit = ProfitMargin.LowProfitMargin;
 		this.numberOfCustomers = NOT_INFORMED_OF_CUSTOMERS;
 	}
 
-	public List<RetailerAction> getActions(){
+	public Set<RetailerAction> getActions(){
 		return null;
-	}
-
-	public String getSymbol(){
-		return "Not Implemented";
 	}
 
 	public void computeAction(final RetailerAction action){
@@ -48,23 +44,25 @@ public class RetailerState {
 	}
 
 	public Quality getQuality(){
-		return null;
+		return this.quality;
 	}
 
 	public ProfitMargin getProfitMargin(){
-		return null;
+		return this.profit;
 	}
 
 	public int getNumberOfCustomers(){
-		return NOT_INFORMED_OF_CUSTOMERS;
+		return this.numberOfCustomers;
 	}
 
 	public boolean equals(final RetailerState other){
-		return false;
+		return this.numberOfCustomers == other.numberOfCustomers
+				&& this.quality.equals(other.quality)
+				&& this.profit.equals(other.profit);
 	}
 
 	@Override
 	public String toString(){
-		return "Not Implemented";
+		return String.format("(%s, %s, %i)", this.quality, this.profit, this.numberOfCustomers);
 	}
 }
