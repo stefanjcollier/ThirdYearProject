@@ -20,11 +20,21 @@ public class Retailer {
 	}
 
 	/**
+	 * Informs the retailer how many consumers it had this week based on the actions it made.
 	 *
 	 * @param customers --  the number of people who shopped with this retailer.
 	 * @return profit based on customers
 	 */
 	public double informOfCustomers(final int customers){
-		return Double.MIN_VALUE;
+		this.state.informOfCustomers(customers);
+
+		// Profit = Sale Price - Cost
+		// Profit = (1 + Margin)*Cost - Cost
+		// Profit = Margin * Cost
+		final double cost = this.state.getQuality().getCost();
+		final double margin = this.state.getProfitMargin().getProfitMargin();
+
+		return margin*cost;
+
 	}
 }
