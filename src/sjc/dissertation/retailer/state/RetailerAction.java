@@ -27,4 +27,15 @@ public class RetailerAction {
 				&& this.profit.equals(other.profit);
 	}
 
+	public String getSymbol(){
+		return String.format("(%s, %s)",
+				this.quality.getSymbol(), this.profit.getSymbol());
+	}
+
+
+	@Override
+	public String toString(){
+		return String.format("(%s, %s)", this.quality, this.profit);
+	}
+
 }

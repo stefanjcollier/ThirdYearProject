@@ -105,6 +105,10 @@ public enum ProfitMargin {
 		this.prof = margin;
 	}
 
+	public String getSymbol(){
+		return this.sym;
+	}
+
 	@Override
 	public String toString(){
 		return this.desc;
