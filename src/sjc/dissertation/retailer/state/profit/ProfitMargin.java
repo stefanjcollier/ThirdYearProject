@@ -3,7 +3,7 @@ package sjc.dissertation.retailer.state.profit;
 import java.util.HashSet;
 import java.util.Set;
 
-//TODO javadoc PrMa
+//w
 public enum ProfitMargin {
 	HighProfitMargin("<P++>","Very High Profit Margin",0.2){
 		@Override

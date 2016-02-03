@@ -81,12 +81,6 @@ public class RetailerState {
 		return this.numberOfCustomers;
 	}
 
-	public boolean equals(final RetailerState other){
-		return this.numberOfCustomers == other.numberOfCustomers
-				&& this.quality.equals(other.quality)
-				&& this.profit.equals(other.profit);
-	}
-
 	public String getSymbol(){
 		return String.format("(%s, %s, %i)",
 				this.quality.getSymbol(), this.profit.getSymbol(), this.numberOfCustomers);
