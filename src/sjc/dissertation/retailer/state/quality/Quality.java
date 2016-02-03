@@ -1,6 +1,6 @@
 package sjc.dissertation.retailer.state.quality;
 
-//TODO give Javadoc Qu
+//TODO Javadoc Qu
 public enum Quality {
 	HighQuality("<HQ>","High Quality", 3){
 		@Override
