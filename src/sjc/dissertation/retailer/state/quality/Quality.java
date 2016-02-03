@@ -1,8 +1,18 @@
 package sjc.dissertation.retailer.state.quality;
 
+import java.util.HashSet;
+import java.util.Set;
+
 //TODO Javadoc Qu
 public enum Quality {
 	HighQuality("<HQ>","High Quality", 3){
+		@Override
+		public Set<QualityChange> getActions(){
+			final Set<QualityChange> actions = new HashSet<>(2);
+			actions.add(QualityChange.DecreaseQuality);
+			actions.add(QualityChange.MaintainQuality);
+			return actions;
+		}
 		@Override
 		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
@@ -19,6 +29,14 @@ public enum Quality {
 		}
 	},
 	MediumQuality("<MQ>","Medium Quality", 2){
+		@Override
+		public Set<QualityChange> getActions(){
+			final Set<QualityChange> actions = new HashSet<>(3);
+			actions.add(QualityChange.DecreaseQuality);
+			actions.add(QualityChange.MaintainQuality);
+			actions.add(QualityChange.IncreaseQuality);
+			return actions;
+		}
 		@Override
 		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
@@ -38,6 +56,13 @@ public enum Quality {
 		}
 	},
 	LowQuality("<LQ>","Low Quality", 1){
+		@Override
+		public Set<QualityChange> getActions(){
+			final Set<QualityChange> actions = new HashSet<>(2);
+			actions.add(QualityChange.MaintainQuality);
+			actions.add(QualityChange.IncreaseQuality);
+			return actions;
+		}
 		@Override
 		public Quality changeQuality(final QualityChange change) throws InvalidQualityException {
 			switch(change){
@@ -118,5 +143,5 @@ public enum Quality {
 	 */
 	public abstract Quality changeQuality(QualityChange change) throws InvalidQualityException;
 
-
+	public abstract Set<QualityChange> getActions();
 }

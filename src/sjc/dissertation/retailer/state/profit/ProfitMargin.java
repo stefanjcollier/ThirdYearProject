@@ -1,8 +1,18 @@
 package sjc.dissertation.retailer.state.profit;
 
+import java.util.HashSet;
+import java.util.Set;
+
 //TODO javadoc PrMa
 public enum ProfitMargin {
 	HighProfitMargin("<P++>","Very High Profit Margin",0.2){
+		@Override
+		public Set<ProfitMarginChange> getActions(){
+			final Set<ProfitMarginChange> actions = new HashSet<>(2);
+			actions.add(ProfitMarginChange.DecreaseProfitMargin);
+			actions.add(ProfitMarginChange.MaintainProfitMargin);
+			return actions;
+		}
 		@Override
 		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
 			switch(pm){
@@ -57,6 +67,13 @@ public enum ProfitMargin {
 		}
 	},
 	NegativeProfitMargin("<P->","Negative Profit Margin", -0.1){
+		@Override
+		public Set<ProfitMarginChange> getActions(){
+			final Set<ProfitMarginChange> actions = new HashSet<>(2);
+			actions.add(ProfitMarginChange.MaintainProfitMargin);
+			actions.add(ProfitMarginChange.IncreaseProfitMargin);
+			return actions;
+		}
 		@Override
 		public ProfitMargin changeProfitMargin(final ProfitMarginChange pm) throws InvalidProfitMarginException {
 			switch(pm){
@@ -127,4 +144,18 @@ public enum ProfitMargin {
 	 */
 
 	public abstract ProfitMargin changeProfitMargin(ProfitMarginChange pm) throws InvalidProfitMarginException;
+
+	/**
+	 * Get all the possible changes that can be from this Quality.
+	 *
+	 * @return a set of possible actions
+	 */
+	public Set<ProfitMarginChange> getActions(){
+		final Set<ProfitMarginChange> actions = new HashSet<>(3);
+		actions.add(ProfitMarginChange.DecreaseProfitMargin);
+		actions.add(ProfitMarginChange.MaintainProfitMargin);
+		actions.add(ProfitMarginChange.IncreaseProfitMargin);
+		return actions;
+	}
+
 }
