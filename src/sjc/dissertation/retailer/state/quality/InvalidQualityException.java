@@ -12,7 +12,7 @@ public class InvalidQualityException extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
-	public InvalidQualityException(final Quality q, final QualityChange qc){
+	protected InvalidQualityException(final Quality q, final QualityChange qc){
 		super(String.format("The quality %s cannot be told to %s", q.toString(), qc.toString()));
 	}
 }

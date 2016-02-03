@@ -1,13 +1,13 @@
 package sjc.dissertation.retailer;
 
-import sjc.dissertation.retailer.state.RetailerState;
+import sjc.dissertation.retailer.state.InternalRetailerState;
 
 public class Retailer {
-	private RetailerState state;
-	private String name;
+	private final InternalRetailerState state;
+	private final String name;
 
 	public Retailer(final String name){
-		this.state = new RetailerState();
+		this.state = new InternalRetailerState();
 		this.name = name;
 	}
 
@@ -15,7 +15,7 @@ public class Retailer {
 		return this.name;
 	}
 
-	public RetailerState getState(){
+	public InternalRetailerState getState(){
 		return this.state;
 	}
 
@@ -35,6 +35,10 @@ public class Retailer {
 		final double margin = this.state.getProfitMargin().getProfitMargin();
 
 		return margin*cost;
+	}
 
+	@Override
+	public String toString(){
+		return String.format("%s: %s", this.name, this.state);
 	}
 }
