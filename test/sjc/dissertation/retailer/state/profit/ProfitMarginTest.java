@@ -2,7 +2,10 @@ package sjc.dissertation.retailer.state.profit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -12,8 +15,6 @@ public class ProfitMarginTest {
 	final double LOW_PROFIT_MARGIN = 0.1;
 	final double NO_PROFIT_MARGIN = 0d;
 	final double NEGATIVE_PROFIT_MARGIN = -0.1;
-
-
 
 	/**
 	 * A test to ensure that the equals works.
@@ -188,4 +189,72 @@ public class ProfitMarginTest {
 			//We wanted an exception to be thrown
 		}
 	}
+
+	@Test
+	public void testHighProfitMarginProducesCorrectActions(){
+		//GIVEN a profit margin
+		final ProfitMargin pm = ProfitMargin.HighProfitMargin;
+
+		//WHEN getting available actions
+		final Set<ProfitMarginChange> actions = pm.getActions();
+
+		//THEN There are only 2 actions
+		assertEquals("High Profit Margin should have only 2 actions", 2, actions.size());
+
+		//AND they are the correct actions
+		assertTrue("High Profit Margin should be able to Maintain", actions.contains(ProfitMarginChange.MaintainProfitMargin));
+		assertTrue("High Profit Margin should be able to Decrease", actions.contains(ProfitMarginChange.DecreaseProfitMargin));
+	}
+
+	@Test
+	public void testLowProfitMarginProducesCorrectActions(){
+		//GIVEN a profit margin
+		final ProfitMargin pm = ProfitMargin.LowProfitMargin;
+
+		//WHEN getting available actions
+		final Set<ProfitMarginChange> actions = pm.getActions();
+
+		//THEN There are only 2 actions
+		assertEquals("Low Profit Margin should have only 3 actions", 3, actions.size());
+
+		//AND they are the correct actions
+		assertTrue("Low Profit Margin should be able to Increase", actions.contains(ProfitMarginChange.IncreaseProfitMargin));
+		assertTrue("Low Profit Margin should be able to Maintain", actions.contains(ProfitMarginChange.MaintainProfitMargin));
+		assertTrue("Low Profit Margin should be able to Decrease", actions.contains(ProfitMarginChange.DecreaseProfitMargin));
+	}
+
+	@Test
+	public void testNoProfitMarginProducesCorrectActions(){
+		//GIVEN a profit margin
+		final ProfitMargin pm = ProfitMargin.NoProfitMargin;
+
+		//WHEN getting available actions
+		final Set<ProfitMarginChange> actions = pm.getActions();
+
+		//THEN There are only 2 actions
+		assertEquals("No Profit Margin should have only 3 actions", 3, actions.size());
+
+		//AND they are the correct actions
+		assertTrue("No Profit Margin should be able to Increase", actions.contains(ProfitMarginChange.IncreaseProfitMargin));
+		assertTrue("No Profit Margin should be able to Maintain", actions.contains(ProfitMarginChange.MaintainProfitMargin));
+		assertTrue("No Profit Margin should be able to Decrease", actions.contains(ProfitMarginChange.DecreaseProfitMargin));
+	}
+
+	@Test
+	public void testNegativeProfitMarginProducesCorrectActions(){
+		//GIVEN a profit margin
+		final ProfitMargin pm = ProfitMargin.NegativeProfitMargin;
+
+		//WHEN getting available actions
+		final Set<ProfitMarginChange> actions = pm.getActions();
+
+		//THEN There are only 2 actions
+		assertEquals("Negative Profit Margin should have only 2 actions", 2, actions.size());
+
+		//AND they are the correct actions
+		assertTrue("Negative Profit Margin should be able to Increase", actions.contains(ProfitMarginChange.IncreaseProfitMargin));
+		assertTrue("Negative Profit Margin should be able to Maintain", actions.contains(ProfitMarginChange.MaintainProfitMargin));
+	}
+
+
 }
