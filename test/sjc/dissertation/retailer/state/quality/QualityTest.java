@@ -2,7 +2,10 @@ package sjc.dissertation.retailer.state.quality;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -171,9 +174,55 @@ public class QualityTest {
 		} catch (final InvalidQualityException e) {
 			//We expect an exception to be thrown
 		}
-
-
 	}
 
+	@Test
+	public void testHighQualityProducesCorrectActions(){
+		//GIVEN a Quality level
+		final Quality q = Quality.HighQuality;
+
+		//WHEN getting all actions
+		final Set<QualityChange> actions = q.getActions();
+
+		//THEN there are only 2 actions
+		assertEquals("High should only have 2 actions", 2, actions.size());
+
+		//AND those actions are the correct actions
+		assertTrue("High Quality should be able to Maintain.", actions.contains(QualityChange.MaintainQuality));
+		assertTrue("High Quality should be able to Decrease.", actions.contains(QualityChange.DecreaseQuality));
+	}
+
+	@Test
+	public void testMediumQualityProducesCorrectActions(){
+		//GIVEN a Quality level
+		final Quality q = Quality.MediumQuality;
+
+		//WHEN getting all actions
+		final Set<QualityChange> actions = q.getActions();
+
+		//THEN there are only 3 actions
+		assertEquals("Medium should only have 3 actions", 3, actions.size());
+
+		//AND those actions are the correct actions
+		assertTrue("Medium Quality should be able to Increase.", actions.contains(QualityChange.IncreaseQuality));
+		assertTrue("Medium Quality should be able to Maintain.", actions.contains(QualityChange.MaintainQuality));
+		assertTrue("Medium Quality should be able to Decrease.", actions.contains(QualityChange.DecreaseQuality));
+	}
+
+	@Test
+	public void testLowQualityProducesCorrectActions(){
+		//GIVEN a Quality level
+		final Quality q = Quality.LowQuality;
+
+		//WHEN getting all actions
+		final Set<QualityChange> actions = q.getActions();
+
+		//THEN there are only 2 actions
+		assertEquals("Medium should only have 2 actions", 2, actions.size());
+
+		//AND those actions are the correct actions
+		assertTrue("Low Quality should be able to Increase.", actions.contains(QualityChange.IncreaseQuality));
+		assertTrue("Low Quality should be able to Maintain.", actions.contains(QualityChange.MaintainQuality));
+	}
 
 }
