@@ -36,10 +36,13 @@ public class InternalRetailerState implements RetailerState{
 		this.numberOfCustomers = INITIAL_VALUE;
 	}
 
-	//TODO Consider: odd stuff around this like the unkown number of customers
+	/**
+	 * Combine all permutations of quality and profit margin changes to provide all possible actions.
+	 */
 	@Override
 	public Set<RetailerAction> getActions(){
 		final Set<RetailerAction> actions = new HashSet<>();
+
 		for (final QualityChange qc : this.quality.getActions()){
 			for (final ProfitMarginChange pmc : this.profit.getActions()){
 				actions.add(new RetailerAction(qc, pmc));
@@ -48,6 +51,13 @@ public class InternalRetailerState implements RetailerState{
 		return actions;
 	}
 
+	/**
+	 * Taking an action that composes of a {@link QualityChange} and {@link ProfitMarginChange},
+	 *  alter this state.
+	 *
+	 * @param action -- The quality and profit margin changes
+	 * @throws InvalidRetailerActionException -- When a quality or profit margin cannot be changed in the requested way
+	 */
 	public void computeAction(final RetailerAction action) throws InvalidRetailerActionException{
 		try {
 			this.quality.changeQuality(action.getQualityChange());
@@ -61,8 +71,12 @@ public class InternalRetailerState implements RetailerState{
 		}
 	}
 
+	/**
+	 * Set the number of customers they have received based on the action that was computed
+	 *
+	 * @param noOfCustomers -- A natural integer of customers that shopped with this retailer
+	 */
 	public void informOfCustomers(final int noOfCustomers){
-		//TODO Consider: What happens if the #(Customer) < 0 ??
 		this.numberOfCustomers = noOfCustomers;
 	}
 

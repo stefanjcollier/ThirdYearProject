@@ -7,29 +7,30 @@ import sjc.dissertation.retailer.Retailer;
 
 public class RetailerAgentFactory {
 
-	private int currentIdNumber;
+	/** A set to contain retailers that have been assigned an agent*/
 	private Set<Retailer> retailers;
 
 	public RetailerAgentFactory(){
-		this.currentIdNumber = 1;
 		this.retailers = new HashSet<Retailer>(5);
 	}
 
 	public RetailerAgent createNewAgent(final Retailer brainlessRetailer, final Algorithm policy){
-		final int id = this.currentIdNumber;
-
 		if(retailerInUse(brainlessRetailer) || policy.hasRetailer()) {
-			//TODO ADD: Throw exception
 			return null;
 		}
-
+		final int id = this.retailers.size();
 		final RetailerAgent newAgent = new RetailerAgent(id, brainlessRetailer, policy);
 		policy.giveRetailerAgent(newAgent);
-		this.currentIdNumber++;
 
 		return newAgent;
 	}
 
+	/**
+	 * If the provided retailer has already be claimed by a controlling agent.
+	 *
+	 * @param retailer -- The retailer to be checked for an agent.
+	 * @return true if the retailer has an agent.
+	 */
 	private boolean retailerInUse(final Retailer retailer){
 		return this.retailers.contains(retailer);
 	}
