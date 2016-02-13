@@ -49,13 +49,19 @@ public class Consumer {
 	}
 
 	public double chanceOf(final Retailer[] allRetailers, final Retailer testRetailer){
-		return 0;
+		return -1;
+	}
+
+	private double valueForMoney(final Retailer re){
+		return -1;
 	}
 
 	/**
-	 * Choose a retailer based on it's substate: Quality and Profit Margin
+	 * Choose a retailer based on it's substate: Quality and Profit Margin.
+	 * There is no guarantee that the retailer offering the best deal will
+	 * be chosen as there it is
 	 *
-	 * @param retailers -- All the options
+	 * @param retailers -- All the retailers to choose from
 	 * @return the chosen retailer
 	 */
 	public Retailer chooseRetailer(final Retailer[] retailers){

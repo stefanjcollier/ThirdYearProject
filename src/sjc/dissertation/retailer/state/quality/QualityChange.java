@@ -1,6 +1,11 @@
 package sjc.dissertation.retailer.state.quality;
 
-//TODO Javadoc QuCh
+/** A sub-action that affects the {@link Quality} level.
+ *  Allows the level to be decreased, maintained or increased.
+ *
+ * @author Stefan Collier
+ *
+ */
 public enum QualityChange {
 	DecreaseQuality("<-Q>", "Decrease Quality"),
 	MaintainQuality("<~Q>", "Maintain Quality"),

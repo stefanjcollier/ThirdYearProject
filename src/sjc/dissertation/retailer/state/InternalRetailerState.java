@@ -10,13 +10,13 @@ import sjc.dissertation.retailer.state.quality.InvalidQualityException;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
-//TODO 'Finish' Javadoc ReState
 /**
- * Each instance of a retailer state is a 3-tuple:
- * (Q, Pm, NoC) =>
- *    Q = Quality, Q ∈ {High, Medium, Low}
- *    Pm = ProfitMargin, Pm ∈ {High, Low, Zero, Negative}
- *    NoC = Number of Customers, NoC ∈ {0 ... Count(CustomerAgents)}
+ * An implementation of {@link RetailerState} that allows state
+ * change, via the mutator {@link InternalRetailerState#computeAction(RetailerAction)}..
+ *
+ * Due to the size of Java Objects each retailer should contain their own
+ * instance of this class. Mutators enable abstract/theoretical state changes even though
+ * they use the same state instance.
  *
  *
  * @author Stefan Collier
@@ -37,6 +37,7 @@ public class InternalRetailerState implements RetailerState{
 	}
 
 	//TODO Consider: odd stuff around this like the unkown number of customers
+	@Override
 	public Set<RetailerAction> getActions(){
 		final Set<RetailerAction> actions = new HashSet<>();
 		for (final QualityChange qc : this.quality.getActions()){
@@ -65,22 +66,27 @@ public class InternalRetailerState implements RetailerState{
 		this.numberOfCustomers = noOfCustomers;
 	}
 
+	@Override
 	public boolean isCompleteState() {
 		return this.numberOfCustomers == NOT_INFORMED_OF_CUSTOMERS;
 	}
 
+	@Override
 	public Quality getQuality(){
 		return this.quality;
 	}
 
+	@Override
 	public ProfitMargin getProfitMargin(){
 		return this.profit;
 	}
 
+	@Override
 	public int getNumberOfCustomers(){
 		return this.numberOfCustomers;
 	}
 
+	@Override
 	public String getSymbol(){
 		return String.format("(%s, %s, %i)",
 				this.quality.getSymbol(), this.profit.getSymbol(), this.numberOfCustomers);

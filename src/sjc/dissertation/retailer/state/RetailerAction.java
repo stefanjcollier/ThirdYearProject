@@ -1,9 +1,20 @@
 package sjc.dissertation.retailer.state;
 
+import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
+import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
-//TODO Javadoc
+
+/**
+ * The action a retailer can make, an action composes of changing the {@link Quality} and {@link ProfitMargin},
+ * using a {@link QualityChange} and {@link ProfitMarginChange}.
+ *
+ * {@link RetailerAction} are consumed by {@link RetailerState}s to change state.
+ *
+ * @author Stefan Collier
+ *
+ */
 public class RetailerAction {
 
 	private final QualityChange quality;

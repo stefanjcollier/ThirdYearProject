@@ -1,6 +1,11 @@
 package sjc.dissertation.retailer.state.profit;
 
-//TODO Javadoc PrMaCh
+/** A sub-action that affects the {@link ProfitMargin} level.
+ *  Allows the level to be decreased, maintained or increased.
+ *
+ * @author Stefan Collier
+ *
+ */
 public enum ProfitMarginChange {
 	DecreaseProfitMargin("<-P>", "Decrease Profit Margin"),
 	MaintainProfitMargin("<~P>", "Maintain Profit Margin"),

@@ -3,7 +3,15 @@ package sjc.dissertation.retailer.state.quality;
 import java.util.HashSet;
 import java.util.Set;
 
-//TODO Javadoc Qu
+
+/**
+ * A sub-state or attribute of the state of a product.
+ * This indicates the the cost of the product.
+ * The quality can be one of three: Low, Medium, High.
+ *
+ * @author Stefan Collier
+ *
+ */
 public enum Quality {
 	HighQuality("<HQ>","High Quality", 3){
 		@Override

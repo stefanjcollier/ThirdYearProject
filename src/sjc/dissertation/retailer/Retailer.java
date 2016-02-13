@@ -19,6 +19,14 @@ public class Retailer {
 		return this.state;
 	}
 
+	//TODO remove this as it's a terrible idea!
+	public double getCostOfShopping(){
+		final double rawCost = this.state.getQuality().getCost();
+		final double profitMultiplier = 1 + this.state.getProfitMargin().getProfitMargin();
+		return rawCost * profitMultiplier;
+	}
+
+
 	/**
 	 * Informs the retailer how many consumers it had this week based on the actions it made.
 	 *
