@@ -5,6 +5,7 @@ import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.retailer.state.RetailerAction;
 
 //In control of controlling passing messages between
+//TODO Javadoc ReAg
 public class RetailerAgent {
 	private final int id;
 	private final Retailer retailer;
@@ -17,6 +18,11 @@ public class RetailerAgent {
 		this.policy = controller;
 	}
 
+	/**
+	 * Get the unique numerical id for this agent.
+	 *
+	 * @return The id of the agent
+	 */
 	public int getId(){
 		return this.id;
 	}

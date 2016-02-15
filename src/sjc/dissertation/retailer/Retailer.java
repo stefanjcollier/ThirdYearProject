@@ -19,7 +19,12 @@ public class Retailer {
 		return this.state;
 	}
 
-	//TODO remove this as it's a terrible idea!
+	/**
+	 * Under the abstraction that retailers offer a single 'weekly shop',
+	 * returns the price of that 'shop'.
+	 *
+	 * @return The cost of shopping at given retailer
+	 */
 	public double getCostOfShopping(){
 		final double rawCost = this.state.getQuality().getCost();
 		final double profitMultiplier = 1 + this.state.getProfitMargin().getProfitMargin();
