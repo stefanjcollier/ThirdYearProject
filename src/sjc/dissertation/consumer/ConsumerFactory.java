@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import sjc.dissertation.util.RandomToolbox;
-//TODO JavaDoc CoFac
+//JAVADOC CoFac
 /**
  * This is a singleton class used to create and locate all {@link Consumer} agents.
  *
@@ -30,8 +30,8 @@ public class ConsumerFactory {
 
 	public static ConsumerFactory getSingleton(){
 		if(singleton == null){
-			final double[] ratios = {0.15, 0.19, 0.14, 0.15, 0.6, 0.25, 0.6};
-			final double[] spending = {0.25, 0.25, 0.22, 0.21, 0.21, 0.22, 0.15};
+			final double[] ratios = {0.15, 0.19, 0.14, 0.15, 0.06, 0.25, 0.06};
+			final double[] spending = {39.68, 63.97, 88.63, 118.88, 151.15, 199.99, 428.28};
 			final String[] names = new String[]{
 					"Precariat",
 					"Emergent Services Workers",
@@ -54,12 +54,20 @@ public class ConsumerFactory {
 		this.rng = new Random();
 	}
 
+
 	/**
+	 * Chooses a class based on the class ratios given.
+	 *
+	 * e.g. Say there are ratios: [0.25, 0.25, 0,5]
+	 *  Calling this method 8 times would (on average) provide:
+	 *  	2 class ones
+	 *  	2 class twos
+	 *  	4 class threes
+	 *
 	 * @return the index corresponding to the class
 	 */
 	private int chooseRandomClass(){
-		final int[] indexes = {1, 2, 3, 4 ,5, 6, 7};
-		return RandomToolbox.probabilisticlyChoose(this.classNames, this.classRatios);
+		return RandomToolbox.probabilisticlyChoose(this.classRatios);
 	}
 
 	/**
@@ -77,13 +85,14 @@ public class ConsumerFactory {
 
 	}
 
-	public void createNewConsumer(){
+	public Consumer createNewConsumer(){
 		final int socClass = chooseRandomClass();
 		final double budget = generateBudget(socClass);
 		final int id = this.consumers.size()+1;
 
 		final Consumer con = new Consumer(id, this.classNames[socClass], budget);
 		this.consumers.add(con);
+		return con;
 	}
 
 

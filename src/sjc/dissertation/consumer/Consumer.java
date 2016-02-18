@@ -1,9 +1,15 @@
 package sjc.dissertation.consumer;
 
+import java.util.List;
+
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.RandomToolbox;
 
+/**
+ * @author Stefan Collier
+ *
+ */
 public class Consumer {
 	private final int id;
 	private final String socClass;
@@ -63,7 +69,7 @@ public class Consumer {
 	 * @param tstRe -- The retailer from those options
 	 * @return the chance [0,1] of choosing the testRetailer
 	 */
-	public double chanceOf(final Retailer[] allRe, final Retailer tstRe){
+	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe){
 		//If we cannot afford the shop then we won't shop there
 		if(!canAfford(tstRe)){
 			return 0;
@@ -106,8 +112,8 @@ public class Consumer {
 	 */
 	private double rewardOfShop(final Retailer re){
 		//TODO (Consumer) Create better rewards system
-		// Consider: Sensitivity to quality
-		final Quality q = re.getState().getQuality();
+		//Consider: Sensitivity to quality
+		final Quality q = re.getQualityOfShop();
 		switch(q){
 		case HighQuality: {
 			return 5;
@@ -133,15 +139,40 @@ public class Consumer {
 	 * @param retailers -- All the retailers to choose from
 	 * @return the chosen retailer
 	 */
-	public Retailer chooseRetailer(final Retailer[] retailers){
+	public int chooseRetailer(final List<Retailer> retailers){
 		//Find the chance for choosing each retailer
-		final double[] chances = new double[retailers.length];
-		for (int re = 0; re < retailers.length; re++){
-			chances[re] = chanceOf(retailers, retailers[re]);
+		final double[] chances = new double[retailers.size()];
+		for (int re = 0; re < retailers.size(); re++){
+			chances[re] = chanceOf(retailers, retailers.get(re));
 		}
 		//Make a weighted random choice of the retailers
-		final int reChoice = RandomToolbox.probabilisticlyChoose(retailers, chances);
-		return retailers[reChoice];
+		final int reChoice = RandomToolbox.probabilisticlyChoose(chances);
+		return reChoice;
+	}
+
+	@Override
+	public String toString(){
+		return String.format("Consumer[%d]\tBudget: %s\t  Class: %s",
+				this.id, budgetToString(), this.socClass);
+	}
+
+
+	/**
+	 * Converts the budget (float) into a string of with the £ sign.
+	 *
+	 * There is a small amount of formatting to ensure that alignment:
+	 * 		e.g.   £23.50
+	 * 			  £123.50
+	 *
+	 * @return the budget in a pretty string format
+	 */
+	private String budgetToString(){
+		final String raw = String.format("%s", this.budget);
+		String pounds = raw.split("[.]")[0];
+		final String pennies = raw.split("[.]")[1].substring(0, 2);
+
+		pounds = (pounds.length() == 2)? " £"+pounds : "£"+pounds;
+		return String.format("%s.%s", pounds, pennies);
 	}
 
 

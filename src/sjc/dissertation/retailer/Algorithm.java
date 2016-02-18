@@ -1,4 +1,4 @@
-package sjc.dissertation.retailer.agent;
+package sjc.dissertation.retailer;
 
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.RetailerState;

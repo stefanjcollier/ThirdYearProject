@@ -62,7 +62,7 @@ public class InternalRetailerState implements RetailerState{
 		try {
 			this.quality.changeQuality(action.getQualityChange());
 			this.profit.changeProfitMargin(action.getProfitMarginChange());
-			//TODO Consider: Reset number of customers?
+			//Consider: Reset number of customers?
 
 		} catch (final InvalidQualityException e) {
 			throw new InvalidRetailerActionException(action, this, e);
@@ -108,6 +108,6 @@ public class InternalRetailerState implements RetailerState{
 
 	@Override
 	public String toString(){
-		return String.format("(%s, %s, %i)", this.quality, this.profit, this.numberOfCustomers);
+		return String.format("(%s, %s, %d)", this.quality.toString(), this.profit.toString(), this.numberOfCustomers);
 	}
 }

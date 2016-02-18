@@ -1,16 +1,20 @@
-package sjc.dissertation.retailer.agent;
+package sjc.dissertation.retailer;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import sjc.dissertation.retailer.Retailer;
 
 public class RetailerAgentFactory {
 
 	/** A set to contain retailers that have been assigned an agent*/
 	private Set<Retailer> retailers;
 
-	public RetailerAgentFactory(){
+	private static RetailerAgentFactory singelton = new RetailerAgentFactory();
+
+	public static RetailerAgentFactory getSingleton(){
+		return RetailerAgentFactory.singelton;
+	}
+
+	private RetailerAgentFactory(){
 		this.retailers = new HashSet<Retailer>(5);
 	}
 
@@ -18,9 +22,11 @@ public class RetailerAgentFactory {
 		if(retailerInUse(brainlessRetailer) || policy.hasRetailer()) {
 			return null;
 		}
-		final int id = this.retailers.size();
+		final int id = this.retailers.size()+1;
 		final RetailerAgent newAgent = new RetailerAgent(id, brainlessRetailer, policy);
 		policy.giveRetailerAgent(newAgent);
+
+		this.retailers.add(brainlessRetailer);
 
 		return newAgent;
 	}

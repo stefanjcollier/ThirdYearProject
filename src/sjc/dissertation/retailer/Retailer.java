@@ -1,6 +1,7 @@
 package sjc.dissertation.retailer;
 
 import sjc.dissertation.retailer.state.InternalRetailerState;
+import sjc.dissertation.retailer.state.quality.Quality;
 
 public class Retailer {
 	private final InternalRetailerState state;
@@ -15,8 +16,12 @@ public class Retailer {
 		return this.name;
 	}
 
-	public InternalRetailerState getState(){
+	protected InternalRetailerState getState(){
 		return this.state;
+	}
+
+	public Quality getQualityOfShop(){
+		return this.state.getQuality();
 	}
 
 	/**
@@ -38,7 +43,8 @@ public class Retailer {
 	 * @param customers --  the number of people who shopped with this retailer.
 	 * @return profit based on customers
 	 */
-	public double informOfCustomers(final int customers){
+	protected double informOfCustomers(final int customers){
+		System.out.println("Retailer: "+customers);
 		this.state.informOfCustomers(customers);
 
 		// Profit = Sale Price - Cost
@@ -47,11 +53,11 @@ public class Retailer {
 		final double cost = this.state.getQuality().getCost();
 		final double margin = this.state.getProfitMargin().getProfitMargin();
 
-		return margin*cost;
+		return customers * (margin*cost);
 	}
 
 	@Override
 	public String toString(){
-		return String.format("%s: %s", this.name, this.state);
+		return String.format("%s: %s", this.name, this.state.toString());
 	}
 }

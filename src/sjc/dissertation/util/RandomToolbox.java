@@ -24,11 +24,10 @@ public class RandomToolbox {
 	 *
 	 *  Note: If the chances of an option are 0, then it it is impossible to choose that
 	 *
-	 *  @param options -- The possible choices
 	 *  @param chances -- The chances for each of the options that all sum to 1
 	 *  @return the index of the weighted random choice.
 	 */
-	public static int probabilisticlyChoose(final Object[] options, final double[] chances){
+	public static int probabilisticlyChoose(final double[] chances){
 		//Assume Sum(chances) = 1   i.e. Pie chart
 		//Choose a random point in a circle (circumference = 1)
 		final double randomPoint = rng.nextDouble();
