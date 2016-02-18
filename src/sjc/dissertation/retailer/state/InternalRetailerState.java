@@ -102,7 +102,7 @@ public class InternalRetailerState implements RetailerState{
 
 	@Override
 	public String getSymbol(){
-		return String.format("(%s, %s, %i)",
+		return String.format("(%s, %s, %d)",
 				this.quality.getSymbol(), this.profit.getSymbol(), this.numberOfCustomers);
 	}
 

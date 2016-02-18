@@ -11,35 +11,35 @@ import sjc.dissertation.retailer.RetailerAgentFactory;
 
 public class ModelRunner {
 
+	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
+	static final int UK_POPULATION = 65086445;
+
 	public static void main(final String[] args){
-
-
-		final ModelController model = new ModelController(makeRetailers(), makeConsumers());
+		final String[] names = {"Tesco", "ASDA"};
+		final ModelController model = new ModelController(makeRetailers(names), makeConsumers(100), UK_POPULATION);
 		model.performWeek();
 	}
 
-	static List<RetailerAgent> makeRetailers(){
+	static List<RetailerAgent> makeRetailers(final String[] names){
 		final RetailerAgentFactory factory = RetailerAgentFactory.getSingleton();
 
-		final List<RetailerAgent> agents = new ArrayList<>(2);
+		final List<RetailerAgent> agents = new ArrayList<>(names.length);
 
-		final RetailerAgent agent1 = factory.createNewAgent(new Retailer("Tesco"), new StubAlgorithm());
-		System.out.println("MADE: Retailer "+agent1);
-		final RetailerAgent agent2 = factory.createNewAgent(new Retailer("ASDA"), new StubAlgorithm());
-		System.out.println("MADE: Retailer "+agent2);
-
-		agents.add(agent1);
-		agents.add(agent2);
+		for(final String name : names){
+			final RetailerAgent agent = factory.createNewAgent(new Retailer(name), new StubAlgorithm());
+			agents.add(agent);
+			System.out.println("MADE: Retailer "+agent);
+		}
 
 		return agents;
 	}
 
-	static List<Consumer> makeConsumers(){
+	static List<Consumer> makeConsumers(final int total){
 		final ConsumerFactory factory = ConsumerFactory.getSingleton();
 
 		final List<Consumer> consumers = new ArrayList<>(10);
 
-		for(int i = 0; i < 100; i++){
+		for(int i = 0; i < total; i++){
 			consumers.add(factory.createNewConsumer());
 			System.out.println("MADE: "+consumers.get(i));
 		}

@@ -13,10 +13,12 @@ public class ModelController {
 
 	private final List<Consumer> consumsers;
 	private final List<RetailerAgent> retailerAgents;
+	private final int voteWeight;
 
-	public ModelController(final List<RetailerAgent> retailers, final List<Consumer> consumers){
+	public ModelController(final List<RetailerAgent> retailers, final List<Consumer> consumers, final int ukPopulation){
 		this.retailerAgents = retailers;
 		this.consumsers = consumers;
+		this.voteWeight = ukPopulation / consumers.size();
 	}
 
 	public void performWeek(){
@@ -52,11 +54,23 @@ public class ModelController {
 		return choices;
 	}
 
-	private void informRetailersOfConsumers(final int[] choices){
-		System.out.println("Choices: "+Arrays.toString(choices));
-		for(int re = 0; re < choices.length; re++){
-			this.retailerAgents.get(re).informOfCustomers(choices[re]);
+	private void informRetailersOfConsumers(final int[] votes){
+		System.out.println("Choices: "+Arrays.toString(votes));
+		for(int re = 0; re < votes.length; re++){
+			this.retailerAgents.get(re).informOfCustomers(reweighVotes(votes[re]));
 		}
+	}
+
+	/**
+	 * As we are working with a subset of the population. Each consumer represents
+	 * 	 a large number of consumers of that type.
+	 * Hence if we had
+	 * @param votes
+	 * @param voteWeight
+	 * @return
+	 */
+	private int reweighVotes(final int votes){
+		return votes*this.voteWeight;
 	}
 
 }

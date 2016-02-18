@@ -58,6 +58,6 @@ public class Retailer {
 
 	@Override
 	public String toString(){
-		return String.format("%s: %s", this.name, this.state.toString());
+		return String.format("%s: %s", this.name, this.state.getSymbol());
 	}
 }

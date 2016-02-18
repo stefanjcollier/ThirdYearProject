@@ -4,6 +4,7 @@ import sjc.dissertation.retailer.Algorithm;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.RetailerState;
+import sjc.dissertation.util.Currency;
 
 class StubAlgorithm implements Algorithm{
 
@@ -20,7 +21,7 @@ class StubAlgorithm implements Algorithm{
 
 	@Override
 	public void informOfReward(final double profit) {
-		System.out.println("STUB: "+this.agent+" gained £"+profit);
+		System.out.println("STUB: "+this.agent+" gained "+Currency.prettyString(profit));
 
 	}
 
