@@ -21,7 +21,6 @@ public interface RetailerState {
 
 	public Set<RetailerAction> getActions();
 
-	public boolean isCompleteState();
 
 	public Quality getQuality();
 
@@ -29,5 +28,12 @@ public interface RetailerState {
 
 	public int getNumberOfCustomers();
 
+
+	/**
+	 * A shorthand version of the toString() method.
+	 * Outlining the quality and profit margin.
+	 *
+	 * @return A few characted determining the state.
+	 */
 	public String getSymbol();
 }

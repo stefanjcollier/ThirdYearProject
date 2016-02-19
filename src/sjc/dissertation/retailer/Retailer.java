@@ -3,6 +3,13 @@ package sjc.dissertation.retailer;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.quality.Quality;
 
+/**
+ * This is the Retailer, it is what a customer can see if they walked into a shop or
+ * found retailer online.
+ *
+ * @author Stefan Collier
+ *
+ */
 public class Retailer {
 	private final InternalRetailerState state;
 	private final String name;

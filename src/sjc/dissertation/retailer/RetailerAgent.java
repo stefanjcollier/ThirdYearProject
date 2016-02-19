@@ -15,6 +15,7 @@ public class RetailerAgent {
 		this.id = uniqueId;
 		this.retailer = retailer;
 		this.policy = controller;
+		this.policy.giveRetailerAgent(this);
 	}
 
 	/**

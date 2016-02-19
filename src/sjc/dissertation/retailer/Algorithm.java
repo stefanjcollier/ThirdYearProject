@@ -3,13 +3,27 @@ package sjc.dissertation.retailer;
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.RetailerState;
 
-public interface Algorithm {
+public abstract class Algorithm {
+	private RetailerAgent agent;
 
-	public RetailerAction determineAction(RetailerState state);
+	public abstract RetailerAction determineAction(RetailerState state);
 
-	public void informOfReward(double profit);
+	public abstract void informOfReward(double profit);
 
-	void giveRetailerAgent(RetailerAgent agent);
 
-	boolean hasRetailer();
+
+
+	protected void giveRetailerAgent(final RetailerAgent agent){
+		if(!hasRetailer()){
+			this.agent = agent;
+		}
+	}
+
+	RetailerAgent getAgent(){
+		return this.agent;
+	}
+
+	protected boolean hasRetailer(){
+		return this.agent != null;
+	}
 }

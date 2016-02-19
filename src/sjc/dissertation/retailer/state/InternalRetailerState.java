@@ -81,11 +81,6 @@ public class InternalRetailerState implements RetailerState{
 	}
 
 	@Override
-	public boolean isCompleteState() {
-		return this.numberOfCustomers == NOT_INFORMED_OF_CUSTOMERS;
-	}
-
-	@Override
 	public Quality getQuality(){
 		return this.quality;
 	}
