@@ -19,7 +19,7 @@ public abstract class Algorithm {
 		}
 	}
 
-	RetailerAgent getAgent(){
+	protected RetailerAgent getAgent(){
 		return this.agent;
 	}
 
