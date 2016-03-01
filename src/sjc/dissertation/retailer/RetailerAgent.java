@@ -1,5 +1,7 @@
 package sjc.dissertation.retailer;
 
+import java.util.List;
+
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.retailer.state.RetailerAction;
 
@@ -29,7 +31,7 @@ public class RetailerAgent {
 
 	//Consider: Giving them the scope of other's states?
 	//JAVADOC RetailerAgent#demmandAction
-	public void demandAction(final Retailer[] competitors) throws InvalidRetailerActionException{
+	public void demandAction(final List<Retailer> competitors) throws InvalidRetailerActionException{
 		final RetailerAction chosenAction = this.policy.determineAction(this.retailer.getState(), competitors);
 		this.retailer.getState().computeAction(chosenAction);
 	}

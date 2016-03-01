@@ -9,16 +9,12 @@ import sjc.dissertation.retailer.state.RetailerState;
 
 public class GreedyAlgorithm extends Algorithm{
 
-	private List<Retailer> competitors;
 	private WorldPerceptor eyes;
 	private ActionPredictor brain;
 
-	public GreedyAlgorithm(final List<Retailer> competitors) {
-		this.competitors = competitors;
-	}
 
 	@Override
-	public RetailerAction determineAction(final RetailerState state, final Retailer[] competitors) {
+	public RetailerAction determineAction(final RetailerState state, final List<Retailer> competitors) {
 		//Percieve World
 		final double[] world = this.eyes.percieveWorld(state, competitors);
 
@@ -26,7 +22,6 @@ public class GreedyAlgorithm extends Algorithm{
 		//Estimate the consequence of every action and select the best action (highest profit wielding)
 		double bestProfit = -1;
 		RetailerAction bestAction = null;
-
 		for (final RetailerAction action : state.getActions()){
 			final double predictedProfit = this.brain.predictProfit(action, world);
 			if(predictedProfit > bestProfit){

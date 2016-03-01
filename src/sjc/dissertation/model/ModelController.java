@@ -1,4 +1,4 @@
-package sjc.dissertation;
+package sjc.dissertation.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
-import sjc.dissertation.util.VectorToolbox;
+import sjc.dissertation.util.MyTools;
 
 public class ModelController {
 
@@ -52,11 +52,10 @@ public class ModelController {
 			retailers.add(agent.getRetailer());
 		}
 
-		final Retailer[] retailersArr = (Retailer[]) retailers.toArray();
 		int retailerIndex = 0;
 		for(final RetailerAgent agent : this.retailerAgents){
 			try {
-				final Retailer[] competitors = (Retailer[]) VectorToolbox.skipIndex(retailerIndex, retailersArr);
+				final List<Retailer> competitors = MyTools.skipIndex(retailerIndex, retailers);
 				agent.demandAction(competitors);
 				retailerIndex++;
 

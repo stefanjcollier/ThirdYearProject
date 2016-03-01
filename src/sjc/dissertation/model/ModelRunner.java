@@ -1,10 +1,11 @@
-package sjc.dissertation;
+package sjc.dissertation.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.consumer.ConsumerFactory;
+import sjc.dissertation.model.StubAlgorithm;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.RetailerAgentFactory;

@@ -1,4 +1,6 @@
-package sjc.dissertation;
+package sjc.dissertation.model;
+
+import java.util.List;
 
 import sjc.dissertation.retailer.Algorithm;
 import sjc.dissertation.retailer.Retailer;
@@ -12,7 +14,7 @@ class StubAlgorithm extends Algorithm{
 
 
 	@Override
-	public RetailerAction determineAction(final RetailerState state, final Retailer[] competitors) {
+	public RetailerAction determineAction(final RetailerState state, final List<Retailer> competitors) {
 		final RetailerAction action = state.getActions().iterator().next();
 		System.out.println("STUB: "+this.getAgent()+" chose action: "+action);
 		return action;

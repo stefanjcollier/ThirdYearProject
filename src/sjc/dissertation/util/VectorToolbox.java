@@ -1,9 +1,5 @@
 package sjc.dissertation.util;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 public class VectorToolbox {
 
 	private VectorToolbox(){}
@@ -27,22 +23,5 @@ public class VectorToolbox {
 		}
 		return newV;
 	}
-
-	public static Object skipIndex(final int skip, final Object[] objs){
-		if (skip == 0){
-			return Arrays.copyOfRange(objs, 1,  objs.length);
-		}
-		final List<Object> result = new LinkedList<Object>();
-
-		for(int i = 0; i < objs.length; i++) {
-			if(skip != i) {
-				result.add(objs[i]);
-			}
-		}
-
-		return result.toArray(objs);
-
-	}
-
 
 }

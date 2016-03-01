@@ -10,7 +10,6 @@ public class ActionPredictor {
 	private double lambda = 0.001;
 	private double[] w;
 
-	private RetailerAction prevAction;
 	private double predProf;
 
 	protected ActionPredictor(final int noOfCompetitors){
@@ -29,7 +28,6 @@ public class ActionPredictor {
 
 
 	public void informOfAction(final RetailerAction action, final double predProf){
-		this.prevAction = action;
 		this.predProf = predProf;
 	}
 
