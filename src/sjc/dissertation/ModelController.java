@@ -8,6 +8,7 @@ import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
+import sjc.dissertation.util.VectorToolbox;
 
 public class ModelController {
 
@@ -48,9 +49,16 @@ public class ModelController {
 		final List<Retailer> retailers = new ArrayList<>(this.retailerAgents.size());
 
 		for(final RetailerAgent agent : this.retailerAgents){
+			retailers.add(agent.getRetailer());
+		}
 
+		final Retailer[] retailersArr = (Retailer[]) retailers.toArray();
+		int retailerIndex = 0;
+		for(final RetailerAgent agent : this.retailerAgents){
 			try {
-				retailers.add(agent.demandAction());
+				final Retailer[] competitors = (Retailer[]) VectorToolbox.skipIndex(retailerIndex, retailersArr);
+				agent.demandAction(competitors);
+				retailerIndex++;
 
 			} catch (final InvalidRetailerActionException e) {
 				System.err.println(String.format("RetailerAgent %s is trying to make moves it cannot make.", agent));
@@ -90,12 +98,16 @@ public class ModelController {
 	}
 
 	/**
+	 * Returns the amount of the population that 'chose' this retailer.
+	 *
 	 * As we are working with a subset of the population. Each consumer represents
 	 * 	 a large number of consumers of that type.
-	 * Hence if we had
-	 * @param votes
-	 * @param voteWeight
-	 * @return
+	 *
+	 * Hence if we a population of 1 million and represented that with 100 Consumer Agents
+	 * 	 each consumer agent's vote would be worth 10,000
+	 *
+	 * @param votes - The number of consumers that chose this retailer
+	 * @return The amount of the population that 'chose' this retailer
 	 */
 	private int reweighVotes(final int votes){
 		return votes*this.voteWeight;

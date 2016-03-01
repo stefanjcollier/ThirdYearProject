@@ -29,16 +29,19 @@ public class RetailerAgent {
 
 	//Consider: Giving them the scope of other's states?
 	//JAVADOC RetailerAgent#demmandAction
-	public Retailer demandAction() throws InvalidRetailerActionException{
-		final RetailerAction chosenAction = this.policy.determineAction(this.retailer.getState());
+	public void demandAction(final Retailer[] competitors) throws InvalidRetailerActionException{
+		final RetailerAction chosenAction = this.policy.determineAction(this.retailer.getState(), competitors);
 		this.retailer.getState().computeAction(chosenAction);
-		return this.retailer;
 	}
 
 	public double informOfCustomers(final int noOfCustomers){
 		final double profit = this.retailer.informOfCustomers(noOfCustomers);
 		this.policy.informOfReward(profit);
 		return profit;
+	}
+
+	public Retailer getRetailer(){
+		return this.retailer;
 	}
 
 	@Override
