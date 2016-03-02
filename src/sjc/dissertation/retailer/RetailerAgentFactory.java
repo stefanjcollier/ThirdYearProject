@@ -6,7 +6,7 @@ import java.util.Set;
 public class RetailerAgentFactory {
 
 	/** A set to contain retailers that have been assigned an agent*/
-	private Set<Retailer> retailers;
+	private Set<RetailerImpl> retailers;
 
 	private static RetailerAgentFactory singelton = new RetailerAgentFactory();
 
@@ -15,10 +15,10 @@ public class RetailerAgentFactory {
 	}
 
 	private RetailerAgentFactory(){
-		this.retailers = new HashSet<Retailer>(5);
+		this.retailers = new HashSet<RetailerImpl>(5);
 	}
 
-	public RetailerAgent createNewAgent(final Retailer brainlessRetailer, final Algorithm policy){
+	public RetailerAgent createNewAgent(final RetailerImpl brainlessRetailer, final Algorithm policy){
 		if(retailerInUse(brainlessRetailer) || policy.hasRetailer()) {
 			return null;
 		}
@@ -37,7 +37,7 @@ public class RetailerAgentFactory {
 	 * @param retailer -- The retailer to be checked for an agent.
 	 * @return true if the retailer has an agent.
 	 */
-	private boolean retailerInUse(final Retailer retailer){
+	private boolean retailerInUse(final RetailerImpl retailer){
 		return this.retailers.contains(retailer);
 	}
 

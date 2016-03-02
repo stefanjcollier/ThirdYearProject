@@ -3,10 +3,10 @@ package sjc.dissertation.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import sjc.dissertation.consumer.Consumer;
+import sjc.dissertation.consumer.ConsumerImpl;
 import sjc.dissertation.consumer.ConsumerFactory;
 import sjc.dissertation.model.StubAlgorithm;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.RetailerImpl;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.RetailerAgentFactory;
 
@@ -27,7 +27,7 @@ public class ModelRunner {
 		final List<RetailerAgent> agents = new ArrayList<>(names.length);
 
 		for(final String name : names){
-			final RetailerAgent agent = factory.createNewAgent(new Retailer(name), new StubAlgorithm());
+			final RetailerAgent agent = factory.createNewAgent(new RetailerImpl(name), new StubAlgorithm());
 			agents.add(agent);
 			System.out.println("MADE: Retailer "+agent);
 		}
@@ -35,10 +35,10 @@ public class ModelRunner {
 		return agents;
 	}
 
-	static List<Consumer> makeConsumers(final int total){
+	static List<ConsumerImpl> makeConsumers(final int total){
 		final ConsumerFactory factory = ConsumerFactory.getSingleton();
 
-		final List<Consumer> consumers = new ArrayList<>(10);
+		final List<ConsumerImpl> consumers = new ArrayList<>(10);
 
 		for(int i = 0; i < total; i++){
 			consumers.add(factory.createNewConsumer());
