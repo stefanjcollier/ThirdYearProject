@@ -3,12 +3,15 @@ package sjc.dissertation.model.logging;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.quality.Quality;
 
-public class WrappedRetailer implements Retailer{
+public class WrappedRetailer implements Retailer, Wrapper{
 
-	private Retailer me;
+	private final Retailer me;
+	private final MasterLogger logger;
 
-	protected WrappedRetailer(final Retailer retailer){
+	protected WrappedRetailer(final MasterLogger logger, final Retailer retailer){
 		this.me = retailer;
+		this.logger = logger;
+
 	}
 
 	@Override
@@ -35,6 +38,15 @@ public class WrappedRetailer implements Retailer{
 		return this.me.getName();
 	}
 
+	@Override
+	public String toString(){
+		return this.me.toString();
+	}
+
+	@Override
+	public String getWrapperId(){
+		return String.format("Retailer(%s)", this.me.getName());
+	}
 
 
 }

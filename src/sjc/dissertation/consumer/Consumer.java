@@ -5,6 +5,7 @@ import java.util.List;
 import sjc.dissertation.retailer.RetailerImpl;
 
 public interface Consumer {
+
 	public int chooseRetailer(final List<RetailerImpl> retailers);
 
 	public String getSocialClass();
@@ -17,4 +18,5 @@ public interface Consumer {
 
 	public double chanceOf(final List<RetailerImpl> allRe, final RetailerImpl tstRe);
 
+	public int getId();
 }
