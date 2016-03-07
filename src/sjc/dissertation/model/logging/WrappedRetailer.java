@@ -16,11 +16,14 @@ public class WrappedRetailer implements Retailer, Wrapper{
 
 	@Override
 	public double informOfCustomers(final int customers) {
-		final double result = this.me.informOfCustomers(customers);
+		final double profit = this.me.informOfCustomers(customers);
 
 		//Print the output
+		final String line = String.format("Consumers:%d\t\tProfit:%f",
+				customers, profit);
+		this.logger.print(this, line);
 
-		return result;
+		return profit;
 	}
 
 	@Override
