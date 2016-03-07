@@ -7,7 +7,7 @@ import sjc.dissertation.retailer.Retailer;
 
 public class MasterLogger {
 	/** The path to the output of the file */
-	private static String logOutputPath = "logOutput.txt";
+	private static String logOutputPath = "resources";
 	/**
 	 * Given that the singleton ha	s not been initialised, the path to the file is set.
 	 *
@@ -81,6 +81,8 @@ public class MasterLogger {
 	protected void trace(final Wrapper sender, final String text){
 		addToLog(sender, text, Level.Trace);
 	}
+
+
 
 	public enum Level{
 		Trace("Trace"), Debug("Debug"), Log("Log"), Print("");

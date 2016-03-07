@@ -1,17 +1,21 @@
 package sjc.dissertation.model.logging;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import sjc.dissertation.util.FileUtils;
 
 public class LogFileWriter {
 
 	private BufferedWriter file;
 	private boolean useFile;
 
-	protected LogFileWriter(final String filePath){
+	protected LogFileWriter(final String parentFilePath){
+		final File logFile = FileUtils.createDatedFile(parentFilePath);
 		try {
-			this.file = new BufferedWriter(new FileWriter(filePath));
+			this.file = new BufferedWriter(new FileWriter(logFile));
 			this.useFile = true;
 		} catch (final IOException e) {
 			this.useFile = false;

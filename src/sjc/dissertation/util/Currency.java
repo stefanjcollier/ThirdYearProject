@@ -46,7 +46,6 @@ public class Currency {
 		return "£"+pounds;
 	}
 
-
 	private static String getMePennies(final String raw) {
 		final String raw_pennies = raw.split("[.]")[1];
 
