@@ -22,14 +22,14 @@ public class FileUtils {
 	 * @return A {@link File} -- Referring to an existing file.
 	 * 			null -- The file could not be created
 	 */
-	public static File createDatedFile(final String dir){
+	public static File createDatedFile(final String dir, final String name, final String extension){
 		final File parent = new File(dir);
 		if(!(parent.exists() && parent.isDirectory())) {
 			System.err.println("FileUtils<Fail>: The folder: "+dir+" does not exist");
 			return null;
 		}
 		for (int version = 0;  version < 100; version++) {
-			final String path  = getFileName(parent, version);
+			final String path  = getFileName(parent, name, version, extension);
 			final File testFile = new File(path);
 			if(!testFile.exists()){
 				try {
@@ -45,13 +45,14 @@ public class FileUtils {
 		return null;
 	}
 
-	protected static String getFileName(final File parent, final int version){
-		return parent.getAbsolutePath()+File.separator+getCurrentDate()+"_"+version+".txt";
+	protected static String getFileName(final File parent, final String name, final int version, final String extension){
+		return parent.getAbsolutePath()+File.separator+getCurrentDate(name)+"_"+version+extension;
 	}
 
-	private static String getCurrentDate(){
+	private static String getCurrentDate(final String name){
 		final String date = new SimpleDateFormat("ddMMyyyy").format(new Date());
-		return String.format("ThirdYearProject_Log_%s.%s.%s",
+		return String.format("%s_%s.%s.%s",
+				name,
 				date.substring(0, 2),
 				date.substring(2,4),
 				date.substring(4));

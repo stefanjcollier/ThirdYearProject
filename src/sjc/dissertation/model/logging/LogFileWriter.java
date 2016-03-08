@@ -9,11 +9,12 @@ import sjc.dissertation.util.FileUtils;
 
 public class LogFileWriter {
 
+	private static final String filename = "ThirdYearProject_Log";
 	private BufferedWriter file;
 	private boolean useFile;
 
 	protected LogFileWriter(final String parentFilePath){
-		final File logFile = FileUtils.createDatedFile(parentFilePath);
+		final File logFile = FileUtils.createDatedFile(parentFilePath, filename, ".txt");
 		try {
 			this.file = new BufferedWriter(new FileWriter(logFile));
 			this.useFile = true;
