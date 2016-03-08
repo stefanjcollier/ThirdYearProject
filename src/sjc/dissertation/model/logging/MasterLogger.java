@@ -1,55 +1,18 @@
 package sjc.dissertation.model.logging;
 
-import java.io.IOException;
-
-import sjc.dissertation.consumer.Consumer;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.model.logging.file.LogFileWriter;
+import sjc.dissertation.model.logging.file.LogFileWritingException;
+import sjc.dissertation.model.logging.wrappers.Wrapper;
 
 public class MasterLogger {
-	/** The path to the output of the file */
-	private static String logOutputPath = "resources";
-	/**
-	 * Given that the singleton ha	s not been initialised, the path to the file is set.
-	 *
-	 * @param newPath --  The path to where the log will be stored.
-	 * @return true -- The path was change.
-	 * 		   false -- The singleton has already been initialised and the path was not set
-	 */
-	public static boolean setLogOutputPath(final String newPath){
-		if(MasterLogger.single == null) {
-			return false;
-		}
-		MasterLogger.logOutputPath = newPath;
-		return true;
-	}
-	/** Singleton entity */
-	private static MasterLogger single;
-	public static MasterLogger getSingleton() throws MasterLoggerException{
-		if(MasterLogger.single == null) {
-			try {
-				MasterLogger.single = new MasterLogger(logOutputPath);
-			} catch (final IOException e) {
-				throw new MasterLoggerException("Initialisation Error", e);
-			}
-		}
-		return MasterLogger.single;
-	}
-
-
 	private Level displayLevel;
 	private LogFileWriter logFile;
-	private MasterLogger(final String filePath) throws IOException{
+	private final String filename = "ThirdYearProject_Log";
+	private final String fileExtension = ".txt";
+
+	protected MasterLogger(final String filePath){
 		this.displayLevel = Level.Log;
-		this.logFile = new LogFileWriter(filePath);
-	}
-
-
-	public WrappedConsumer wrapConsumer(final Consumer consumer){
-		return new WrappedConsumer(this, consumer);
-	}
-
-	public WrappedRetailer wrapRetailer(final Retailer retailer){
-		return new WrappedRetailer(this, retailer);
+		this.logFile = new LogFileWriter(filePath, this.filename, this.fileExtension);
 	}
 
 	private void addToLog(final Wrapper sender, final String text, final Level level){
@@ -58,7 +21,7 @@ public class MasterLogger {
 		//Add all lines to log
 		try {
 			this.logFile.writeLine(line);
-		} catch (final MasterLoggerException e) {
+		} catch (final LogFileWritingException e) {
 			e.printStackTrace();
 		}
 
@@ -69,16 +32,16 @@ public class MasterLogger {
 	}
 
 
-	protected void print(final Wrapper sender, final String text){
+	public void print(final Wrapper sender, final String text){
 		addToLog(sender, text, Level.Print);
 	}
-	protected void log(final Wrapper sender, final String text){
+	public void log(final Wrapper sender, final String text){
 		addToLog(sender, text, Level.Log);
 	}
-	protected void debug(final Wrapper sender, final String text){
+	public void debug(final Wrapper sender, final String text){
 		addToLog(sender, text, Level.Debug);
 	}
-	protected void trace(final Wrapper sender, final String text){
+	public void trace(final Wrapper sender, final String text){
 		addToLog(sender, text, Level.Trace);
 	}
 

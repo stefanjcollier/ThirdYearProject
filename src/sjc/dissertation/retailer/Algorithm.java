@@ -8,7 +8,7 @@ import sjc.dissertation.retailer.state.RetailerState;
 public abstract class Algorithm {
 	private RetailerAgent agent;
 
-	public abstract RetailerAction determineAction(RetailerState state, List<RetailerImpl> competitors);
+	public abstract RetailerAction determineAction(RetailerState state, List<Retailer> competitors);
 
 	public abstract void informOfReward(double profit);
 

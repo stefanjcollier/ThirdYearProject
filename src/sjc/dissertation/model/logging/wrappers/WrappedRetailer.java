@@ -1,5 +1,6 @@
-package sjc.dissertation.model.logging;
+package sjc.dissertation.model.logging.wrappers;
 
+import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.quality.Quality;
 
@@ -8,10 +9,9 @@ public class WrappedRetailer implements Retailer, Wrapper{
 	private final Retailer me;
 	private final MasterLogger logger;
 
-	protected WrappedRetailer(final MasterLogger logger, final Retailer retailer){
+	public WrappedRetailer(final MasterLogger logger, final Retailer retailer){
 		this.me = retailer;
 		this.logger = logger;
-
 	}
 
 	@Override

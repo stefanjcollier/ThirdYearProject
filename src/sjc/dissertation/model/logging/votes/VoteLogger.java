@@ -1,13 +1,18 @@
-package sjc.dissertation.model.logging;
+package sjc.dissertation.model.logging.votes;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.retailer.Retailer;
 
 /**
- * A central place to store the history of votes in the simulation
+ * A central place to store the history of votes in the simulation.
+ *
+ * 	Key control is to start a round.
+ * 	Get all votes (Storing social class and retailer choice)
+ *  Save round to disk
  *
  * @author Stefan Collier
  *
@@ -20,16 +25,22 @@ public class VoteLogger {
 	/** A mapping of String social class -> position in the range value of roundScores */
 	private Map<String, Integer> classToIndex;
 
-	/** A mapping of Reatiler -> position in the range value of roundScores */
+	/** A mapping of Retailer -> position in the range value of roundScores */
 	private Map<Retailer, Integer> retailerToIndex;
 	private int currentRound;
 
-	public VoteLogger(final Retailer[] retailers, final List<String> classes){
-		this.roundScores = new HashMap<Integer, int[][]>(100);
+	public VoteLogger(final List<Retailer> retailers, final List<String> classes){
+		//Populate index converters
 		this.classToIndex = generateClassIds(classes);
 		this.retailerToIndex = generateRetailerIds(retailers);
+
+		//Create table for first round
+		this.roundScores = new HashMap<Integer, int[][]>(100);
 		this.currentRound = -1;
-		this.startNextRound();
+		this.incrementRound();
+
+		//Create file stores
+
 	}
 
 	private static Map<String, Integer> generateClassIds(final List<String> classes) {
@@ -42,8 +53,8 @@ public class VoteLogger {
 		return mappings;
 	}
 
-	private static Map<Retailer, Integer> generateRetailerIds(final Retailer[] retailers){
-		final Map<Retailer, Integer> mappings = new HashMap<>(retailers.length);
+	private static Map<Retailer, Integer> generateRetailerIds(final List<Retailer> retailers){
+		final Map<Retailer, Integer> mappings = new HashMap<>(retailers.size());
 		int id = 0;
 		for(final Retailer retailer : retailers){
 			mappings.put(retailer, id);
@@ -53,24 +64,27 @@ public class VoteLogger {
 	}
 
 
-	private void addVote(final String socClass, final Retailer retailer){
-		final int socIndex = this.classToIndex.get(socClass);
+	public void addVote(final Consumer consumer, final Retailer retailer){
+		final int socIndex = this.classToIndex.get(consumer.getSocialClass());
 		final int retIndex = this.retailerToIndex.get(retailer);
 
 		this.roundScores.get(this.currentRound)[socIndex][retIndex]++;
 	}
 
 
-	private void startNextRound(){
-		storeDataForPreviousRound();
+	public void startNextRound(){
+		storeDataForCurrentRound();
+		incrementRound();
+	}
 
+	private void incrementRound(){
 		this.currentRound++;
 		final int numOfClasses = this.classToIndex.size();
 		final int numOfRetailers = this.retailerToIndex.size();
 		this.roundScores.put(this.currentRound, new int[numOfClasses][numOfRetailers]);
 	}
 
-	private void storeDataForPreviousRound() {
+	private void storeDataForCurrentRound() {
 		// TODO Auto-generated method stub
 
 	}

@@ -20,7 +20,7 @@ public class ConsumerFactory {
 	private double[] budgetAvgs;
 
 	/** The list of all existing consumers */
-	private final List<ConsumerImpl> consumers;
+	private final List<Consumer> consumers;
 
 	/** The only allowed instance of this class */
 	private static ConsumerFactory singleton;
@@ -50,7 +50,7 @@ public class ConsumerFactory {
 		this.classNames = classNames;
 		this.classRatios = classRatios;
 		this.budgetAvgs = spendingAvgs;
-		this.consumers = new ArrayList<ConsumerImpl>(200);
+		this.consumers = new ArrayList<Consumer>(200);
 		this.rng = new Random();
 	}
 
@@ -85,12 +85,12 @@ public class ConsumerFactory {
 
 	}
 
-	public ConsumerImpl createNewConsumer(){
+	public Consumer createNewConsumer(){
 		final int socClass = chooseRandomClass();
 		final double budget = generateBudget(socClass);
 		final int id = this.consumers.size()+1;
 
-		final ConsumerImpl con = new ConsumerImpl(id, this.classNames[socClass], budget);
+		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget);
 		this.consumers.add(con);
 		return con;
 	}

@@ -2,7 +2,7 @@ package sjc.dissertation.retailer.carnivore;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
@@ -122,7 +122,7 @@ public class WorldPerceptor {
 	 *
 	 * @return A numerical vector representation of how the agent views the world
 	 */
-	public double[] percieveWorld(final RetailerState me, final List<RetailerImpl> others){
+	public double[] percieveWorld(final RetailerState me, final List<Retailer> others){
 		final int variables = 3 + others.size()*2;
 		final double[] perception = new double[variables];
 
@@ -133,7 +133,7 @@ public class WorldPerceptor {
 
 		//Interpret competitors
 		int index = 3;
-		for(final RetailerImpl other : others){
+		for(final Retailer other : others){
 			perception[index++] = convertQuality(other.getQualityOfShop());
 			perception[index++] = other.getCostOfShopping();
 		}

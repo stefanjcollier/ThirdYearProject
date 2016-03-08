@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import sjc.dissertation.consumer.ConsumerImpl;
-import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.consumer.Consumer;
+import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.util.MyTools;
 
 public class ModelController {
 
-	private final List<ConsumerImpl> consumsers;
+	private final List<Consumer> consumsers;
 	private final List<RetailerAgent> retailerAgents;
 	private final int voteWeight;
 
@@ -23,7 +23,7 @@ public class ModelController {
 	 * @param consumers -- A discrete number of consumer agents
 	 * @param ukPopulation -- The actual UK population
 	 */
-	public ModelController(final List<RetailerAgent> retailers, final List<ConsumerImpl> consumers, final int ukPopulation){
+	public ModelController(final List<RetailerAgent> retailers, final List<Consumer> consumers, final int ukPopulation){
 		this.retailerAgents = retailers;
 		this.consumsers = consumers;
 		this.voteWeight = ukPopulation / consumers.size();
@@ -35,7 +35,7 @@ public class ModelController {
 	 *
 	 */
 	public void performWeek(){
-		final List<RetailerImpl> retailers = demmandRetailerActions();
+		final List<Retailer> retailers = demmandRetailerActions();
 		final int[] choices = demmandConsumerChoices(retailers);
 		informRetailersOfConsumers(choices);
 	}
@@ -45,8 +45,8 @@ public class ModelController {
 	 *
 	 * @return A list of retailers, containing each agents retail chain.
 	 */
-	private List<RetailerImpl> demmandRetailerActions(){
-		final List<RetailerImpl> retailers = new ArrayList<>(this.retailerAgents.size());
+	private List<Retailer> demmandRetailerActions(){
+		final List<Retailer> retailers = new ArrayList<>(this.retailerAgents.size());
 
 		for(final RetailerAgent agent : this.retailerAgents){
 			retailers.add(agent.getRetailer());
@@ -55,7 +55,7 @@ public class ModelController {
 		int retailerIndex = 0;
 		for(final RetailerAgent agent : this.retailerAgents){
 			try {
-				final List<RetailerImpl> competitors = MyTools.skipIndex(retailerIndex, retailers);
+				final List<Retailer> competitors = MyTools.skipIndex(retailerIndex, retailers);
 				agent.demandAction(competitors);
 				retailerIndex++;
 
@@ -75,10 +75,10 @@ public class ModelController {
 	 * @param retailers -- The retailers they can purchase from.
 	 * @return An array saying how many consumers visited each retailer. The last index is the number of no buys
 	 */
-	private int[] demmandConsumerChoices(final List<RetailerImpl> retailers){
+	private int[] demmandConsumerChoices(final List<Retailer> retailers){
 		final int[] choices = new int[retailers.size()+1];
 
-		for(final ConsumerImpl consumer : this.consumsers){
+		for(final Consumer consumer : this.consumsers){
 			final int choice = consumer.chooseRetailer(retailers);
 			if(choice != -1) {
 				choices[choice]++;

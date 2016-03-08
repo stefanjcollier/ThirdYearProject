@@ -2,7 +2,7 @@ package sjc.dissertation.consumer;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.RandomToolbox;
 
@@ -10,7 +10,7 @@ import sjc.dissertation.util.RandomToolbox;
  * @author Stefan Collier
  *
  */
-public class ConsumerImpl {
+public class ConsumerImpl implements Consumer{
 	private final int id;
 	private final String socClass;
 	private final double budget;
@@ -21,14 +21,17 @@ public class ConsumerImpl {
 		this.budget = budget;
 	}
 
+	@Override
 	public int getId(){
 		return this.id;
 	}
 
+	@Override
 	public String getSocialClass(){
 		return this.socClass;
 	}
 
+	@Override
 	public double getBudget(){
 		return this.budget;
 	}
@@ -39,7 +42,7 @@ public class ConsumerImpl {
 	 * @param retailer -- The retailer whom's price we are assessing
 	 * @return true if the consumer can purchase their shop from the retailer.
 	 */
-	public boolean canAfford(final RetailerImpl retailer){
+	public boolean canAfford(final Retailer retailer){
 		return costOfShop(retailer) <= this.budget;
 	}
 
@@ -51,7 +54,7 @@ public class ConsumerImpl {
 	 * @param retailer -- The retailer whom's price we are assessing
 	 * @return The cost for the consumer of shopping with the given retailer
 	 */
-	public double costOfShop(final RetailerImpl re){
+	public double costOfShop(final Retailer re){
 		return re.getCostOfShopping();
 	}
 
@@ -69,7 +72,7 @@ public class ConsumerImpl {
 	 * @param tstRe -- The retailer from those options
 	 * @return the chance [0,1] of choosing the testRetailer
 	 */
-	public double chanceOf(final List<RetailerImpl> allRe, final RetailerImpl tstRe){
+	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe){
 		//If we cannot afford the shop then we won't shop there
 		if(!canAfford(tstRe)){
 			return 0;
@@ -79,7 +82,7 @@ public class ConsumerImpl {
 
 			//Sum the vfm of all (affordable) retailers
 			double sumVfm = 0;
-			for(final RetailerImpl re :  allRe){
+			for(final Retailer re :  allRe){
 				double reVfm = 0;
 				if(canAfford(re)){
 					reVfm = valueForMoney(re);
@@ -100,7 +103,7 @@ public class ConsumerImpl {
 	 * @param re -- The retailer we are considering
 	 * @return The value for money of shopping at retailer 're' (vfm >= 0)
 	 */
-	private double valueForMoney(final RetailerImpl re){
+	private double valueForMoney(final Retailer re){
 		return rewardOfShop(re) / costOfShop(re);
 	}
 
@@ -110,7 +113,7 @@ public class ConsumerImpl {
 	 * @param re -- The retailer that we are considering for a shop
 	 * @return The reward a consumer would receive from shopping at the given retailer
 	 */
-	private double rewardOfShop(final RetailerImpl re){
+	private double rewardOfShop(final Retailer re){
 		//TODO (Consumer) Create better rewards system
 		//Consider: Sensitivity to quality
 		final Quality q = re.getQualityOfShop();
@@ -139,7 +142,8 @@ public class ConsumerImpl {
 	 * @param retailers -- All the retailers to choose from
 	 * @return the chosen retailer
 	 */
-	public int chooseRetailer(final List<RetailerImpl> retailers){
+	@Override
+	public int chooseRetailer(final List<Retailer> retailers){
 		//Find the chance for choosing each retailer
 		final double[] chances = new double[retailers.size()];
 		for (int re = 0; re < retailers.size(); re++){

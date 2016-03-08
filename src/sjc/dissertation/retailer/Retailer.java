@@ -17,4 +17,5 @@ public interface Retailer {
 	public double getCostOfShopping();
 
 	public String getName();
+
 }

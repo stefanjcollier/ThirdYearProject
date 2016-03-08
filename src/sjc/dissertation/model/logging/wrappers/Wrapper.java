@@ -1,4 +1,4 @@
-package sjc.dissertation.model.logging;
+package sjc.dissertation.model.logging.wrappers;
 
 public interface Wrapper {
 

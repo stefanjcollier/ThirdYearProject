@@ -2,21 +2,21 @@ package sjc.dissertation.consumer;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.retailer.Retailer;
 
 public interface Consumer {
 
-	public int chooseRetailer(final List<RetailerImpl> retailers);
+	public int chooseRetailer(final List<Retailer> retailers);
 
 	public String getSocialClass();
 
 	public double getBudget();
 
-	public boolean canAfford(final RetailerImpl retailer);
+	public boolean canAfford(final Retailer retailer);
 
-	public double costOfShop(final RetailerImpl re);
+	public double costOfShop(final Retailer re);
 
-	public double chanceOf(final List<RetailerImpl> allRe, final RetailerImpl tstRe);
+	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe);
 
 	public int getId();
 }

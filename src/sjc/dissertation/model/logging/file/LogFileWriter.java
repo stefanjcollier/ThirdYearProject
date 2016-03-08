@@ -1,4 +1,4 @@
-package sjc.dissertation.model.logging;
+package sjc.dissertation.model.logging.file;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,12 +9,13 @@ import sjc.dissertation.util.FileUtils;
 
 public class LogFileWriter {
 
-	private static final String filename = "ThirdYearProject_Log";
 	private BufferedWriter file;
+	private String filename;
 	private boolean useFile;
 
-	protected LogFileWriter(final String parentFilePath){
-		final File logFile = FileUtils.createDatedFile(parentFilePath, filename, ".txt");
+	public LogFileWriter(final String parentFilePath, final String filename, final String ext){
+		final File logFile = FileUtils.createDatedFile(parentFilePath, filename, ext);
+		this.filename =  logFile.getName();
 		try {
 			this.file = new BufferedWriter(new FileWriter(logFile));
 			this.useFile = true;
@@ -23,7 +24,7 @@ public class LogFileWriter {
 		}
 	}
 
-	public void writeLine(final String line) throws MasterLoggerException{
+	public void writeLine(final String line) throws LogFileWritingException{
 		if(!this.useFile) {
 			return;
 		}
@@ -34,7 +35,7 @@ public class LogFileWriter {
 
 		} catch (final IOException e) {
 			this.useFile = false;
-			throw new MasterLoggerException("There was an error writing to file.\n"
+			throw new LogFileWritingException("There was an error writing to file: "+this.filename+".\n"
 					+ "File writing will stop now.",e);
 		}
 	}

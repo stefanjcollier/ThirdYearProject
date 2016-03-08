@@ -1,15 +1,16 @@
-package sjc.dissertation.model.logging;
+package sjc.dissertation.model.logging.wrappers;
 
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
-import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.model.logging.MasterLogger;
+import sjc.dissertation.retailer.Retailer;
 
 public class WrappedConsumer implements Consumer, Wrapper{
 
 	private final Consumer me;
 	private final MasterLogger logger;
-	protected WrappedConsumer(final MasterLogger logger, final Consumer consumer){
+	public WrappedConsumer(final MasterLogger logger, final Consumer consumer){
 		this.me = consumer;
 		this.logger = logger;
 
@@ -20,7 +21,7 @@ public class WrappedConsumer implements Consumer, Wrapper{
 	}
 
 	@Override
-	public int chooseRetailer(final List<RetailerImpl> retailers) {
+	public int chooseRetailer(final List<Retailer> retailers) {
 		//TODO: Log something here
 		return this.me.chooseRetailer(retailers);
 	}
@@ -34,15 +35,15 @@ public class WrappedConsumer implements Consumer, Wrapper{
 		return this.me.getBudget();
 	}
 	@Override
-	public boolean canAfford(final RetailerImpl retailer) {
+	public boolean canAfford(final Retailer retailer) {
 		return this.me.canAfford(retailer);
 	}
 	@Override
-	public double costOfShop(final RetailerImpl re) {
+	public double costOfShop(final Retailer re) {
 		return this.me.costOfShop(re);
 	}
 	@Override
-	public double chanceOf(final List<RetailerImpl> allRe, final RetailerImpl tstRe) {
+	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe) {
 		return this.me.chanceOf(allRe, tstRe);
 	}
 	@Override

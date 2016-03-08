@@ -9,11 +9,11 @@ import sjc.dissertation.retailer.state.RetailerAction;
 //JAVADOC ReAg
 public class RetailerAgent {
 	private final int id;
-	private final RetailerImpl retailer;
+	private final Retailer retailer;
 	private final Algorithm policy;
 
 
-	protected RetailerAgent(final int uniqueId, final RetailerImpl retailer, final Algorithm controller){
+	protected RetailerAgent(final int uniqueId, final Retailer retailer, final Algorithm controller){
 		this.id = uniqueId;
 		this.retailer = retailer;
 		this.policy = controller;
@@ -31,9 +31,9 @@ public class RetailerAgent {
 
 	//Consider: Giving them the scope of other's states?
 	//JAVADOC RetailerAgent#demmandAction
-	public void demandAction(final List<RetailerImpl> competitors) throws InvalidRetailerActionException{
-		final RetailerAction chosenAction = this.policy.determineAction(this.retailer.getState(), competitors);
-		this.retailer.getState().computeAction(chosenAction);
+	public void demandAction(final List<Retailer> competitors) throws InvalidRetailerActionException{
+		final RetailerAction chosenAction = this.policy.determineAction(((RetailerImpl)this.retailer).getState(), competitors);
+		((RetailerImpl)this.retailer).getState().computeAction(chosenAction);
 	}
 
 	public double informOfCustomers(final int noOfCustomers){
@@ -42,7 +42,7 @@ public class RetailerAgent {
 		return profit;
 	}
 
-	public RetailerImpl getRetailer(){
+	public Retailer getRetailer(){
 		return this.retailer;
 	}
 

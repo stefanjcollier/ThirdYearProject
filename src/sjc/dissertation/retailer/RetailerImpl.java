@@ -19,6 +19,7 @@ public class RetailerImpl implements Retailer{
 		this.name = name;
 	}
 
+	@Override
 	public String getName(){
 		return this.name;
 	}
@@ -27,6 +28,7 @@ public class RetailerImpl implements Retailer{
 		return this.state;
 	}
 
+	@Override
 	public Quality getQualityOfShop(){
 		return this.state.getQuality();
 	}
@@ -37,6 +39,7 @@ public class RetailerImpl implements Retailer{
 	 *
 	 * @return The cost of shopping at given retailer
 	 */
+	@Override
 	public double getCostOfShopping(){
 		final double rawCost = this.state.getQuality().getCost();
 		final double profitMultiplier = 1 + this.state.getProfitMargin().getProfitMargin();
