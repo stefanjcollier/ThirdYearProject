@@ -13,6 +13,12 @@ public class GreedyAlgorithm extends Algorithm{
 	private ActionPredictor brain;
 
 
+	public GreedyAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
+		this.eyes = perceptor;
+		this.brain = predictor;
+	}
+
+
 	@Override
 	public RetailerAction determineAction(final RetailerState state, final List<Retailer> competitors) {
 		//Percieve World
@@ -40,6 +46,5 @@ public class GreedyAlgorithm extends Algorithm{
 	public void informOfReward(final double actualProfit) {
 		this.brain.feedback(actualProfit);
 	}
-
 
 }

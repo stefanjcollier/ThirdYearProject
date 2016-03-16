@@ -1,6 +1,7 @@
 package sjc.dissertation.model.logging;
 
 import sjc.dissertation.consumer.Consumer;
+import sjc.dissertation.model.logging.votes.VoteLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedConsumer;
 import sjc.dissertation.model.logging.wrappers.WrappedRetailer;
 import sjc.dissertation.retailer.Retailer;
@@ -23,8 +24,8 @@ public class LoggerFactory {
 		return this.log;
 	}
 
-	public WrappedConsumer wrapConsumer(final Consumer consumer){
-		return new WrappedConsumer(this.log, consumer);
+	public WrappedConsumer wrapConsumer(final Consumer consumer, final VoteLogger voteLog){
+		return new WrappedConsumer(this.log, voteLog, consumer);
 	}
 
 	public WrappedRetailer wrapRetailer(final Retailer retailer){

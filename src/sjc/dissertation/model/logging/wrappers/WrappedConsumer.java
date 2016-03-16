@@ -4,15 +4,18 @@ import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.model.logging.MasterLogger;
+import sjc.dissertation.model.logging.votes.VoteLogger;
 import sjc.dissertation.retailer.Retailer;
 
 public class WrappedConsumer implements Consumer, Wrapper{
 
 	private final Consumer me;
 	private final MasterLogger logger;
-	public WrappedConsumer(final MasterLogger logger, final Consumer consumer){
+	private final VoteLogger votesLog;
+	public WrappedConsumer(final MasterLogger logger, final VoteLogger voteLogger, final Consumer consumer){
 		this.me = consumer;
 		this.logger = logger;
+		this.votesLog = voteLogger;
 
 		//Logging
 		final String text = String.format("Created:: %s with budget %f",
@@ -22,8 +25,15 @@ public class WrappedConsumer implements Consumer, Wrapper{
 
 	@Override
 	public int chooseRetailer(final List<Retailer> retailers) {
-		//TODO: Log something here
-		return this.me.chooseRetailer(retailers);
+		final int indexChoice = this.me.chooseRetailer(retailers);
+		final Retailer retailer = retailers.get(indexChoice);
+
+		//Logging
+		this.votesLog.addVote(this.me, retailer);
+		this.logger.debug(this, String.format("%s:: Voted:: %s",
+				this.me.getSocialClass(), retailer.getName()));
+
+		return indexChoice;
 	}
 
 	@Override

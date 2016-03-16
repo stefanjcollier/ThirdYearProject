@@ -95,7 +95,9 @@ public class ConsumerFactory {
 		return con;
 	}
 
-
+	public String[] getSocialClasses(){
+		return this.classNames;
+	}
 
 
 

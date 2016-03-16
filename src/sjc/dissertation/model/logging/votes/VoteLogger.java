@@ -29,7 +29,7 @@ public class VoteLogger {
 	private Map<Retailer, Integer> retailerToIndex;
 	private int currentRound;
 
-	public VoteLogger(final List<Retailer> retailers, final List<String> classes){
+	public VoteLogger(final List<Retailer> retailers, final String[] classes){
 		//Populate index converters
 		this.classToIndex = generateClassIds(classes);
 		this.retailerToIndex = generateRetailerIds(retailers);
@@ -43,8 +43,12 @@ public class VoteLogger {
 
 	}
 
-	private static Map<String, Integer> generateClassIds(final List<String> classes) {
-		final Map<String, Integer> mappings = new HashMap<>(classes.size());
+	/**
+	 * Adds a local id to each of the classes, that allow further use of social classes to
+	 * 	reference the correct array index.
+	 */
+	private static Map<String, Integer> generateClassIds(final String[] classes) {
+		final Map<String, Integer> mappings = new HashMap<>(classes.length);
 		int id = 0;
 		for(final String socClass : classes){
 			mappings.put(socClass, id);
@@ -53,6 +57,10 @@ public class VoteLogger {
 		return mappings;
 	}
 
+	/**
+	 * Adds a local id to each of the retailers, that allow further use of retailers to
+	 * 	reference the correct array index.
+	 */
 	private static Map<Retailer, Integer> generateRetailerIds(final List<Retailer> retailers){
 		final Map<Retailer, Integer> mappings = new HashMap<>(retailers.size());
 		int id = 0;
@@ -85,7 +93,7 @@ public class VoteLogger {
 	}
 
 	private void storeDataForCurrentRound() {
-		// TODO Auto-generated method stub
+		// TODO This needs to be implemented
 
 	}
 

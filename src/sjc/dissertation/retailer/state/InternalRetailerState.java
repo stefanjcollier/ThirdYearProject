@@ -62,7 +62,7 @@ public class InternalRetailerState implements RetailerState{
 		try {
 			this.quality.changeQuality(action.getQualityChange());
 			this.profit.changeProfitMargin(action.getProfitMarginChange());
-			//Consider: Reset number of customers?
+			//Consider: (RtlrImpl) Reset number of customers?
 
 		} catch (final InvalidQualityException e) {
 			throw new InvalidRetailerActionException(action, this, e);

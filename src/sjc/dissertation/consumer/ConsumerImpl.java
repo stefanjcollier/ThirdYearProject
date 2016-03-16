@@ -42,6 +42,7 @@ public class ConsumerImpl implements Consumer{
 	 * @param retailer -- The retailer whom's price we are assessing
 	 * @return true if the consumer can purchase their shop from the retailer.
 	 */
+	@Override
 	public boolean canAfford(final Retailer retailer){
 		return costOfShop(retailer) <= this.budget;
 	}
@@ -54,6 +55,7 @@ public class ConsumerImpl implements Consumer{
 	 * @param retailer -- The retailer whom's price we are assessing
 	 * @return The cost for the consumer of shopping with the given retailer
 	 */
+	@Override
 	public double costOfShop(final Retailer re){
 		return re.getCostOfShopping();
 	}
@@ -72,6 +74,7 @@ public class ConsumerImpl implements Consumer{
 	 * @param tstRe -- The retailer from those options
 	 * @return the chance [0,1] of choosing the testRetailer
 	 */
+	@Override
 	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe){
 		//If we cannot afford the shop then we won't shop there
 		if(!canAfford(tstRe)){
@@ -114,8 +117,8 @@ public class ConsumerImpl implements Consumer{
 	 * @return The reward a consumer would receive from shopping at the given retailer
 	 */
 	private double rewardOfShop(final Retailer re){
-		//TODO (Consumer) Create better rewards system
-		//Consider: Sensitivity to quality
+		//Consider: (Consumer) Create better rewards system
+		//Consider: (Consumer) Sensitivity to quality
 		final Quality q = re.getQualityOfShop();
 		switch(q){
 		case HighQuality: {

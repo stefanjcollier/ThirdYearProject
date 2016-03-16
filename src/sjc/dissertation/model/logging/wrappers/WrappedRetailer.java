@@ -19,8 +19,7 @@ public class WrappedRetailer implements Retailer, Wrapper{
 		final double profit = this.me.informOfCustomers(customers);
 
 		//Print the output
-		final String line = String.format("Consumers:%d\t\tProfit:%f",
-				customers, profit);
+		final String line = String.format("Consumers:%d\t\tProfit:%f", customers, profit);
 		this.logger.print(this, line);
 
 		return profit;
