@@ -14,25 +14,12 @@ import sjc.dissertation.retailer.RetailerAgentFactory;
 import sjc.dissertation.retailer.RetailerImpl;
 import sjc.dissertation.util.FileUtils;
 
+//TODO Extend the model runner to 2 classes model runner and model-set-up
 public class ModelRunner {
 
 	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
 	static final int UK_POPULATION = 65086445;
 	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
-
-	static void genPATH(){
-		final String date =FileUtils.getCurrentDate("test");
-
-		for(int i = 1; true; i++){
-			final String testPath = PATH+date+"_"+i;
-			final File testFile = new File(testPath);
-			if(!testFile.exists()){
-				testFile.mkdirs();
-				PATH = testPath;
-				return;
-			}
-		}
-	}
 
 	public static void main(final String[] args){
 		genPATH();
@@ -66,6 +53,7 @@ public class ModelRunner {
 		for(final String name : names){
 			//Gen a new retailer and wrap it for logging
 			final Retailer retailer = wrapper.wrapRetailer(new RetailerImpl(name));
+			//TODO Use the greedy factory and get wrapped ones
 			final RetailerAgent agent = factory.createNewAgent(retailer, new StubAlgorithm());
 			agents.add(agent);
 		}
@@ -94,6 +82,20 @@ public class ModelRunner {
 			retailers.add(agent.getRetailer());
 		}
 		return retailers;
+	}
+
+	private static void genPATH(){
+		final String date =FileUtils.getCurrentDate("test");
+
+		for(int i = 1; true; i++){
+			final String testPath = PATH+date+"_"+i;
+			final File testFile = new File(testPath);
+			if(!testFile.exists()){
+				testFile.mkdirs();
+				PATH = testPath;
+				return;
+			}
+		}
 	}
 
 }
