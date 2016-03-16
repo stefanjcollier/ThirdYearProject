@@ -2,6 +2,7 @@ package sjc.dissertation.model.logging.wrappers;
 
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.retailer.state.quality.Quality;
 
 public class WrappedRetailer implements Retailer, Wrapper{
@@ -12,6 +13,10 @@ public class WrappedRetailer implements Retailer, Wrapper{
 	public WrappedRetailer(final MasterLogger logger, final Retailer retailer){
 		this.me = retailer;
 		this.logger = logger;
+
+		//Acknowledge instantiation
+		this.logger.trace(this, "Instantiated");
+
 	}
 
 	@Override
@@ -48,6 +53,11 @@ public class WrappedRetailer implements Retailer, Wrapper{
 	@Override
 	public String getWrapperId(){
 		return String.format("Retailer(%s)", this.me.getName());
+	}
+
+	@Override
+	public RetailerState getState() {
+		return this.me.getState();
 	}
 
 

@@ -26,7 +26,7 @@ public class MasterLogger {
 		}
 
 		//Only print ones with the correct permission
-		if(level.compareTo(this.displayLevel)<= 0){
+		if(level.compareTo(this.displayLevel) >= 0){
 			System.out.println(line);
 		}
 	}

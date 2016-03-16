@@ -16,22 +16,23 @@ public class ModelRunner {
 
 	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
 	static final int UK_POPULATION = 65086445;
+	static final String PATH = "resources";
 
 	public static void main(final String[] args){
 		final String[] names = {"Tesco", "ASDA"};
 		final String[] classes = ConsumerFactory.getSingleton().getSocialClasses();
 
 		//Text Logger
-		LoggerFactory.initiateLoggerFactory("resources");
+		LoggerFactory.initiateLoggerFactory(PATH);
 		final LoggerFactory wrapper = LoggerFactory.getSingleton();
 
-		//Agents
+		//Retailer Agents
 		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
 
 		//Data Loggers
-		final VoteLogger voteLog = new VoteLogger(getRetailers(retailers), classes);
+		final VoteLogger voteLog = new VoteLogger(PATH, extractRetailers(retailers), classes);
 
-
+		//Consumer Agents
 		final List<Consumer> consumers = makeConsumers(100, wrapper, voteLog);
 
 		//Model
@@ -45,10 +46,10 @@ public class ModelRunner {
 		final List<RetailerAgent> agents = new ArrayList<>(names.length);
 
 		for(final String name : names){
+			//Gen a new retailer and wrap it for logging
 			final Retailer retailer = wrapper.wrapRetailer(new RetailerImpl(name));
 			final RetailerAgent agent = factory.createNewAgent(retailer, new StubAlgorithm());
 			agents.add(agent);
-			System.out.println("MADE: Retailer "+agent);
 		}
 
 		return agents;
@@ -60,16 +61,16 @@ public class ModelRunner {
 		final List<Consumer> consumers = new ArrayList<>(10);
 
 		for(int i = 0; i < total; i++){
+			//Gen a new consumer and wrap it for logging
 			final Consumer consumer = wrapper.wrapConsumer(factory.createNewConsumer(), voteLog);
 			consumers.add(consumer);
-			System.out.println("MADE: "+consumers.get(i));
 		}
 
 		return consumers;
 	}
 
 	/** Extract retailers from agents */
-	private static List<Retailer> getRetailers(final List<RetailerAgent> agents){
+	private static List<Retailer> extractRetailers(final List<RetailerAgent> agents){
 		final List<Retailer> retailers = new ArrayList<>(agents.size());
 		for(final RetailerAgent agent : agents){
 			retailers.add(agent.getRetailer());

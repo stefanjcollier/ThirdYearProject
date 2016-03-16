@@ -24,7 +24,8 @@ public class RetailerImpl implements Retailer{
 		return this.name;
 	}
 
-	protected InternalRetailerState getState(){
+	@Override
+	public  InternalRetailerState getState(){
 		return this.state;
 	}
 

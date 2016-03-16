@@ -32,9 +32,9 @@ public class VoteFileWriter {
 	 * Assumes that the socialClasses list is the same given as in the VoteLogger
 	 * @param socialClasses -- All the social classes in the models
 	 */
-	protected VoteFileWriter(final String filePath, final List<String> socialClasses, final int maxRetailers){
+	protected VoteFileWriter(final String filePath, final String[] socialClasses, final int maxRetailers){
 		//Fill with files ready for a good writing
-		this.allFiles = new ArrayList<LogFileWriter>(socialClasses.size());
+		this.allFiles = new ArrayList<LogFileWriter>(socialClasses.length);
 		for(final String socClass : socialClasses){
 			this.allFiles.add(new LogFileWriter(filePath, makeName(socClass), this.fileExtension));
 		}

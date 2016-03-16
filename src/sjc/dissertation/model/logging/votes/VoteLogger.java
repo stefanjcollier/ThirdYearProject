@@ -29,7 +29,9 @@ public class VoteLogger {
 	private Map<Retailer, Integer> retailerToIndex;
 	private int currentRound;
 
-	public VoteLogger(final List<Retailer> retailers, final String[] classes){
+	private final VoteFileWriter files;
+
+	public VoteLogger(final String filePath, final List<Retailer> retailers, final String[] classes){
 		//Populate index converters
 		this.classToIndex = generateClassIds(classes);
 		this.retailerToIndex = generateRetailerIds(retailers);
@@ -40,7 +42,7 @@ public class VoteLogger {
 		this.incrementRound();
 
 		//Create file stores
-
+		this.files = new VoteFileWriter(filePath, classes, retailers.size());
 	}
 
 	/**

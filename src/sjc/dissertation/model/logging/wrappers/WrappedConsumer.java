@@ -18,7 +18,7 @@ public class WrappedConsumer implements Consumer, Wrapper{
 		this.votesLog = voteLogger;
 
 		//Logging
-		final String text = String.format("Created:: %s with budget %f",
+		final String text = String.format("Instantiated:: %s with budget %f",
 				this.me.getSocialClass(), this.me.getBudget());
 		this.logger.trace(this, text);
 	}

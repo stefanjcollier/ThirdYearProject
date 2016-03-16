@@ -1,7 +1,6 @@
 package sjc.dissertation.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
@@ -96,7 +95,8 @@ public class ModelController {
 	 * @param votes -- The shoppers at each retailer
 	 */
 	private void informRetailersOfConsumers(final int[] votes){
-		System.out.println("Choices: "+Arrays.toString(votes));
+		//TODO Inform the world of the choices made
+		//Actually use the bloody vote logger
 		for(int re = 0; re < this.retailerAgents.size(); re++){
 			this.retailerAgents.get(re).informOfCustomers(reweighVotes(votes[re]));
 		}
