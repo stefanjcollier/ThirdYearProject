@@ -9,18 +9,24 @@ import sjc.dissertation.util.FileUtils;
 
 public class LogFileWriter {
 
-	private BufferedWriter file;
-	private String filename;
+	private BufferedWriter buffer;
 	private boolean useFile;
+	private final String filename;
+	private final File file;
 
 	public LogFileWriter(final String parentFilePath, final String filename, final String ext){
-		final File logFile = FileUtils.createDatedFile(parentFilePath, filename, ext);
-		this.filename =  logFile.getName();
+		this.file = generateFile(parentFilePath, filename, ext);
+		this.filename = this.file.getName();
+		//Try make the buffered writer
 		try {
-			this.file = new BufferedWriter(new FileWriter(logFile));
+			this.buffer = new BufferedWriter(new FileWriter(this.file));
 			this.useFile = true;
+			System.out.println(String.format("LogFileWriter(%s):: Instantiated @ %s", filename, this.file.getAbsolutePath()));
+
 		} catch (final IOException e) {
+			e.printStackTrace();
 			this.useFile = false;
+			System.err.println(String.format("LogFileWriter(%s)::FAILED:: Did not instantiate @ %s", filename, this.file.getAbsolutePath()));
 		}
 	}
 
@@ -30,14 +36,28 @@ public class LogFileWriter {
 		}
 
 		try {
-			this.file.write(line);
-			this.file.newLine();
+			this.buffer.write(line);
+			this.buffer.newLine();
+			this.buffer.flush();
 
 		} catch (final IOException e) {
 			this.useFile = false;
 			throw new LogFileWritingException("There was an error writing to file: "+this.filename+".\n"
 					+ "File writing will stop now.",e);
 		}
+	}
+
+
+	protected File generateFile(final String parentFilePath, final String filename, final String ext){
+		return FileUtils.createDatedFile(parentFilePath, filename, ext);
+
+	}
+
+	public File getFile(){
+		return this.file;
+	}
+	public boolean canUseFile(){
+		return this.useFile;
 	}
 
 	public void shouldUseFile(final boolean useFile){
@@ -47,7 +67,7 @@ public class LogFileWriter {
 	@Override
 	public void finalize() throws Throwable{
 		this.useFile = false;
-		this.file.close();
+		this.buffer.close();
 		super.finalize();
 	}
 

@@ -94,9 +94,10 @@ public class VoteLogger {
 		this.roundScores.put(this.currentRound, new int[numOfClasses][numOfRetailers]);
 	}
 
+	/** Store this round scores to file*/
 	private void storeDataForCurrentRound() {
-		// TODO This needs to be implemented
-
+		final int[][] currentScores = this.roundScores.get(this.currentRound);
+		this.files.writeVotesToFile(currentScores);
 	}
 
 

@@ -1,5 +1,6 @@
 package sjc.dissertation.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +12,30 @@ import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.RetailerAgentFactory;
 import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.util.FileUtils;
 
 public class ModelRunner {
 
 	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
 	static final int UK_POPULATION = 65086445;
-	static final String PATH = "resources";
+	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
+
+	static void genPATH(){
+		final String date =FileUtils.getCurrentDate("test");
+
+		for(int i = 1; true; i++){
+			final String testPath = PATH+date+"_"+i;
+			final File testFile = new File(testPath);
+			if(!testFile.exists()){
+				testFile.mkdirs();
+				PATH = testPath;
+				return;
+			}
+		}
+	}
 
 	public static void main(final String[] args){
+		genPATH();
 		final String[] names = {"Tesco", "ASDA"};
 		final String[] classes = ConsumerFactory.getSingleton().getSocialClasses();
 
@@ -38,6 +55,7 @@ public class ModelRunner {
 		//Model
 		final ModelController model = new ModelController(retailers, consumers, UK_POPULATION);
 		model.performWeek();
+		voteLog.startNextRound();
 	}
 
 	static List<RetailerAgent> makeRetailers(final String[] names, final LoggerFactory wrapper){
