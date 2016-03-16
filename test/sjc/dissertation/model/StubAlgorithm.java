@@ -2,13 +2,15 @@ package sjc.dissertation.model;
 
 import java.util.List;
 
+import sjc.dissertation.model.logging.LoggerFactory;
+import sjc.dissertation.model.logging.wrappers.Wrapper;
 import sjc.dissertation.retailer.Algorithm;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.util.Currency;
 
-class StubAlgorithm extends Algorithm{
+class StubAlgorithm extends Algorithm implements Wrapper{
 
 	public StubAlgorithm(){}
 
@@ -16,14 +18,21 @@ class StubAlgorithm extends Algorithm{
 	@Override
 	public RetailerAction determineAction(final RetailerState state, final List<Retailer> competitors) {
 		final RetailerAction action = state.getActions().iterator().next();
-		System.out.println("STUB: "+this.getAgent()+" chose action: "+action);
+		LoggerFactory.getSingleton().getMasterLogger().print(this,
+				String.format("chose action: %s",action.getSymbol()));
 		return action;
 	}
 
 	@Override
 	public void informOfReward(final double profit) {
-		System.out.println("STUB: "+this.getAgent()+" gained "+Currency.prettyString(profit));
+		LoggerFactory.getSingleton().getMasterLogger().print(this,
+				String.format("gained %s",Currency.prettyString(profit)));
+	}
 
+
+	@Override
+	public String getWrapperId() {
+		return String.format("STUB::Algorithm(%s)", this.getAgent().getRetailer().getName());
 	}
 
 }
