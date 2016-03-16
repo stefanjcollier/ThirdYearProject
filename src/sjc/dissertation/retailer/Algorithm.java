@@ -5,6 +5,7 @@ import java.util.List;
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.RetailerState;
 
+//TODO (Algorithm) Create algorithm wrapper
 public abstract class Algorithm {
 	private RetailerAgent agent;
 
