@@ -19,11 +19,11 @@ public abstract class Algorithm {
 		}
 	}
 
-	protected RetailerAgent getAgent(){
+	public RetailerAgent getAgent(){
 		return this.agent;
 	}
 
-	protected boolean hasRetailer(){
+	public boolean hasRetailer(){
 		return this.agent != null;
 	}
 }

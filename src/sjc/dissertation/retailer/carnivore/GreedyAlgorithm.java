@@ -47,4 +47,9 @@ public class GreedyAlgorithm extends Algorithm{
 		this.brain.feedback(actualProfit);
 	}
 
+	@Override
+	public String toString(){
+		return "Greedy";
+	}
+
 }
