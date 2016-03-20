@@ -7,6 +7,13 @@ import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
+/**
+ * This is a static algorithm, it will constantly stay at the same price and quality level.
+ * It can be used as a control.
+ *
+ * @author Stefan Collier
+ *
+ */
 public class MaintainAlgorithm extends Algorithm {
 
 	public  MaintainAlgorithm() {}

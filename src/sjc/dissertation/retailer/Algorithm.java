@@ -28,4 +28,12 @@ public abstract class Algorithm {
 	public boolean hasRetailer(){
 		return this.agent != null;
 	}
+
+	/*
+	 * @see java.lang.Object#toString()
+	 * This method will return what time of algorithm it is.
+	 * i.e. Greedy, Stub, Maintainer
+	 */
+	@Override
+	public abstract String toString();
 }
