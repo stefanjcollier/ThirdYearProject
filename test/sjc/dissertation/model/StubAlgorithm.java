@@ -18,6 +18,7 @@ class StubAlgorithm extends Algorithm implements Wrapper{
 	@Override
 	public RetailerAction determineAction(final RetailerState state, final List<Retailer> competitors) {
 		final RetailerAction action = state.getActions().iterator().next();
+		
 		LoggerFactory.getSingleton().getMasterLogger().print(this,
 				String.format("chose action: %s",action.getSymbol()));
 		return action;

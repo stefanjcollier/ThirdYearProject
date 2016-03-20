@@ -4,6 +4,7 @@ import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.retailer.state.quality.Quality;
+import sjc.dissertation.util.Currency;
 
 public class WrappedRetailer implements Retailer, Wrapper{
 
@@ -24,7 +25,7 @@ public class WrappedRetailer implements Retailer, Wrapper{
 		final double profit = this.me.informOfCustomers(customers);
 
 		//Print the output
-		final String line = String.format("   Consumers:%d\tProfit:%f", customers, profit);
+		final String line = String.format("   Consumers:%d\tProfit:%s", customers, Currency.prettyString(profit));
 		this.logger.print(this, line);
 
 		return profit;
