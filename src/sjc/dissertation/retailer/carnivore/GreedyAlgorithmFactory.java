@@ -4,7 +4,7 @@ import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedActionPredictor;
 import sjc.dissertation.retailer.Algorithm;
 
-//TODO: Actually use this!
+//TODO (GreedyFac) Actually use this!
 public class GreedyAlgorithmFactory {
 
 	private final MasterLogger logger;
