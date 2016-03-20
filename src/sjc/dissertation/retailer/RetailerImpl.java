@@ -56,7 +56,6 @@ public class RetailerImpl implements Retailer{
 	 */
 	@Override
 	public double informOfCustomers(final int customers){
-		System.out.println("Retailer: "+customers);
 		this.state.informOfCustomers(customers);
 
 		// Profit = Sale Price - Cost
