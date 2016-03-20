@@ -12,6 +12,7 @@ import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.RetailerAgentFactory;
 import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
 
 //TODO Extend the model runner to 2 classes model runner and model-set-up
@@ -54,7 +55,7 @@ public class ModelRunner {
 			//Gen a new retailer and wrap it for logging
 			final Retailer retailer = wrapper.wrapRetailer(new RetailerImpl(name));
 			//TODO Use the greedy factory and get wrapped ones
-			final RetailerAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new StubAlgorithm()));
+			final RetailerAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 			agents.add(agent);
 		}
 
