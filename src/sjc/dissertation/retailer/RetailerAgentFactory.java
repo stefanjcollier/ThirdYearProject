@@ -24,7 +24,6 @@ public class RetailerAgentFactory {
 		}
 		final int id = this.retailers.size()+1;
 		final RetailerAgent newAgent = new RetailerAgent(id, brainlessRetailer, policy);
-		policy.giveRetailerAgent(newAgent);
 
 		this.retailers.add(brainlessRetailer);
 

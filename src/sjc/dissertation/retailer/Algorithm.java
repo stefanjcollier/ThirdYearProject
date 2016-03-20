@@ -5,7 +5,6 @@ import java.util.List;
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.RetailerState;
 
-//TODO (Algorithm) Create algorithm wrapper
 public abstract class Algorithm {
 	private RetailerAgent agent;
 
@@ -15,7 +14,10 @@ public abstract class Algorithm {
 
 	protected void giveRetailerAgent(final RetailerAgent agent){
 		if(!hasRetailer()){
+			System.out.println("PASS");
 			this.agent = agent;
+		}else{
+			System.out.println("FAIL");
 		}
 	}
 

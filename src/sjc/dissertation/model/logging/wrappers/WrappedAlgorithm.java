@@ -13,9 +13,12 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 	private final Algorithm me;
 	private final MasterLogger logger;
 
-	public WrappedAlgorithm(final Algorithm objectObserved, final MasterLogger logger){
+	public WrappedAlgorithm(final MasterLogger logger, final Algorithm objectObserved){
 		this.me = objectObserved;
 		this.logger = logger;
+
+		//Acknowledge instantiation
+		this.logger.trace(this, "Instantiated");
 	}
 
 	@Override
@@ -30,13 +33,13 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 
 	@Override
 	public void informOfReward(final double profit) {
-		this.informOfReward(profit);
+		this.me.informOfReward(profit);
 
 	}
 
 	@Override
 	public String getWrapperId() {
-		return String.format("%s::Algorithm(%s)", this.me.toString(), this.getAgent().getRetailer().getName());
+		return String.format("%s::Algorithm(%s)", this.me.toString(), (this.hasRetailer())?this.getAgent().getRetailer().getName():"-");
 	}
 
 

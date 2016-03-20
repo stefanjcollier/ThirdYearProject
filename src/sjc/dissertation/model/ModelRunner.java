@@ -54,7 +54,7 @@ public class ModelRunner {
 			//Gen a new retailer and wrap it for logging
 			final Retailer retailer = wrapper.wrapRetailer(new RetailerImpl(name));
 			//TODO Use the greedy factory and get wrapped ones
-			final RetailerAgent agent = factory.createNewAgent(retailer, new StubAlgorithm());
+			final RetailerAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new StubAlgorithm()));
 			agents.add(agent);
 		}
 

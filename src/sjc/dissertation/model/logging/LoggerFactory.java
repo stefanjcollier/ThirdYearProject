@@ -2,8 +2,10 @@ package sjc.dissertation.model.logging;
 
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.model.logging.votes.VoteLogger;
+import sjc.dissertation.model.logging.wrappers.WrappedAlgorithm;
 import sjc.dissertation.model.logging.wrappers.WrappedConsumer;
 import sjc.dissertation.model.logging.wrappers.WrappedRetailer;
+import sjc.dissertation.retailer.Algorithm;
 import sjc.dissertation.retailer.Retailer;
 
 public class LoggerFactory {
@@ -31,7 +33,9 @@ public class LoggerFactory {
 	public WrappedRetailer wrapRetailer(final Retailer retailer){
 		return new WrappedRetailer(this.log, retailer);
 	}
-
+	public WrappedAlgorithm wrapAlgorithm(final Algorithm algorithm){
+		return new WrappedAlgorithm(this.log, algorithm);
+	}
 
 
 	private static LoggerFactory single;

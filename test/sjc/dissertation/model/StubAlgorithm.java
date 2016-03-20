@@ -33,7 +33,7 @@ class StubAlgorithm extends Algorithm implements Wrapper{
 
 	@Override
 	public String getWrapperId() {
-		return String.format("STUB::Algorithm(%s)", this.getAgent().getRetailer().getName());
+		return String.format("STUB::Algorithm(%s)", (this.hasRetailer())?this.getAgent().getRetailer().getName():"-");
 	}
 
 	@Override
