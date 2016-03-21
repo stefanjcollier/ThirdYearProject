@@ -16,10 +16,10 @@ public class VectorToolbox {
 		return total;
 	}
 
-	public static double[] multiplyByConst(final double[] v, final double c){
+	public static double[] addByConst(final double[] v, final double c){
 		final double[] newV = new double[v.length];
 		for(int i = 0; i < v.length; i++){
-			newV[i] = v[i] * c;
+			newV[i] = v[i] + c;
 		}
 		return newV;
 	}

@@ -27,7 +27,7 @@ public class ModelRunner {
 	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
 
 	/** Rounds to be played*/
-	static final int ROUNDS = 5;
+	static final int ROUNDS = 50;
 
 	public static void main(final String[] args){
 		genPATH();
@@ -71,7 +71,7 @@ public class ModelRunner {
 		//Make Greedy Agent
 		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger());
 		final Retailer greedy_retailer = wrapper.wrapRetailer(new RetailerImpl("Greedy_1"));
-		final RetailerAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createGreedyAlgorithm(1)));
+		final RetailerAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);
 
 		return agents;

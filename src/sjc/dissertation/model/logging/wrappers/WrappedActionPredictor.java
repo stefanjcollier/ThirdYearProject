@@ -31,7 +31,7 @@ public class WrappedActionPredictor implements Wrapper, ActionPredictor{
 	@Override
 	public void informOfAction(final RetailerAction action, final double predProf) {
 		this.predicted = predProf;
-		this.log.debug(this,String.format("Predicts %f for action %s", predProf, action.getSymbol()) );
+		this.log.print(this,String.format("Predicts %f for action %s", predProf, action.getSymbol()) );
 
 		this.me.informOfAction(action, predProf);
 	}
@@ -41,7 +41,7 @@ public class WrappedActionPredictor implements Wrapper, ActionPredictor{
 		final double[] newW = this.me.feedback(actualProfit);
 		final double error = this.predicted - actualProfit;
 
-		this.log.debug(this, String.format("Error was %f, Weights updated to: %s", error ,Arrays.toString(newW)));
+		this.log.print(this, String.format("Error was %f, Weights updated to: %s", error ,Arrays.toString(newW)));
 
 		return newW;
 	}

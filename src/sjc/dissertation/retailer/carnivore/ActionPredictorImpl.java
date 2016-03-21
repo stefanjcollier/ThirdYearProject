@@ -8,6 +8,18 @@ import sjc.dissertation.util.VectorToolbox;
 public class ActionPredictorImpl implements ActionPredictor{
 
 	private double lambda = 0.001;
+
+	/** The sturcture of the weights
+	 *    {Q_me, Pm_me, #Cus_me, Q_1, CoS_1, ... , Q_n, CoS_n, QC_act, PMC_act}
+	 *
+	 * Such that 1..n are the retailers in the param 'others'
+	 *    Q_x     = The quality of retailer x
+	 *    Pm_x    = The profit margin of retailer x
+	 *    #Cus_x = The number of consumer agents that chose x last week
+	 *    CoS_x   = The cost of shopping at retailer x
+	 *    QC_act = The quality change of the action
+	 *    PMC_act = The profit margin change from the action
+	 */
 	private double[] w;
 
 	private double predProf;
@@ -15,6 +27,9 @@ public class ActionPredictorImpl implements ActionPredictor{
 	protected ActionPredictorImpl(final int noOfCompetitors){
 		this.w = new double[5 + noOfCompetitors];
 
+		for(int i = 0; i < this.w.length; i++){
+			this.w[i] = 5;
+		}
 	}
 
 	@Override
@@ -46,7 +61,7 @@ public class ActionPredictorImpl implements ActionPredictor{
 	public double[] feedback(final double actualProfit){
 		final double deltaProf = actualProfit - this.predProf;
 
-		this.w = VectorToolbox.multiplyByConst(this.w, getLearningRate()*deltaProf);
+		this.w = VectorToolbox.addByConst(this.w, getLearningRate()*deltaProf);
 
 		return this.w;
 	}
