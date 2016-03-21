@@ -22,7 +22,11 @@ public class ActionPredictorImpl implements ActionPredictor{
 	 */
 	private double[] w;
 
+	/** The predicted profit*/
 	private double predProf;
+
+	/** The world used in predicting {@link ActionPredictorImpl#predProf} */
+	private double[] x_n;
 
 	protected ActionPredictorImpl(final int noOfCompetitors){
 		this.w = new double[5 + noOfCompetitors];
@@ -44,15 +48,18 @@ public class ActionPredictorImpl implements ActionPredictor{
 
 
 	@Override
-	public void informOfAction(final RetailerAction action, final double predProf){
-		this.predProf = predProf;
+	public void informOfAction(final RetailerAction action, final double[] world){
+		this.predProf = predictProfit(action, world);
+		this.x_n = world;
 	}
 
 	/**
 	 * This will update the weights based on the equation below.
 	 *  The predicted value is used from the {@link ActionPredictorImpl#predictProfit(RetailerAction, double[])} method.
 	 *
-	 * 	w_n+1 = w_n +  lambda * (pred - act)
+	 * 	w_n+1 = w_n +  x_n + lambda * (pred - act)
+	 *
+	 * w_n is the variables used to predict the result
 	 *
 	 * @param actualProfit -- The profit that was actually received
 	 * @return The new weights
@@ -61,6 +68,9 @@ public class ActionPredictorImpl implements ActionPredictor{
 	public double[] feedback(final double actualProfit){
 		final double deltaProf = actualProfit - this.predProf;
 
+		//w = w + lambda * deltaE
+		//deltaE = 2 * x_n * (pred-act)
+		final double[] deltaE = VectorToolbox.multiplyByConst(v, c);
 		this.w = VectorToolbox.addByConst(this.w, getLearningRate()*deltaProf);
 
 		return this.w;
