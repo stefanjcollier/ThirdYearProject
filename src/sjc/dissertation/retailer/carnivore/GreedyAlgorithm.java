@@ -13,7 +13,7 @@ public class GreedyAlgorithm extends Algorithm{
 	private ActionPredictor brain;
 
 
-	public GreedyAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
+	protected GreedyAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
 		this.eyes = perceptor;
 		this.brain = predictor;
 	}

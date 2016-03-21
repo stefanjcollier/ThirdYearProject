@@ -42,6 +42,11 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 		return String.format("%s::Algorithm(%s)", this.me.toString(), (this.hasRetailer())?this.getAgent().getRetailer().getName():"-");
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Wrapper(%s)", this.me.toString());
+	}
+
 
 
 }

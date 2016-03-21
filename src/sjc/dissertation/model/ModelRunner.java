@@ -12,6 +12,7 @@ import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.RetailerAgentFactory;
 import sjc.dissertation.retailer.RetailerImpl;
+import sjc.dissertation.retailer.carnivore.GreedyAlgorithmFactory;
 import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
 
@@ -24,7 +25,7 @@ public class ModelRunner {
 
 	public static void main(final String[] args){
 		genPATH();
-		final String[] names = {"Tesco", "ASDA"};
+		//		final String[] names = {"Tesco", "ASDA"};
 		final String[] classes = ConsumerFactory.getSingleton().getSocialClasses();
 
 		//Text Logger
@@ -32,8 +33,8 @@ public class ModelRunner {
 		final LoggerFactory wrapper = LoggerFactory.getSingleton();
 
 		//Retailer Agents
-		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
-
+		//		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
+		final List<RetailerAgent> retailers = TEST_1Control_1Greedy(wrapper);
 		//Data Loggers
 		final VoteLogger voteLog = new VoteLogger(PATH, extractRetailers(retailers), classes);
 
@@ -45,6 +46,23 @@ public class ModelRunner {
 		model.performWeek();
 		voteLog.startNextRound();
 	}
+	static List<RetailerAgent> TEST_1Control_1Greedy(final LoggerFactory wrapper){
+		final RetailerAgentFactory agentFactory = RetailerAgentFactory.getSingleton();
+		final List<RetailerAgent> agents = new ArrayList<>(2);
+
+		//Make Control Agent
+		final Retailer con_retailer = wrapper.wrapRetailer(new RetailerImpl("Control_1"));
+		final RetailerAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
+		agents.add(con_agent);
+
+		//Make Greedy Agent
+		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger());
+		final Retailer greedy_retailer = wrapper.wrapRetailer(new RetailerImpl("Greedy_1"));
+		final RetailerAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createGreedyAlgorithm(1)));
+		agents.add(greedy_agent);
+
+		return agents;
+	}
 
 	static List<RetailerAgent> makeRetailers(final String[] names, final LoggerFactory wrapper){
 		final RetailerAgentFactory factory = RetailerAgentFactory.getSingleton();
@@ -54,7 +72,6 @@ public class ModelRunner {
 		for(final String name : names){
 			//Gen a new retailer and wrap it for logging
 			final Retailer retailer = wrapper.wrapRetailer(new RetailerImpl(name));
-			//TODO Use the greedy factory and get wrapped ones
 			final RetailerAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 			agents.add(agent);
 		}

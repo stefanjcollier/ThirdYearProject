@@ -14,10 +14,7 @@ public abstract class Algorithm {
 
 	protected void giveRetailerAgent(final RetailerAgent agent){
 		if(!hasRetailer()){
-			System.out.println("PASS");
 			this.agent = agent;
-		}else{
-			System.out.println("FAIL");
 		}
 	}
 
