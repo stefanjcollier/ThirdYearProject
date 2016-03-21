@@ -22,7 +22,7 @@ public class MasterLogger {
 
 		//Add all lines to log
 		try {
-			this.logFile.writeLine(line);
+			this.logFile.writeLine(level+":::"+line);
 		} catch (final LogFileWritingException e) {
 			e.printStackTrace();
 		}
@@ -68,11 +68,14 @@ public class MasterLogger {
 	}
 
 
-
+	public void setDisplayLevel(final Level level){
+		this.displayLevel = level;
+		this.print("Display Level Set to "+level);
+	}
 
 
 	public enum Level{
-		Trace("Trace"), Debug("Debug"), Log("Log"), Print("");
+		Trace("Trace"), Debug("Debug"), Log("Log  "), Print("Print");
 
 		private final String title;
 		private Level(final String title){

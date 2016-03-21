@@ -7,6 +7,7 @@ import java.util.List;
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.consumer.ConsumerFactory;
 import sjc.dissertation.model.logging.LoggerFactory;
+import sjc.dissertation.model.logging.MasterLogger.Level;
 import sjc.dissertation.model.logging.votes.VoteLogger;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.RetailerAgent;
@@ -21,7 +22,12 @@ public class ModelRunner {
 
 	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
 	static final int UK_POPULATION = 65086445;
+
+	/** Location to save the files */
 	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
+
+	/** Rounds to be played*/
+	static final int ROUNDS = 5;
 
 	public static void main(final String[] args){
 		genPATH();
@@ -31,6 +37,8 @@ public class ModelRunner {
 		//Text Logger
 		LoggerFactory.initiateLoggerFactory(PATH);
 		final LoggerFactory wrapper = LoggerFactory.getSingleton();
+		wrapper.getMasterLogger().setDisplayLevel(Level.Print);
+
 
 		//Retailer Agents
 		//		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
@@ -43,8 +51,13 @@ public class ModelRunner {
 
 		//Model
 		final ModelController model = new ModelController(retailers, consumers, UK_POPULATION);
-		model.performWeek();
-		voteLog.startNextRound();
+
+		//Time to play the game
+		for(int i = 0; i < ROUNDS; i++){
+			model.performWeek();
+			voteLog.startNextRound();
+		}
+
 	}
 	static List<RetailerAgent> TEST_1Control_1Greedy(final LoggerFactory wrapper){
 		final RetailerAgentFactory agentFactory = RetailerAgentFactory.getSingleton();
