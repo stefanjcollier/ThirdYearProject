@@ -37,7 +37,7 @@ public class GreedyAlgorithm extends Algorithm{
 		}
 
 		//Inform brain of decision to allow for feedback loop later
-		this.brain.informOfAction(bestAction, bestProfit);
+		this.brain.informOfAction(bestAction, bestProfit, world);
 
 		return bestAction;
 	}

@@ -5,7 +5,7 @@ import sjc.dissertation.retailer.state.RetailerAction;
 public interface ActionPredictor {
 	public double predictProfit(final RetailerAction action, final double[] world);
 
-	public void informOfAction(final RetailerAction action, final double predProf);
+	public void informOfAction(final RetailerAction action, final double predProf, final double[] world);
 
 	/**
 	 * This will update the weights based on the equation below.
