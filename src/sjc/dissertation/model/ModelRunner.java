@@ -70,7 +70,7 @@ public class ModelRunner {
 		agents.add(con_agent);
 
 		//Make Greedy Agent
-		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger());
+		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
 		final Retailer greedy_retailer = wrapper.wrapRetailer(new RetailerImpl("Greedy_1"));
 		final RetailerAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);

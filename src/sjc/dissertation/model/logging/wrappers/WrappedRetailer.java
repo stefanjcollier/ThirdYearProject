@@ -3,6 +3,7 @@ package sjc.dissertation.model.logging.wrappers;
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.RetailerState;
+import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.Currency;
 
@@ -59,6 +60,11 @@ public class WrappedRetailer implements Retailer, Wrapper{
 	@Override
 	public RetailerState getState() {
 		return this.me.getState();
+	}
+
+	@Override
+	public ProfitMargin getProfiMargin() {
+		return this.me.getProfiMargin();
 	}
 
 

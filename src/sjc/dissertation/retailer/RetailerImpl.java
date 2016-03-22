@@ -2,6 +2,7 @@ package sjc.dissertation.retailer;
 
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.retailer.state.InternalRetailerState;
+import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 
 /**
@@ -73,5 +74,10 @@ public class RetailerImpl implements Retailer{
 	@Override
 	public String toString(){
 		return String.format("%s: %s", this.name, this.state.getSymbol());
+	}
+
+	@Override
+	public ProfitMargin getProfiMargin() {
+		return this.state.getProfitMargin();
 	}
 }

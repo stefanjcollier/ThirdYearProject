@@ -24,7 +24,7 @@ public class WorldPerceptor {
 	 * @param q -- The quality we intend to interpret.
 	 * @return A numerical representation of the {@link Quality}
 	 */
-	private static double convertQuality(final Quality q){
+	protected static double convertQuality(final Quality q){
 		switch(q){
 		case LowQuality:{
 			return 1;
@@ -48,19 +48,19 @@ public class WorldPerceptor {
 	 * @param pm -- The profit margin we intend to interpret.
 	 * @return A numerical representation of the {@link ProfitMargin}
 	 */
-	private static double convertProfitMargin(final ProfitMargin pm){
+	protected static double convertProfitMargin(final ProfitMargin pm){
 		switch(pm){
 		case NegativeProfitMargin:{
-			return 1;
+			return -1;
 		}
 		case NoProfitMargin: {
-			return 2;
+			return 0;
 		}
 		case LowProfitMargin: {
-			return 3;
+			return 1;
 		}
 		case HighProfitMargin: {
-			return 4;
+			return 2;
 		}
 		default:{
 			//So large we'd notice it (also different to the quality to indicate difference)
@@ -72,13 +72,13 @@ public class WorldPerceptor {
 	protected static double convertProfitChange(final ProfitMarginChange pmc){
 		switch(pmc){
 		case DecreaseProfitMargin:{
-			return 1;
+			return -1;
 		}
 		case MaintainProfitMargin: {
-			return 2;
+			return 0;
 		}
 		case IncreaseProfitMargin: {
-			return 3;
+			return 1;
 		}
 		default:{
 			//So large we'd notice it (also different to the quality to indicate difference)
@@ -90,13 +90,13 @@ public class WorldPerceptor {
 	protected static double convertQualityChange(final QualityChange qc){
 		switch(qc){
 		case DecreaseQuality:{
-			return 1;
+			return -1;
 		}
 		case MaintainQuality: {
-			return 2;
+			return 0;
 		}
 		case IncreaseQuality: {
-			return 3;
+			return 1;
 		}
 		default:{
 			//So large we'd notice it (also different to the quality to indicate difference)
@@ -124,19 +124,18 @@ public class WorldPerceptor {
 	 */
 	//TODO: (WorldPerceptor) Check the influence of the #Cus as could be V large
 	public double[] percieveWorld(final RetailerState me, final List<Retailer> others){
-		final int variables = 3 + others.size()*2;
+		final int variables = 2 + others.size()*2;
 		final double[] perception = new double[variables];
 
 		//Handle perception of self
 		perception[0] = convertQuality(me.getQuality());
 		perception[1] = convertProfitMargin(me.getProfitMargin());
-		perception[2] = me.getNumberOfCustomers();
 
 		//Interpret competitors
 		int index = 3;
 		for(final Retailer other : others){
 			perception[index++] = convertQuality(other.getQualityOfShop());
-			perception[index++] = other.getCostOfShopping();
+			perception[index++] = convertProfitMargin(other.getProfiMargin());
 		}
 		return perception;
 	}

@@ -1,6 +1,7 @@
 package sjc.dissertation.retailer;
 
 import sjc.dissertation.retailer.state.RetailerState;
+import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 
 public interface Retailer {
@@ -20,5 +21,7 @@ public interface Retailer {
 	public String getName();
 
 	public RetailerState getState();
+
+	public ProfitMargin getProfiMargin();
 
 }

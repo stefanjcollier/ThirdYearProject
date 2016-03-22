@@ -10,6 +10,7 @@ import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
 /**
+ * MANUAL TEST
  * In this simple test of {@link ActionPredictorImpl} we test that an instance can solve a simple equation
  *
  * @author Stefan Collier
@@ -26,7 +27,7 @@ public class Simple_ActionPredictorImplTest {
 	/**
 	 * Test that it can predict the value of the equation f(x,y) = ax + by
 	 */
-	@Test
+	@Test @SuppressWarnings("unused")
 	public void testThatItCanFindTheWeights() {
 		//GIVEN some default weights
 		final double[] initW = {1,1,0,0};
