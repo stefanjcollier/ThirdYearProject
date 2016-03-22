@@ -132,7 +132,7 @@ public class WorldPerceptor {
 		perception[1] = convertProfitMargin(me.getProfitMargin());
 
 		//Interpret competitors
-		int index = 3;
+		int index = 2;
 		for(final Retailer other : others){
 			perception[index++] = convertQuality(other.getQualityOfShop());
 			perception[index++] = convertProfitMargin(other.getProfiMargin());
