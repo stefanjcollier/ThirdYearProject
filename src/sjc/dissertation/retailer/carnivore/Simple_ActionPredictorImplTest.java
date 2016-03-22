@@ -50,12 +50,12 @@ public class Simple_ActionPredictorImplTest {
 			//predict the result
 			final double pred = lineReg.predictProfit(this.action, new double[]{x,y});
 			lineReg.informOfAction(this.action, pred, new double[]{x,y});
-			final double[] oldW = lineReg.getWeights();
 
 			//find act
 			final double act = a*x + b*y;
 
 			//feedback
+			final double[] oldW = lineReg.getWeights();
 			lineReg.feedback(act);
 
 			//find error
@@ -86,7 +86,7 @@ public class Simple_ActionPredictorImplTest {
 		final double mean  = total / maxTestRounds;
 		System.out.println(String.format("Initial Weights: %s", Arrays.toString(initW)));
 		System.out.println(String.format("Mean error after %d iterations: %f", max_rounds, mean));
-		s	}
+	}
 
 	class StubAction extends RetailerAction{
 		protected StubAction() {
