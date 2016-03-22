@@ -26,7 +26,7 @@ public class GreedyAlgorithm extends Algorithm{
 
 
 		//Estimate the consequence of every action and select the best action (highest profit wielding)
-		double bestProfit = -1;
+		double bestProfit = Double.NEGATIVE_INFINITY;
 		RetailerAction bestAction = null;
 		for (final RetailerAction action : state.getActions()){
 			final double predictedProfit = this.brain.predictProfit(action, world);

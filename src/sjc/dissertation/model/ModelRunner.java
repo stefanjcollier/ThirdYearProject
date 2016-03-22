@@ -27,7 +27,7 @@ public class ModelRunner {
 	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
 
 	/** Rounds to be played*/
-	static final int ROUNDS = 50;
+	static final int ROUNDS = 10;
 
 	public static void main(final String[] args){
 		genPATH();
@@ -43,6 +43,7 @@ public class ModelRunner {
 		//Retailer Agents
 		//		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
 		final List<RetailerAgent> retailers = TEST_1Control_1Greedy(wrapper);
+
 		//Data Loggers
 		final VoteLogger voteLog = new VoteLogger(PATH, extractRetailers(retailers), classes);
 
@@ -64,7 +65,7 @@ public class ModelRunner {
 		final List<RetailerAgent> agents = new ArrayList<>(2);
 
 		//Make Control Agent
-		final Retailer con_retailer = wrapper.wrapRetailer(new RetailerImpl("Control_1"));
+		final Retailer con_retailer = wrapper.wrapRetailer(new RetailerImpl("Contrl_1"));
 		final RetailerAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 		agents.add(con_agent);
 

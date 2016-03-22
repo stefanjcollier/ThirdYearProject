@@ -28,36 +28,34 @@ public class ActionPredictorImpl implements ActionPredictor{
 	/** The world used in predicting {@link ActionPredictorImpl#predProf} */
 	private double[] x_n;
 
-	protected ActionPredictorImpl(final int noOfCompetitors){
-		this.w = new double[5 + noOfCompetitors];
-
-		for(int i = 0; i < this.w.length; i++){
-			this.w[i] = 5;
-		}
+	protected ActionPredictorImpl(final double[] initWeights){
+		this.w = initWeights;
 	}
 
 	@Override
 	public double predictProfit(final RetailerAction action, final double[] world){
+		return VectorToolbox.multiplyVectors(addActionsToList(action, world), this.w);
+	}
+
+	protected double[] addActionsToList(final RetailerAction action, final double[] world){
 		final double[] worldWithActions = Arrays.copyOf(world, world.length+2);
 		worldWithActions[world.length] = WorldPerceptor.convertProfitChange(action.getProfitMarginChange());
 		worldWithActions[world.length+1] = WorldPerceptor.convertQualityChange(action.getQualityChange());
-
-		return VectorToolbox.multiply(worldWithActions, this.w);
+		return worldWithActions;
 	}
-
 
 
 	@Override
 	public void informOfAction(final RetailerAction action, final double predProf, final double[] world){
 		this.predProf = predProf;
-		this.x_n = world;
+		this.x_n = addActionsToList(action, world);
 	}
 
 	/**
 	 * This will update the weights based on the equation below.
 	 *  The predicted value is used from the {@link ActionPredictorImpl#predictProfit(RetailerAction, double[])} method.
 	 *
-	 * 	w_n+1 = w_n +  x_n * (lambda * (pred - act))
+	 * 	w_n+1 = w_n +  x_n * (lambda * (act-pred))
 	 *
 	 * w_n is the variables used to predict the result
 	 *
@@ -69,7 +67,7 @@ public class ActionPredictorImpl implements ActionPredictor{
 
 		//w = w + lambda * deltaE
 		//deltaE = 2 * x_n * (pred-act)
-		final double[] lambdaDeltaE = VectorToolbox.multiplyByConst(this.x_n, getLearningRate()*2*(actualProfit - this.predProf));
+		final double[] lambdaDeltaE = VectorToolbox.multiplyByConst(this.x_n, getLearningRate()*2*(actualProfit-this.predProf));
 		this.w = VectorToolbox.addVectors(this.w, lambdaDeltaE);
 
 		return this.w;

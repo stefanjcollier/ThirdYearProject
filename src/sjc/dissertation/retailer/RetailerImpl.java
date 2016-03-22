@@ -1,5 +1,6 @@
 package sjc.dissertation.retailer;
 
+import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.quality.Quality;
 
@@ -63,7 +64,9 @@ public class RetailerImpl implements Retailer{
 		// Profit = Margin * Cost
 		final double cost = this.state.getQuality().getCost();
 		final double margin = this.state.getProfitMargin().getProfitMargin();
-
+		LoggerFactory.getSingleton().getMasterLogger().trace(String.format(
+				"RetailerImpl(%s)::Profit:: Customers*(margin * cost) = %d * (%f * %f) = %f",
+				this.name,customers, margin, cost, (customers*margin*cost)));
 		return customers * (margin*cost);
 	}
 

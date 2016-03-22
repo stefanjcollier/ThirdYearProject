@@ -4,9 +4,15 @@ public class VectorToolbox {
 
 	private VectorToolbox(){}
 
-	public static double multiply(final double[] v1, final double[] v2){
+	public static double multiplyVectors(final double[] v1, final double[] v2){
 		if(v1.length != v2.length){
-			return Double.MIN_VALUE;
+			String problem;
+			if(v1.length > v2.length){
+				problem = String.format("v1.length(%d) > v2.length(%d)",v1.length, v2.length);
+			}else{
+				problem = String.format("v1.length(%d) < v2.length(%d)",v1.length, v2.length);
+			}
+			throw new RuntimeException(problem);
 		}
 
 		double total = 0;
@@ -33,7 +39,13 @@ public class VectorToolbox {
 
 	public static double[] addVectors(final double[] v1, final double[] v2){
 		if (v1.length != v2.length){
-			return new double[]{Double.MIN_VALUE};
+			String problem;
+			if(v1.length > v2.length){
+				problem = String.format("v1.length(%d) > v2.length(%d)",v1.length, v2.length);
+			}else{
+				problem = String.format("v1.length(%d) < v2.length(%d)",v1.length, v2.length);
+			}
+			throw new RuntimeException(problem);
 		}
 		final double[] res = new double[v1.length];
 		for (int i = 0; i < v1.length; i++){

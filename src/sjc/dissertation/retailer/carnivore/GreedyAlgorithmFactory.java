@@ -16,15 +16,26 @@ public class GreedyAlgorithmFactory {
 
 	public Algorithm createGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
-		final ActionPredictor predictor = new ActionPredictorImpl(noOfCompetitors);
+		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
 		return new GreedyAlgorithm(world, predictor);
 	}
 
 	public Algorithm createWrappedGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
-		final ActionPredictor predictor = new ActionPredictorImpl(noOfCompetitors);
+		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
 		final ActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, this.currentId++);
 		return new GreedyAlgorithm(world, wrappedpredictor);
+	}
+
+	protected double[] getInitWeights(final int noOfCompetitors){
+		final double[] w = new double[5 + 2*noOfCompetitors];
+
+		//Set all the values to the same
+		final int defaultW = 5;
+		for (int i = 0; i < w.length; i++){
+			w[i] = defaultW;
+		}
+		return w;
 	}
 
 }
