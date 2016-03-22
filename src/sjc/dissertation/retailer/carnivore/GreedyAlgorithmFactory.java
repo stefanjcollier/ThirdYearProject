@@ -52,11 +52,9 @@ public class GreedyAlgorithmFactory {
 
 		//Create an array and sum it {Q_me, P_me, Q_1, P_1, ..., Q_N, P_N, Qact, Pact}
 		//Where all qualities and profit margins are the same
-		double totalW= 0;
-		for (int i=0; i < noOfCompetitors+1; i++){
-			totalW += WorldPerceptor.convertQuality(Quality.MediumQuality)
-					+WorldPerceptor.convertProfitMargin(ProfitMargin.LowProfitMargin);
-		}
+		double totalW = (noOfCompetitors+1) *
+				(WorldPerceptor.convertQuality(Quality.MediumQuality)+WorldPerceptor.convertProfitMargin(ProfitMargin.LowProfitMargin));
+
 		totalW += WorldPerceptor.convertQualityChange(QualityChange.MaintainQuality)
 				+WorldPerceptor.convertProfitChange(ProfitMarginChange.MaintainProfitMargin);
 

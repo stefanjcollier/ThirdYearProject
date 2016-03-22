@@ -30,7 +30,6 @@ public class RetailerAgent {
 		return this.id;
 	}
 
-	//Consider: (RetAgnt) Giving them the scope of other's states?
 	//JAVADOC RetailerAgent#demmandAction
 	public void demandAction(final List<Retailer> competitors) throws InvalidRetailerActionException{
 		final RetailerAction chosenAction = this.policy.determineAction(this.retailer.getState(), competitors);

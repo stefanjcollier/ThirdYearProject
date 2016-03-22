@@ -17,7 +17,7 @@ import sjc.dissertation.retailer.carnivore.GreedyAlgorithmFactory;
 import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
 
-//TODO Extend the model runner to 2 classes model runner and model-set-up
+//Consider: (ModelRunner) Extend the model runner to 2 classes model runner and model-set-up
 public class ModelRunner {
 
 	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
