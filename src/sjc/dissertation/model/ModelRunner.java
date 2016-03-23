@@ -17,17 +17,16 @@ import sjc.dissertation.retailer.carnivore.GreedyAlgorithmFactory;
 import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
 
-//Consider: (ModelRunner) Extend the model runner to 2 classes model runner and model-set-up
 public class ModelRunner {
 
 	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
-	static final int UK_POPULATION = 65086445;
+	static final int UK_POPULATION = 200;//65086445;
 
 	/** Location to save the files */
 	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
 
 	/** Rounds to be played*/
-	static final int ROUNDS = 10;
+	static final int ROUNDS = 500;
 
 	public static void main(final String[] args){
 		genPATH();
