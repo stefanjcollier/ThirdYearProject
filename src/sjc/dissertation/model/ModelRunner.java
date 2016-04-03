@@ -36,7 +36,7 @@ public class ModelRunner {
 		//Text Logger
 		LoggerFactory.initiateLoggerFactory(PATH);
 		final LoggerFactory wrapper = LoggerFactory.getSingleton();
-		wrapper.getMasterLogger().setDisplayLevel(Level.Print);
+		wrapper.getMasterLogger().setDisplayLevel(Level.Debug);
 
 
 		//Retailer Agents

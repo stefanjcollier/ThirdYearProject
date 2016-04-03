@@ -61,7 +61,8 @@ public class VoteFileWriter {
 
 	protected String constructCsvLine(final int[] classVotes){
 		String line = "";
-		for(int retailer = 0; retailer < this.numOfRetailers; retailer++){
+		//We go to +1 as the last (extra) entry is a no vote
+		for(int retailer = 0; retailer < classVotes.length; retailer++){
 			line += String.format("%d,", classVotes[retailer]);
 		}
 		return line;

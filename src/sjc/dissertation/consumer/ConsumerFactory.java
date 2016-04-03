@@ -80,7 +80,7 @@ public class ConsumerFactory {
 	private double generateBudget(final int socialClassIndex){
 		final double avgBudg = this.budgetAvgs[socialClassIndex];
 		final double r = this.rng.nextDouble();
-		// 0 < r < 1   hence   0.9 < (r/5+0.9) < 1.1
+		// 0 < r < 1   hence   0 < r/5 < 0.2  hence  0.9 < (r/5+0.9) < 1.1
 		return avgBudg*(r/5+0.9);
 
 	}

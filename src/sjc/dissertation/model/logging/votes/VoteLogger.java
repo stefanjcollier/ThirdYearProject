@@ -12,7 +12,9 @@ import sjc.dissertation.retailer.Retailer;
  *
  * 	Key control is to start a round.
  * 	Get all votes (Storing social class and retailer choice)
- *  Save round to disk
+ *  Save each round to file
+ *
+ *
  *
  * @author Stefan Collier
  *
@@ -25,7 +27,8 @@ public class VoteLogger {
 	/** A mapping of String social class -> position in the range value of roundScores */
 	private Map<String, Integer> classToIndex;
 
-	/** A mapping of Retailer -> position in the range value of roundScores */
+	/** A mapping of Retailer -> position in the range value of roundScores
+	 * The last mapping is null->(int) to represent the option of not voting */
 	private Map<Retailer, Integer> retailerToIndex;
 	private int currentRound;
 
@@ -62,14 +65,17 @@ public class VoteLogger {
 	/**
 	 * Adds a local id to each of the retailers, that allow further use of retailers to
 	 * 	reference the correct array index.
+	 *
+	 * Note: That there is an index for when the consumer makes a no vote (they choose no retailer)
 	 */
 	private static Map<Retailer, Integer> generateRetailerIds(final List<Retailer> retailers){
-		final Map<Retailer, Integer> mappings = new HashMap<>(retailers.size());
+		final Map<Retailer, Integer> mappings = new HashMap<>(retailers.size()+1);
 		int id = 0;
 		for(final Retailer retailer : retailers){
 			mappings.put(retailer, id);
 			id++;
 		}
+		mappings.put(null, retailers.size());
 		return mappings;
 	}
 

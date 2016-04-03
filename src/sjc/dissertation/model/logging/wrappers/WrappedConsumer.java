@@ -26,13 +26,19 @@ public class WrappedConsumer implements Consumer, Wrapper{
 	@Override
 	public int chooseRetailer(final List<Retailer> retailers) {
 		final int indexChoice = this.me.chooseRetailer(retailers);
-		final Retailer retailer = retailers.get(indexChoice);
-
 		//Logging
-		this.votesLog.addVote(this.me, retailer);
-		this.logger.debug(this, String.format("%s:: Voted:: %s",
-				this.me.getSocialClass(), retailer.getName()));
+		if(indexChoice > -1){
+			final Retailer retailer = retailers.get(indexChoice);
 
+			this.votesLog.addVote(this.me, retailer);
+			this.logger.debug(this, String.format("%s:: Voted:: %s",
+					this.me.getSocialClass(), retailer.getName()));
+		}else{
+			//an index choice of -1 indicates a no vote
+			this.votesLog.addVote(this.me, null);
+			this.logger.debug(this, String.format("%s:: Voted:: %s",
+					this.me.getSocialClass(), "-Nobody-"));
+		}
 		return indexChoice;
 	}
 

@@ -61,9 +61,6 @@ public class Simple_ActionPredictorImplTest {
 
 			//find error
 			final double error = pred -act;
-			//System.out.println(String.format("Weights:: Old -> New: %s -> %s", Arrays.toString(oldW),Arrays.toString(lineReg.getWeights())));
-			//System.out.println(String.format("Predict - Act = Error ->  %f - %f = %f ",pred,act,error));
-			//System.out.println();
 		}
 
 		final int maxTestRounds = 20000;
