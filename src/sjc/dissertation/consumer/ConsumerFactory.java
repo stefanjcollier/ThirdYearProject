@@ -95,20 +95,13 @@ public class ConsumerFactory {
 		final double budget = generateBudget(socClass);
 		final int id = this.consumers.size()+1;
 
-		final int[] location = generateLocation();
-		final int x = location[0];
-		final int y = location[1];
+		//Location
+		final int x = this.rng.nextInt(this.width);
+		final int y = this.rng.nextInt(this.width);
 
 		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget, x, y);
 		this.consumers.add(con);
 		return con;
-	}
-
-	protected int[] generateLocation(){
-		final int x = this.rng.nextInt(this.width);
-		final int y = this.rng.nextInt(this.width);
-
-		return new int[]{x,y};
 	}
 
 	public String[] getSocialClasses(){
