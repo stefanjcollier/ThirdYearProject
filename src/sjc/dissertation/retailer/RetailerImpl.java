@@ -1,5 +1,7 @@
 package sjc.dissertation.retailer;
 
+import java.util.List;
+
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
@@ -15,6 +17,7 @@ import sjc.dissertation.retailer.state.quality.Quality;
 public class RetailerImpl implements Retailer{
 	private final InternalRetailerState state;
 	private final String name;
+	private List<Branch> branches;
 
 	public RetailerImpl(final String name){
 		this.state = new InternalRetailerState();
@@ -79,5 +82,17 @@ public class RetailerImpl implements Retailer{
 	@Override
 	public ProfitMargin getProfiMargin() {
 		return this.state.getProfitMargin();
+	}
+
+	@Override
+	public List<Branch> getBranches() {
+		return this.branches;
+	}
+
+	@Override
+	public Branch makeBranch(final int x, final int y) {
+		final Branch b = new Branch(this, this.branches.size()+1, x, y);
+		this.branches.add(b);
+		return b;
 	}
 }

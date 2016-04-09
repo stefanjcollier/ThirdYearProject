@@ -1,5 +1,7 @@
 package sjc.dissertation.retailer;
 
+import java.util.List;
+
 import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
@@ -24,4 +26,7 @@ public interface Retailer {
 
 	public ProfitMargin getProfiMargin();
 
+	public List<Branch> getBranches();
+
+	public Branch makeBranch(final int x, final int y);
 }
