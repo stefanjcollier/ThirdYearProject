@@ -106,7 +106,19 @@ public class VoteLogger {
 		this.files.writeVotesToFile(currentScores);
 	}
 
+	public int[] getCurrentRoundResults(){
+		final int noOfRetailers = this.retailerToIndex.size();
+		final int noOfClasses = this.classToIndex.size();
 
+		final int[] retailerVotes= new int[noOfRetailers];
 
+		//Cycle through socialClasses
+		for (int socClass = 0; socClass < noOfClasses; socClass++){
+			for (int retailer = 0; retailer < noOfRetailers; retailer++){
+				retailerVotes[retailer] += this.roundScores.get(this.currentRound)[socClass][retailer];
+			}
+		}
+		return retailerVotes;
+	}
 
 }

@@ -122,7 +122,6 @@ public class WorldPerceptor {
 	 *
 	 * @return A numerical vector representation of how the agent views the world
 	 */
-	//TODO: (WorldPerceptor) Check the influence of the #Cus as could be V large
 	public double[] percieveWorld(final RetailerState me, final List<Retailer> others){
 		final int variables = 2 + others.size()*2;
 		final double[] perception = new double[variables];

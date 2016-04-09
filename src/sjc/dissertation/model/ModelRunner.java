@@ -2,6 +2,7 @@ package sjc.dissertation.model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
@@ -36,7 +37,7 @@ public class ModelRunner {
 		//Text Logger
 		LoggerFactory.initiateLoggerFactory(PATH);
 		final LoggerFactory wrapper = LoggerFactory.getSingleton();
-		wrapper.getMasterLogger().setDisplayLevel(Level.Debug);
+		wrapper.getMasterLogger().setDisplayLevel(Level.Print);
 
 
 		//Retailer Agents
@@ -53,9 +54,12 @@ public class ModelRunner {
 		final ModelController model = new ModelController(retailers, consumers, UK_POPULATION);
 
 		//Time to play the game
-		for(int i = 0; i < ROUNDS; i++){
+		for(int round = 1; round <= ROUNDS; round++){
 			model.performWeek();
+			wrapper.getMasterLogger().print(String.format("Round %d Votes: %s",
+					round, Arrays.toString(voteLog.getCurrentRoundResults())));
 			voteLog.startNextRound();
+
 		}
 
 	}
