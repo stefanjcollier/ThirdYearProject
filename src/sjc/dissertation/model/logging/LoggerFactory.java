@@ -4,9 +4,9 @@ import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.model.logging.votes.VoteLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedAlgorithm;
 import sjc.dissertation.model.logging.wrappers.WrappedConsumer;
-import sjc.dissertation.model.logging.wrappers.WrappedRetailer;
+import sjc.dissertation.model.logging.wrappers.WrappedRetailBranch;
 import sjc.dissertation.retailer.Algorithm;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.RetailBranch;
 
 public class LoggerFactory {
 
@@ -30,8 +30,8 @@ public class LoggerFactory {
 		return new WrappedConsumer(this.log, voteLog, consumer);
 	}
 
-	public WrappedRetailer wrapRetailer(final Retailer retailer){
-		return new WrappedRetailer(this.log, retailer);
+	public WrappedRetailBranch wrapRetailer(final RetailBranch retailer){
+		return new WrappedRetailBranch(this.log, retailer);
 	}
 	public WrappedAlgorithm wrapAlgorithm(final Algorithm algorithm){
 		return new WrappedAlgorithm(this.log, algorithm);

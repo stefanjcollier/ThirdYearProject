@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.RetailBranch;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.util.MyTools;
@@ -34,7 +34,7 @@ public class ModelController {
 	 *
 	 */
 	public void performWeek(){
-		final List<Retailer> retailers = demmandRetailerActions();
+		final List<RetailBranch> retailers = demmandRetailerActions();
 		final int[] choices = demmandConsumerChoices(retailers);
 		informRetailersOfConsumers(choices);
 	}
@@ -44,8 +44,8 @@ public class ModelController {
 	 *
 	 * @return A list of retailers, containing each agents retail chain.
 	 */
-	private List<Retailer> demmandRetailerActions(){
-		final List<Retailer> retailers = new ArrayList<>(this.retailerAgents.size());
+	private List<RetailBranch> demmandRetailerActions(){
+		final List<RetailBranch> retailers = new ArrayList<>(this.retailerAgents.size());
 
 		for(final RetailerAgent agent : this.retailerAgents){
 			retailers.add(agent.getRetailer());
@@ -54,7 +54,7 @@ public class ModelController {
 		int retailerIndex = 0;
 		for(final RetailerAgent agent : this.retailerAgents){
 			try {
-				final List<Retailer> competitors = MyTools.skipIndex(retailerIndex, retailers);
+				final List<RetailBranch> competitors = MyTools.skipIndex(retailerIndex, retailers);
 				agent.demandAction(competitors);
 				retailerIndex++;
 
@@ -74,7 +74,7 @@ public class ModelController {
 	 * @param retailers -- The retailers they can purchase from.
 	 * @return An array saying how many consumers visited each retailer. The last index is the number of no buys
 	 */
-	private int[] demmandConsumerChoices(final List<Retailer> retailers){
+	private int[] demmandConsumerChoices(final List<RetailBranch> retailers){
 		final int[] choices = new int[retailers.size()+1];
 
 		for(final Consumer consumer : this.consumsers){

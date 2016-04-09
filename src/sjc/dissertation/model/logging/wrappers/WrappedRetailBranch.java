@@ -1,19 +1,19 @@
 package sjc.dissertation.model.logging.wrappers;
 
 import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.retailer.Retailer;
-import sjc.dissertation.retailer.state.RetailerState;
+import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.state.RetailState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.Currency;
 
-public class WrappedRetailer implements Retailer, Wrapper{
+public class WrappedRetailBranch implements RetailBranch, Wrapper{
 
-	private final Retailer me;
+	private final RetailBranch me;
 	private final MasterLogger logger;
 
-	public WrappedRetailer(final MasterLogger logger, final Retailer retailer){
-		this.me = retailer;
+	public WrappedRetailBranch(final MasterLogger logger, final RetailBranch branch){
+		this.me = branch;
 		this.logger = logger;
 
 		//Acknowledge instantiation
@@ -54,11 +54,11 @@ public class WrappedRetailer implements Retailer, Wrapper{
 
 	@Override
 	public String getWrapperId(){
-		return String.format("Retailer(%s)", this.me.getName());
+		return String.format("Branch(%s)", this.me.getName());
 	}
 
 	@Override
-	public RetailerState getState() {
+	public RetailState getState() {
 		return this.me.getState();
 	}
 

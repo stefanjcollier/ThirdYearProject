@@ -5,7 +5,7 @@ import java.util.List;
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.model.logging.votes.VoteLogger;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.RetailBranch;
 
 public class WrappedConsumer implements Consumer, Wrapper{
 
@@ -24,11 +24,11 @@ public class WrappedConsumer implements Consumer, Wrapper{
 	}
 
 	@Override
-	public int chooseRetailer(final List<Retailer> retailers) {
+	public int chooseRetailer(final List<RetailBranch> retailers) {
 		final int indexChoice = this.me.chooseRetailer(retailers);
 		//Logging
 		if(indexChoice > -1){
-			final Retailer retailer = retailers.get(indexChoice);
+			final RetailBranch retailer = retailers.get(indexChoice);
 
 			this.votesLog.addVote(this.me, retailer);
 			this.logger.debug(this, String.format("%s:: Voted:: %s",
@@ -51,15 +51,15 @@ public class WrappedConsumer implements Consumer, Wrapper{
 		return this.me.getBudget();
 	}
 	@Override
-	public boolean canAfford(final Retailer retailer) {
+	public boolean canAfford(final RetailBranch retailer) {
 		return this.me.canAfford(retailer);
 	}
 	@Override
-	public double costOfShop(final Retailer re) {
+	public double costOfShop(final RetailBranch re) {
 		return this.me.costOfShop(re);
 	}
 	@Override
-	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe) {
+	public double chanceOf(final List<RetailBranch> allRe, final RetailBranch tstRe) {
 		return this.me.chanceOf(allRe, tstRe);
 	}
 	@Override

@@ -12,11 +12,11 @@ import sjc.dissertation.retailer.state.quality.Quality;
  * @author Stefan Collier
  *
  */
-public class RetailerImpl implements Retailer{
+public class BranchImpl implements RetailBranch{
 	private final InternalRetailerState state;
 	private final String name;
 
-	public RetailerImpl(final String name){
+	public BranchImpl(final String name){
 		this.state = new InternalRetailerState();
 		this.name = name;
 	}

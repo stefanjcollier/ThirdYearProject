@@ -5,9 +5,9 @@ import java.util.List;
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.model.logging.wrappers.Wrapper;
 import sjc.dissertation.retailer.Algorithm;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.state.RetailState;
 import sjc.dissertation.retailer.state.RetailerAction;
-import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.util.Currency;
 
 class StubAlgorithm extends Algorithm implements Wrapper{
@@ -16,7 +16,7 @@ class StubAlgorithm extends Algorithm implements Wrapper{
 
 
 	@Override
-	public RetailerAction determineAction(final RetailerState state, final List<Retailer> competitors) {
+	public RetailerAction determineAction(final RetailState state, final List<RetailBranch> competitors) {
 		final RetailerAction action = state.getActions().iterator().next();
 
 		LoggerFactory.getSingleton().getMasterLogger().print(this,

@@ -10,10 +10,10 @@ import sjc.dissertation.consumer.ConsumerFactory;
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.model.logging.MasterLogger.Level;
 import sjc.dissertation.model.logging.votes.VoteLogger;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.BranchImpl;
+import sjc.dissertation.retailer.RetailBranch;
 import sjc.dissertation.retailer.RetailerAgent;
 import sjc.dissertation.retailer.RetailerAgentFactory;
-import sjc.dissertation.retailer.RetailerImpl;
 import sjc.dissertation.retailer.carnivore.GreedyAlgorithmFactory;
 import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
@@ -68,13 +68,13 @@ public class ModelRunner {
 		final List<RetailerAgent> agents = new ArrayList<>(2);
 
 		//Make Control Agent
-		final Retailer con_retailer = wrapper.wrapRetailer(new RetailerImpl("Contrl_1"));
+		final RetailBranch con_retailer = wrapper.wrapRetailer(new BranchImpl("Contrl_1"));
 		final RetailerAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 		agents.add(con_agent);
 
 		//Make Greedy Agent
 		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
-		final Retailer greedy_retailer = wrapper.wrapRetailer(new RetailerImpl("Greedy_1"));
+		final RetailBranch greedy_retailer = wrapper.wrapRetailer(new BranchImpl("Greedy_1"));
 		final RetailerAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);
 
@@ -88,7 +88,7 @@ public class ModelRunner {
 
 		for(final String name : names){
 			//Gen a new retailer and wrap it for logging
-			final Retailer retailer = wrapper.wrapRetailer(new RetailerImpl(name));
+			final RetailBranch retailer = wrapper.wrapRetailer(new BranchImpl(name));
 			final RetailerAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 			agents.add(agent);
 		}
@@ -111,8 +111,8 @@ public class ModelRunner {
 	}
 
 	/** Extract retailers from agents */
-	private static List<Retailer> extractRetailers(final List<RetailerAgent> agents){
-		final List<Retailer> retailers = new ArrayList<>(agents.size());
+	private static List<RetailBranch> extractRetailers(final List<RetailerAgent> agents){
+		final List<RetailBranch> retailers = new ArrayList<>(agents.size());
 		for(final RetailerAgent agent : agents){
 			retailers.add(agent.getRetailer());
 		}
