@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import sjc.dissertation.consumer.Consumer;
-import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.Branch;
 
 /**
  * A central place to store the history of votes in the simulation.
@@ -29,12 +29,12 @@ public class VoteLogger {
 
 	/** A mapping of Retailer -> position in the range value of roundScores
 	 * The last mapping is null->(int) to represent the option of not voting */
-	private Map<RetailBranch, Integer> retailerToIndex;
+	private Map<Branch, Integer> retailerToIndex;
 	private int currentRound;
 
 	private final VoteFileWriter files;
 
-	public VoteLogger(final String filePath, final List<RetailBranch> retailers, final String[] classes){
+	public VoteLogger(final String filePath, final List<Branch> retailers, final String[] classes){
 		//Populate index converters
 		this.classToIndex = generateClassIds(classes);
 		this.retailerToIndex = generateRetailerIds(retailers);
@@ -68,10 +68,10 @@ public class VoteLogger {
 	 *
 	 * Note: That there is an index for when the consumer makes a no vote (they choose no retailer)
 	 */
-	private static Map<RetailBranch, Integer> generateRetailerIds(final List<RetailBranch> retailers){
-		final Map<RetailBranch, Integer> mappings = new HashMap<>(retailers.size()+1);
+	private static Map<Branch, Integer> generateRetailerIds(final List<Branch> retailers){
+		final Map<Branch, Integer> mappings = new HashMap<>(retailers.size()+1);
 		int id = 0;
-		for(final RetailBranch retailer : retailers){
+		for(final Branch retailer : retailers){
 			mappings.put(retailer, id);
 			id++;
 		}
@@ -80,7 +80,7 @@ public class VoteLogger {
 	}
 
 
-	public void addVote(final Consumer consumer, final RetailBranch retailer){
+	public void addVote(final Consumer consumer, final Branch retailer){
 		final int socIndex = this.classToIndex.get(consumer.getSocialClass());
 		final int retIndex = this.retailerToIndex.get(retailer);
 

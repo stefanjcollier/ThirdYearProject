@@ -1,18 +1,18 @@
 package sjc.dissertation.model.logging.wrappers;
 
 import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.Branch;
 import sjc.dissertation.retailer.state.RetailState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.Currency;
 
-public class WrappedRetailBranch implements RetailBranch, Wrapper{
+public class WrappedRetailBranch implements Branch, Wrapper{
 
-	private final RetailBranch me;
+	private final Branch me;
 	private final MasterLogger logger;
 
-	public WrappedRetailBranch(final MasterLogger logger, final RetailBranch branch){
+	public WrappedRetailBranch(final MasterLogger logger, final Branch branch){
 		this.me = branch;
 		this.logger = logger;
 

@@ -10,11 +10,11 @@ import sjc.dissertation.retailer.state.RetailerAction;
 //JAVADOC ReAg
 public class RetailerAgent {
 	private final int id;
-	private final RetailBranch retailer;
+	private final Branch retailer;
 	private final Algorithm policy;
 
 
-	protected RetailerAgent(final int uniqueId, final RetailBranch retailer, final Algorithm controller){
+	protected RetailerAgent(final int uniqueId, final Branch retailer, final Algorithm controller){
 		this.id = uniqueId;
 		this.retailer = retailer;
 		this.policy = controller;
@@ -31,7 +31,7 @@ public class RetailerAgent {
 	}
 
 	//JAVADOC RetailerAgent#demmandAction
-	public void demandAction(final List<RetailBranch> competitors) throws InvalidRetailerActionException{
+	public void demandAction(final List<Branch> competitors) throws InvalidRetailerActionException{
 		final RetailerAction chosenAction = this.policy.determineAction(this.retailer.getState(), competitors);
 		((InternalRetailerState) this.retailer.getState()).computeAction(chosenAction);
 	}
@@ -42,7 +42,7 @@ public class RetailerAgent {
 		return profit;
 	}
 
-	public RetailBranch getRetailer(){
+	public Branch getRetailer(){
 		return this.retailer;
 	}
 

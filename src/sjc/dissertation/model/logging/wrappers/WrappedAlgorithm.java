@@ -4,7 +4,7 @@ import java.util.List;
 
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.retailer.Algorithm;
-import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.Branch;
 import sjc.dissertation.retailer.state.RetailState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
@@ -22,7 +22,7 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 	}
 
 	@Override
-	public RetailerAction determineAction(final RetailState state, final List<RetailBranch> competitors) {
+	public RetailerAction determineAction(final RetailState state, final List<Branch> competitors) {
 		final RetailerAction action = this.me.determineAction(state, competitors);
 
 		final String line = String.format(" At state:%s\tchose:%s", state.getSymbol(), action.getSymbol());

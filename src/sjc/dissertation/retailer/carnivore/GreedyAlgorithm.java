@@ -3,7 +3,7 @@ package sjc.dissertation.retailer.carnivore;
 import java.util.List;
 
 import sjc.dissertation.retailer.Algorithm;
-import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.Branch;
 import sjc.dissertation.retailer.state.RetailState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
@@ -20,7 +20,7 @@ public class GreedyAlgorithm extends Algorithm{
 
 
 	@Override
-	public RetailerAction determineAction(final RetailState state, final List<RetailBranch> competitors) {
+	public RetailerAction determineAction(final RetailState state, final List<Branch> competitors) {
 		//Percieve World
 		final double[] world = this.eyes.percieveWorld(state, competitors);
 

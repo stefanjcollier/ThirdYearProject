@@ -6,7 +6,7 @@ import sjc.dissertation.retailer.state.RetailState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 
-public interface RetailBranch {
+public interface Branch {
 	/**
 	 * Informs the retailer the number of customers shopped with them this week.
 	 *  And returns the amount of profit earned this week.

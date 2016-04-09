@@ -2,21 +2,21 @@ package sjc.dissertation.consumer;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.Branch;
 
 public interface Consumer {
 
-	public int chooseRetailer(final List<RetailBranch> RetailBranches);
+	public int chooseRetailer(final List<Branch> RetailBranches);
 
 	public String getSocialClass();
 
 	public double getBudget();
 
-	public boolean canAfford(final RetailBranch RetailBranch);
+	public boolean canAfford(final Branch RetailBranch);
 
-	public double costOfShop(final RetailBranch re);
+	public double costOfShop(final Branch re);
 
-	public double chanceOf(final List<RetailBranch> allBranches, final RetailBranch testBranch);
+	public double chanceOf(final List<Branch> allBranches, final Branch testBranch);
 
 	public int getId();
 

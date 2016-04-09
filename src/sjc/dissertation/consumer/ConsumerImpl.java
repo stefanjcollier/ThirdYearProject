@@ -2,7 +2,7 @@ package sjc.dissertation.consumer;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.RetailBranch;
+import sjc.dissertation.retailer.Branch;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.RandomToolbox;
 
@@ -46,7 +46,7 @@ public class ConsumerImpl implements Consumer{
 	 * @return true if the consumer can purchase their shop from the retailer.
 	 */
 	@Override
-	public boolean canAfford(final RetailBranch retailer){
+	public boolean canAfford(final Branch retailer){
 		return costOfShop(retailer) <= this.budget;
 	}
 
@@ -59,7 +59,7 @@ public class ConsumerImpl implements Consumer{
 	 * @return The cost for the consumer of shopping with the given retailer
 	 */
 	@Override
-	public double costOfShop(final RetailBranch re){
+	public double costOfShop(final Branch re){
 		return re.getCostOfShopping();
 	}
 
@@ -78,7 +78,7 @@ public class ConsumerImpl implements Consumer{
 	 * @return the chance [0,1] of choosing the testRetailer
 	 */
 	@Override
-	public double chanceOf(final List<RetailBranch> allRe, final RetailBranch tstRe){
+	public double chanceOf(final List<Branch> allRe, final Branch tstRe){
 		//If we cannot afford the shop then we won't shop there
 		if(!canAfford(tstRe)){
 			return 0;
@@ -88,7 +88,7 @@ public class ConsumerImpl implements Consumer{
 
 			//Sum the vfm of all (affordable) retailers
 			double sumVfm = 0;
-			for(final RetailBranch re :  allRe){
+			for(final Branch re :  allRe){
 				double reVfm = 0;
 				if(canAfford(re)){
 					reVfm = valueForMoney(re);
@@ -109,7 +109,7 @@ public class ConsumerImpl implements Consumer{
 	 * @param re -- The retailer we are considering
 	 * @return The value for money of shopping at retailer 're' (vfm >= 0)
 	 */
-	private double valueForMoney(final RetailBranch re){
+	private double valueForMoney(final Branch re){
 		return rewardOfShop(re) / costOfShop(re);
 	}
 
@@ -119,7 +119,7 @@ public class ConsumerImpl implements Consumer{
 	 * @param re -- The retailer that we are considering for a shop
 	 * @return The reward a consumer would receive from shopping at the given retailer
 	 */
-	private double rewardOfShop(final RetailBranch re){
+	private double rewardOfShop(final Branch re){
 		//Consider: (Consumer) Create better rewards system
 		//Consider: (Consumer) Sensitivity to quality
 		final Quality q = re.getQualityOfShop();
@@ -149,7 +149,7 @@ public class ConsumerImpl implements Consumer{
 	 * @return the chosen retailer
 	 */
 	@Override
-	public int chooseRetailer(final List<RetailBranch> retailers){
+	public int chooseRetailer(final List<Branch> retailers){
 		//Find the chance for choosing each retailer
 		final double[] chances = new double[retailers.size()];
 		for (int re = 0; re < retailers.size(); re++){
