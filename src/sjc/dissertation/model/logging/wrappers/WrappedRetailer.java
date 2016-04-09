@@ -1,9 +1,6 @@
 package sjc.dissertation.model.logging.wrappers;
 
-import java.util.List;
-
 import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.retailer.Branch;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.RetailerState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
@@ -69,18 +66,5 @@ public class WrappedRetailer implements Retailer, Wrapper{
 	public ProfitMargin getProfiMargin() {
 		return this.me.getProfiMargin();
 	}
-
-	@Override
-	public List<Branch> getBranches() {
-		return this.me.getBranches();
-	}
-
-	@Override
-	public Branch makeBranch(final int x, final int y) {
-		final Branch newBranch = this.me.makeBranch(x, y);
-		this.logger.trace("New Branch::"+newBranch);
-		return newBranch;
-	}
-
 
 }
