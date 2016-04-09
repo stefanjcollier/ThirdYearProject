@@ -78,5 +78,15 @@ public class WrappedConsumer implements Consumer, Wrapper{
 
 	}
 
+	@Override
+	public int getX() {
+		return this.me.getX();
+	}
+
+	@Override
+	public int getY() {
+		return this.me.getY();
+	}
+
 
 }

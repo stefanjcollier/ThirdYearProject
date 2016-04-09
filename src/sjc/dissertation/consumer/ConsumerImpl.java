@@ -14,11 +14,14 @@ public class ConsumerImpl implements Consumer{
 	private final int id;
 	private final String socClass;
 	private final double budget;
+	private final int x,y;
 
-	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget){
+	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget, final int x, final int y){
 		this.id = unseenId;
 		this.socClass = socialClass;
 		this.budget = budget;
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override
@@ -181,6 +184,17 @@ public class ConsumerImpl implements Consumer{
 		pounds = (pounds.length() == 2)? " £"+pounds : "£"+pounds;
 		return String.format("%s.%s", pounds, pennies);
 	}
+
+	@Override
+	public int getX() {
+		return this.x;
+	}
+
+	@Override
+	public int getY() {
+		return this.y;
+	}
+
 
 
 

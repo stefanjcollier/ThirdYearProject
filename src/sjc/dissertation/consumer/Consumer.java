@@ -19,4 +19,8 @@ public interface Consumer {
 	public double chanceOf(final List<Retailer> allRe, final Retailer tstRe);
 
 	public int getId();
+
+	public int getX();
+
+	public int getY();
 }

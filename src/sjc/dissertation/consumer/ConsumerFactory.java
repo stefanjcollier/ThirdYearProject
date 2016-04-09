@@ -28,6 +28,9 @@ public class ConsumerFactory {
 	/** Used in generating budgets */
 	private final Random rng;
 
+	/** The size of the area we are working with */
+	private final int width;
+
 	public static ConsumerFactory getSingleton(){
 		if(singleton == null){
 			final double[] ratios = {0.15, 0.19, 0.14, 0.15, 0.06, 0.25, 0.06};
@@ -41,17 +44,19 @@ public class ConsumerFactory {
 					"Established Middle Class",
 					"Elite"
 			};
-			ConsumerFactory.singleton = new ConsumerFactory(names, ratios, spending);
+			final int mapWidth = 100;
+			ConsumerFactory.singleton = new ConsumerFactory(names, ratios, spending, mapWidth);
 		}
 		return ConsumerFactory.singleton;
 	}
 
-	protected ConsumerFactory(final String[] classNames, final double[] classRatios, final double[] spendingAvgs){
+	protected ConsumerFactory(final String[] classNames, final double[] classRatios, final double[] spendingAvgs, final int width){
 		this.classNames = classNames;
 		this.classRatios = classRatios;
 		this.budgetAvgs = spendingAvgs;
 		this.consumers = new ArrayList<Consumer>(200);
 		this.rng = new Random();
+		this.width = width;
 	}
 
 
@@ -90,7 +95,11 @@ public class ConsumerFactory {
 		final double budget = generateBudget(socClass);
 		final int id = this.consumers.size()+1;
 
-		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget);
+		//Location
+		final int x = this.rng.nextInt(this.width);
+		final int y = this.rng.nextInt(this.width);
+
+		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget, x, y);
 		this.consumers.add(con);
 		return con;
 	}
