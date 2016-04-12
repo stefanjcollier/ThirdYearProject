@@ -30,6 +30,9 @@ public class ModelRunner {
 	/** Rounds to be played*/
 	static final int ROUNDS = 500;
 
+
+	static final List<Retailer> retaiers = new ArrayList<Retailer>(4);
+
 	public static void main(final String[] args){
 		genPATH();
 		//		final String[] names = {"Tesco", "ASDA"};
@@ -43,16 +46,16 @@ public class ModelRunner {
 
 		//Retailer Agents
 		//		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
-		final List<BranchAgent> retailers = TEST_1Control_1Greedy(wrapper);
+		final List<BranchAgent> branches = TEST_1Control_1Greedy(wrapper);
 
 		//Data Loggers
-		final VoteLogger voteLog = new VoteLogger(PATH, extractRetailers(retailers), classes);
+		final VoteLogger voteLog = new VoteLogger(PATH, extractRetailers(branches), classes);
 
 		//Consumer Agents
 		final List<Consumer> consumers = makeConsumers(100, wrapper, voteLog);
 
 		//Model
-		final ModelController model = new ModelController(retailers, consumers, UK_POPULATION);
+		final ModelController model = new ModelController(retaiers, branches, consumers, UK_POPULATION);
 
 		//Time to play the game
 		for(int round = 1; round <= ROUNDS; round++){
@@ -69,36 +72,39 @@ public class ModelRunner {
 		final List<BranchAgent> agents = new ArrayList<>(2);
 
 		//Make Control Agent
-		final Retailer control_retailer = new CarnivoreRetailer("Control");
+		final Retailer control_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Control"));
 		final Branch con_retailer = wrapper.wrapBranch(control_retailer.createBranch(0, 0));
 		final BranchAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 		agents.add(con_agent);
 
 		//Make Greedy Agent
-		final Retailer carn_retailer = new CarnivoreRetailer("Greedy");
+		final Retailer carn_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Greedy"));
 		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
 		final Branch greedy_retailer = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
 		final BranchAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);
 
-		return agents;
-	}
-
-	static List<BranchAgent> makeRetailers(final String[] names, final LoggerFactory wrapper){
-		final BranchAgentFactory factory = BranchAgentFactory.getSingleton();
-
-		final List<BranchAgent> agents = new ArrayList<>(names.length);
-
-		for(final String name : names){
-			//Gen a new retailer and wrap it for logging
-			final CarnivoreRetailer carny = new CarnivoreRetailer(name);
-			final Branch retailer = wrapper.wrapBranch(carny.createBranch(0, 0));
-			final BranchAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
-			agents.add(agent);
-		}
+		retaiers.add(carn_retailer);
+		retaiers.add(control_retailer);
 
 		return agents;
 	}
+
+	//	static List<BranchAgent> makeRetailers(final String[] names, final LoggerFactory wrapper){
+	//		final BranchAgentFactory factory = BranchAgentFactory.getSingleton();
+	//
+	//		final List<BranchAgent> agents = new ArrayList<>(names.length);
+	//
+	//		for(final String name : names){
+	//			//Gen a new retailer and wrap it for logging
+	//			final CarnivoreRetailer carny = new CarnivoreRetailer(name);
+	//			final Branch retailer = wrapper.wrapBranch(carny.createBranch(5, 5));
+	//			final BranchAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
+	//			agents.add(agent);
+	//		}
+	//
+	//		return agents;
+	//	}
 
 	static List<Consumer> makeConsumers(final int total, final LoggerFactory wrapper, final VoteLogger voteLog){
 		final ConsumerFactory factory = ConsumerFactory.getSingleton();

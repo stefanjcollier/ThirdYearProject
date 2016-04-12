@@ -59,17 +59,23 @@ public class BranchImpl implements Branch{
 	 */
 	@Override
 	public double informOfCustomers(final int customers){
-		this.state.informOfCustomers(customers);
-
 		// Profit = Sale Price - Cost
 		// Profit = (1 + Margin)*Cost - Cost
 		// Profit = Margin * Cost
 		final double cost = this.state.getQuality().getCost();
 		final double margin = this.state.getProfitMargin().getProfitMargin();
+		final double profit = customers * (margin*cost);
+
+		//Inform owner retailers and state
+		this.retailer.informOfProfit(this, profit);
+		this.state.informOfCustomers(customers);
+
+		//log
 		LoggerFactory.getSingleton().getMasterLogger().trace(String.format(
 				"RetailerImpl(%s)::Profit:: Customers*(margin * cost) = %d * (%f * %f) = %f",
-				this.getBranchName(),customers, margin, cost, (customers*margin*cost)));
-		return customers * (margin*cost);
+				this.getBranchName(),customers, margin, cost, profit));
+
+		return profit;
 	}
 
 

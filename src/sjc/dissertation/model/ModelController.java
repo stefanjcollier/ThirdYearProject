@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
+import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.branch.BranchAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
@@ -12,7 +13,8 @@ import sjc.dissertation.util.MyTools;
 public class ModelController {
 
 	private final List<Consumer> consumsers;
-	private final List<BranchAgent> retailerAgents;
+	private final List<BranchAgent> branchAgents;
+	private final List<Retailer> retailers;
 	private final int voteWeight;
 
 	/**
@@ -22,8 +24,9 @@ public class ModelController {
 	 * @param consumers -- A discrete number of consumer agents
 	 * @param ukPopulation -- The actual UK population
 	 */
-	public ModelController(final List<BranchAgent> retailers, final List<Consumer> consumers, final int ukPopulation){
-		this.retailerAgents = retailers;
+	public ModelController(final List<Retailer> retailers, final List<BranchAgent> branches, final List<Consumer> consumers, final int ukPopulation){
+		this.branchAgents = branches;
+		this.retailers = retailers;
 		this.consumsers = consumers;
 		this.voteWeight = ukPopulation / consumers.size();
 	}
@@ -34,9 +37,13 @@ public class ModelController {
 	 *
 	 */
 	public void performWeek(){
-		final List<Branch> retailers = demmandRetailerActions();
-		final int[] choices = demmandConsumerChoices(retailers);
+		final List<Branch> branch = demmandRetailerActions();
+		final int[] choices = demmandConsumerChoices(branch);
 		informRetailersOfConsumers(choices);
+
+		for(final Retailer retailer : this.retailers){
+			retailer.startNewWeek();
+		}
 	}
 
 	/**
@@ -45,14 +52,14 @@ public class ModelController {
 	 * @return A list of retailers, containing each agents retail chain.
 	 */
 	private List<Branch> demmandRetailerActions(){
-		final List<Branch> retailers = new ArrayList<>(this.retailerAgents.size());
+		final List<Branch> retailers = new ArrayList<>(this.branchAgents.size());
 
-		for(final BranchAgent agent : this.retailerAgents){
+		for(final BranchAgent agent : this.branchAgents){
 			retailers.add(agent.getBranch());
 		}
 
 		int retailerIndex = 0;
-		for(final BranchAgent agent : this.retailerAgents){
+		for(final BranchAgent agent : this.branchAgents){
 			try {
 				final List<Branch> competitors = MyTools.skipIndex(retailerIndex, retailers);
 				agent.demandAction(competitors);
@@ -97,8 +104,8 @@ public class ModelController {
 	private void informRetailersOfConsumers(final int[] votes){
 		//TODO Inform the world of the choices made
 		//Actually use the bloody vote logger
-		for(int re = 0; re < this.retailerAgents.size(); re++){
-			this.retailerAgents.get(re).informOfCustomers(reweighVotes(votes[re]));
+		for(int re = 0; re < this.branchAgents.size(); re++){
+			this.branchAgents.get(re).informOfCustomers(reweighVotes(votes[re]));
 		}
 	}
 

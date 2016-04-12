@@ -1,5 +1,6 @@
 package sjc.dissertation.model.logging.wrappers;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,10 @@ public class WrappedRetailer implements Retailer, Wrapper{
 	public Map<Branch, Double> startNewWeek() {
 		final Map<Branch, Double> earnings = this.me.startNewWeek();
 		final double total = earnings.values().stream().mapToDouble(Double::doubleValue).sum();
-		this.logger.print("Earnt %f ");
+		this.logger.print(String.format(
+				"Earnt %f   ::Breakdown:: %s", total, Arrays.toString(earnings.values().toArray())));
+
+		return earnings;
 	}
 
 }

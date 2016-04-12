@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import sjc.dissertation.model.logging.LoggerFactory;
-import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.model.logging.wrappers.WrappedRetailBranch;
 import sjc.dissertation.retailer.branch.Branch;
 
 public class CarnivoreRetailer implements Retailer{
@@ -33,12 +30,7 @@ public class CarnivoreRetailer implements Retailer{
 
 	@Override
 	public Branch createBranch(final double x, final double y) {
-		Branch newBranch = new BranchImpl(this, this.myBranches.size(), x, y);
-
-		//Wrap it for logging
-		final MasterLogger logger = LoggerFactory.getSingleton().getMasterLogger();
-		newBranch = new WrappedRetailBranch(logger, newBranch);
-
+		final Branch newBranch = new BranchImpl(this, this.myBranches.size(), x, y);
 		this.myBranches.add(newBranch);
 		return newBranch;
 	}
