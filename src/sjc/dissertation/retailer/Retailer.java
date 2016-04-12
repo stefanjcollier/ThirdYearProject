@@ -1,6 +1,7 @@
 package sjc.dissertation.retailer;
 
 import java.util.List;
+import java.util.Map;
 
 import sjc.dissertation.retailer.branch.Branch;
 
@@ -17,5 +18,9 @@ public interface Retailer {
 	public List<Branch> getBranches();
 
 	public Branch createBranch(double x, double y);
+
+	public void informOfProfit(Branch branch, double profit);
+
+	Map<Branch, Double> startNewWeek();
 
 }

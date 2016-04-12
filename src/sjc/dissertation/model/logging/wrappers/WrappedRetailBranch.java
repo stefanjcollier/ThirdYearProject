@@ -18,7 +18,7 @@ public class WrappedRetailBranch implements Branch, Wrapper{
 		this.logger = logger;
 
 		//Acknowledge instantiation
-		this.logger.trace(this, "Instantiated");
+		this.logger.trace(this, String.format("Instantiated:: x,y %f,%f", branch.getX(), branch.getY()));
 
 	}
 

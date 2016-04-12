@@ -10,10 +10,11 @@ import sjc.dissertation.consumer.ConsumerFactory;
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.model.logging.MasterLogger.Level;
 import sjc.dissertation.model.logging.votes.VoteLogger;
+import sjc.dissertation.retailer.CarnivoreRetailer;
+import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.branch.BranchAgent;
 import sjc.dissertation.retailer.branch.BranchAgentFactory;
-import sjc.dissertation.retailer.branch.BranchImpl;
 import sjc.dissertation.retailer.carnivore.GreedyAlgorithmFactory;
 import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
@@ -68,13 +69,15 @@ public class ModelRunner {
 		final List<BranchAgent> agents = new ArrayList<>(2);
 
 		//Make Control Agent
-		final Branch con_retailer = wrapper.wrapBranch(new BranchImpl("Contrl_1"));
+		final Retailer control_retailer = new CarnivoreRetailer("Control");
+		final Branch con_retailer = wrapper.wrapBranch(control_retailer.createBranch(0, 0));
 		final BranchAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 		agents.add(con_agent);
 
 		//Make Greedy Agent
+		final Retailer carn_retailer = new CarnivoreRetailer("Greedy");
 		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
-		final Branch greedy_retailer = wrapper.wrapBranch(new BranchImpl("Greedy_1"));
+		final Branch greedy_retailer = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
 		final BranchAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);
 
@@ -88,7 +91,8 @@ public class ModelRunner {
 
 		for(final String name : names){
 			//Gen a new retailer and wrap it for logging
-			final Branch retailer = wrapper.wrapBranch(new BranchImpl(name));
+			final CarnivoreRetailer carny = new CarnivoreRetailer(name);
+			final Branch retailer = wrapper.wrapBranch(carny.createBranch(0, 0));
 			final BranchAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 			agents.add(agent);
 		}

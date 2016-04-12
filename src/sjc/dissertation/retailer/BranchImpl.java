@@ -1,7 +1,7 @@
-package sjc.dissertation.retailer.branch;
+package sjc.dissertation.retailer;
 
 import sjc.dissertation.model.logging.LoggerFactory;
-import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
@@ -19,7 +19,7 @@ public class BranchImpl implements Branch{
 	private final int id;
 	private final double x,y;
 
-	public BranchImpl(final Retailer owner, final int id, final double x, final double y){
+	protected BranchImpl(final Retailer owner, final int id, final double x, final double y){
 		this.state = new InternalRetailerState();
 		this.retailer = owner;
 		this.id = id;
