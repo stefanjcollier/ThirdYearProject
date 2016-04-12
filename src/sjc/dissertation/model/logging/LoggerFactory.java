@@ -30,7 +30,7 @@ public class LoggerFactory {
 		return new WrappedConsumer(this.log, voteLog, consumer);
 	}
 
-	public WrappedRetailBranch wrapRetailer(final Branch retailer){
+	public WrappedRetailBranch wrapBranch(final Branch retailer){
 		return new WrappedRetailBranch(this.log, retailer);
 	}
 	public WrappedAlgorithm wrapAlgorithm(final Algorithm algorithm){

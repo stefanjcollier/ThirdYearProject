@@ -68,13 +68,13 @@ public class ModelRunner {
 		final List<BranchAgent> agents = new ArrayList<>(2);
 
 		//Make Control Agent
-		final Branch con_retailer = wrapper.wrapRetailer(new BranchImpl("Contrl_1"));
+		final Branch con_retailer = wrapper.wrapBranch(new BranchImpl("Contrl_1"));
 		final BranchAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 		agents.add(con_agent);
 
 		//Make Greedy Agent
 		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
-		final Branch greedy_retailer = wrapper.wrapRetailer(new BranchImpl("Greedy_1"));
+		final Branch greedy_retailer = wrapper.wrapBranch(new BranchImpl("Greedy_1"));
 		final BranchAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);
 
@@ -88,7 +88,7 @@ public class ModelRunner {
 
 		for(final String name : names){
 			//Gen a new retailer and wrap it for logging
-			final Branch retailer = wrapper.wrapRetailer(new BranchImpl(name));
+			final Branch retailer = wrapper.wrapBranch(new BranchImpl(name));
 			final BranchAgent agent = factory.createNewAgent(retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 			agents.add(agent);
 		}

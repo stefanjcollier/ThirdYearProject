@@ -79,12 +79,12 @@ public class WrappedConsumer implements Consumer, Wrapper{
 	}
 
 	@Override
-	public int getX() {
+	public double getX() {
 		return this.me.getX();
 	}
 
 	@Override
-	public int getY() {
+	public double getY() {
 		return this.me.getY();
 	}
 

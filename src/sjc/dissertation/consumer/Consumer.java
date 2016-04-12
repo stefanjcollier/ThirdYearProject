@@ -20,7 +20,7 @@ public interface Consumer {
 
 	public int getId();
 
-	public int getX();
+	public double getX();
 
-	public int getY();
+	public double getY();
 }

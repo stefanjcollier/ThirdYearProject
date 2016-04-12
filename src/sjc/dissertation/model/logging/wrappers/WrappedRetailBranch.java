@@ -73,4 +73,14 @@ public class WrappedRetailBranch implements Branch, Wrapper{
 		return this.me.getRetailer();
 	}
 
+	@Override
+	public double getX() {
+		return this.me.getX();
+	}
+
+	@Override
+	public double getY() {
+		return this.me.getY();
+	}
+
 }

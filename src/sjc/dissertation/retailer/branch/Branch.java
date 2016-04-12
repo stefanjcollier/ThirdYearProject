@@ -27,4 +27,8 @@ public interface Branch {
 
 	public Retailer getRetailer();
 
+	public double getX();
+
+	public double getY();
+
 }

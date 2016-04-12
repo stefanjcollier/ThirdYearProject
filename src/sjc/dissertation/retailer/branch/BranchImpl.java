@@ -17,11 +17,14 @@ public class BranchImpl implements Branch{
 	private final InternalRetailerState state;
 	private final Retailer retailer;
 	private final int id;
+	private final double x,y;
 
-	public BranchImpl(final Retailer owner, final int id){
+	public BranchImpl(final Retailer owner, final int id, final double x, final double y){
 		this.state = new InternalRetailerState();
 		this.retailer = owner;
 		this.id = id;
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override
@@ -89,6 +92,16 @@ public class BranchImpl implements Branch{
 	@Override
 	public Retailer getRetailer() {
 		return this.retailer;
+	}
+
+	@Override
+	public double getX(){
+		return this.x;
+	}
+
+	@Override
+	public double getY(){
+		return this.y;
 	}
 
 }

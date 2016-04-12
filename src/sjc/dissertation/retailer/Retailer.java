@@ -16,4 +16,6 @@ public interface Retailer {
 
 	public List<Branch> getBranches();
 
+	public Branch createBranch(double x, double y);
+
 }

@@ -13,8 +13,7 @@ import sjc.dissertation.util.RandomToolbox;
 public class ConsumerImpl implements Consumer{
 	private final int id;
 	private final String socClass;
-	private final double budget;
-	private final int x,y;
+	private final double budget, x, y;
 
 	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget, final int x, final int y){
 		this.id = unseenId;
@@ -186,12 +185,12 @@ public class ConsumerImpl implements Consumer{
 	}
 
 	@Override
-	public int getX() {
+	public double getX() {
 		return this.x;
 	}
 
 	@Override
-	public int getY() {
+	public double getY() {
 		return this.y;
 	}
 
