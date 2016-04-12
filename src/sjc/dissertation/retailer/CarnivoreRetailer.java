@@ -8,9 +8,9 @@ import java.util.Map;
 import sjc.dissertation.retailer.branch.Branch;
 
 public class CarnivoreRetailer implements Retailer{
-	private final String name;
-	private final List<Branch> myBranches;
-	private Map<Branch,Double> profitPerWeek;
+	protected final String name;
+	protected final List<Branch> myBranches;
+	protected Map<Branch,Double> profitPerWeek;
 
 	public CarnivoreRetailer(final String name) {
 		this.name = name;
@@ -30,7 +30,7 @@ public class CarnivoreRetailer implements Retailer{
 
 	@Override
 	public Branch createBranch(final double x, final double y) {
-		final Branch newBranch = new BranchImpl(this, this.myBranches.size(), x, y);
+		final Branch newBranch = new CarnivoreBranchImpl(this, this.myBranches.size(), x, y);
 		this.myBranches.add(newBranch);
 		return newBranch;
 	}

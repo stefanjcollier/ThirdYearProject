@@ -21,7 +21,6 @@ public interface BranchState {
 
 	public Set<RetailerAction> getActions();
 
-
 	public Quality getQuality();
 
 	public ProfitMargin getProfitMargin();

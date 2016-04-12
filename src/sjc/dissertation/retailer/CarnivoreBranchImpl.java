@@ -13,13 +13,13 @@ import sjc.dissertation.retailer.state.quality.Quality;
  * @author Stefan Collier
  *
  */
-public class BranchImpl implements Branch{
+public class CarnivoreBranchImpl implements Branch{
 	private final InternalRetailerState state;
 	private final Retailer retailer;
 	private final int id;
 	private final double x,y;
 
-	protected BranchImpl(final Retailer owner, final int id, final double x, final double y){
+	protected CarnivoreBranchImpl(final Retailer owner, final int id, final double x, final double y){
 		this.state = new InternalRetailerState();
 		this.retailer = owner;
 		this.id = id;
@@ -34,7 +34,7 @@ public class BranchImpl implements Branch{
 
 	@Override
 	public Quality getQualityOfShop(){
-		return this.state.getQuality();
+		return getState().getQuality();
 	}
 
 	/**
@@ -45,8 +45,8 @@ public class BranchImpl implements Branch{
 	 */
 	@Override
 	public double getCostOfShopping(){
-		final double rawCost = this.state.getQuality().getCost();
-		final double profitMultiplier = 1 + this.state.getProfitMargin().getProfitMargin();
+		final double rawCost = getState().getQuality().getCost();
+		final double profitMultiplier = 1 + getState().getProfitMargin().getProfitMargin();
 		return rawCost * profitMultiplier;
 	}
 
@@ -62,13 +62,13 @@ public class BranchImpl implements Branch{
 		// Profit = Sale Price - Cost
 		// Profit = (1 + Margin)*Cost - Cost
 		// Profit = Margin * Cost
-		final double cost = this.state.getQuality().getCost();
-		final double margin = this.state.getProfitMargin().getProfitMargin();
+		final double cost = getState().getQuality().getCost();
+		final double margin = getState().getProfitMargin().getProfitMargin();
 		final double profit = customers * (margin*cost);
 
 		//Inform owner retailers and state
 		this.retailer.informOfProfit(this, profit);
-		this.state.informOfCustomers(customers);
+		getState().informOfCustomers(customers);
 
 		//log
 		LoggerFactory.getSingleton().getMasterLogger().trace(String.format(
@@ -87,12 +87,12 @@ public class BranchImpl implements Branch{
 
 	@Override
 	public String toString(){
-		return String.format("%s: %s", this.getBranchName(), this.state.getSymbol());
+		return String.format("%s: %s", this.getBranchName(), getState().getSymbol());
 	}
 
 	@Override
 	public ProfitMargin getProfiMargin() {
-		return this.state.getProfitMargin();
+		return getState().getProfitMargin();
 	}
 
 	@Override
