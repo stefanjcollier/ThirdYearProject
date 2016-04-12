@@ -3,7 +3,7 @@ package sjc.dissertation.model.logging.wrappers;
 import java.util.Arrays;
 
 import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.retailer.carnivore.ActionPredictor;
+import sjc.dissertation.retailer.learn.ActionPredictor;
 import sjc.dissertation.retailer.state.RetailerAction;
 
 public class WrappedActionPredictor implements Wrapper, ActionPredictor{

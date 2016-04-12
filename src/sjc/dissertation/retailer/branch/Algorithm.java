@@ -6,19 +6,19 @@ import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
 public abstract class Algorithm {
-	private BranchAgent agent;
+	private CarnivoreBranchAgent agent;
 
 	public abstract RetailerAction determineAction(BranchState state, List<Branch> competitors);
 
 	public abstract void informOfReward(double profit);
 
-	protected void giveRetailerAgent(final BranchAgent agent){
+	protected void giveRetailerAgent(final CarnivoreBranchAgent agent){
 		if(!hasRetailer()){
 			this.agent = agent;
 		}
 	}
 
-	public BranchAgent getAgent(){
+	public CarnivoreBranchAgent getAgent(){
 		return this.agent;
 	}
 

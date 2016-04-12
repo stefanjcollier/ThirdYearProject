@@ -1,4 +1,4 @@
-package sjc.dissertation.retailer.carnivore;
+package sjc.dissertation.retailer.learn;
 
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedActionPredictor;
@@ -8,13 +8,13 @@ import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
-public class GreedyAlgorithmFactory {
+public class GreedyCarnivoreAlgorithmFactory {
 
 	private final int ukPop;
 	private final MasterLogger logger;
 	private int currentId;
 
-	public GreedyAlgorithmFactory(final MasterLogger logger, final int populationOfUK) {
+	public GreedyCarnivoreAlgorithmFactory(final MasterLogger logger, final int populationOfUK) {
 		this.logger = logger;
 		this.currentId = 0;
 		this.ukPop = populationOfUK;
@@ -23,14 +23,14 @@ public class GreedyAlgorithmFactory {
 	public Algorithm createGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
 		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
-		return new GreedyAlgorithm(world, predictor);
+		return new GreedyCarnivoreAlgorithm(world, predictor);
 	}
 
 	public Algorithm createWrappedGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
 		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
 		final ActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, this.currentId++);
-		return new GreedyAlgorithm(world, wrappedpredictor);
+		return new GreedyCarnivoreAlgorithm(world, wrappedpredictor);
 	}
 
 
@@ -44,7 +44,7 @@ public class GreedyAlgorithmFactory {
 	 * Works on the concept that if all retailer have the same cost of shopping then
 	 * the UK population will be split evenly over all retailers
 	 *
-	 * @param noOfCompetitors -- number of retailers that arnt the one being made
+	 * @param noOfCompetitors -- number of branches that are not the one being made intelligent
 	 * @return
 	 */
 	protected double[] getInitWeights(final int noOfCompetitors){

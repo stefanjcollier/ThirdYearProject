@@ -6,14 +6,14 @@ import java.util.List;
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.branch.Branch;
-import sjc.dissertation.retailer.branch.BranchAgent;
+import sjc.dissertation.retailer.branch.CarnivoreBranchAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.util.MyTools;
 
 public class ModelController {
 
 	private final List<Consumer> consumsers;
-	private final List<BranchAgent> branchAgents;
+	private final List<CarnivoreBranchAgent> branchAgents;
 	private final List<Retailer> retailers;
 	private final int voteWeight;
 
@@ -24,7 +24,7 @@ public class ModelController {
 	 * @param consumers -- A discrete number of consumer agents
 	 * @param ukPopulation -- The actual UK population
 	 */
-	public ModelController(final List<Retailer> retailers, final List<BranchAgent> branches, final List<Consumer> consumers, final int ukPopulation){
+	public ModelController(final List<Retailer> retailers, final List<CarnivoreBranchAgent> branches, final List<Consumer> consumers, final int ukPopulation){
 		this.branchAgents = branches;
 		this.retailers = retailers;
 		this.consumsers = consumers;
@@ -54,12 +54,12 @@ public class ModelController {
 	private List<Branch> demmandRetailerActions(){
 		final List<Branch> retailers = new ArrayList<>(this.branchAgents.size());
 
-		for(final BranchAgent agent : this.branchAgents){
+		for(final CarnivoreBranchAgent agent : this.branchAgents){
 			retailers.add(agent.getBranch());
 		}
 
 		int retailerIndex = 0;
-		for(final BranchAgent agent : this.branchAgents){
+		for(final CarnivoreBranchAgent agent : this.branchAgents){
 			try {
 				final List<Branch> competitors = MyTools.skipIndex(retailerIndex, retailers);
 				agent.demandAction(competitors);

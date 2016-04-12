@@ -1,10 +1,12 @@
-package sjc.dissertation.retailer.carnivore;
+package sjc.dissertation.retailer.learn;
 
 import java.util.Arrays;
 import java.util.Random;
 
 import org.junit.Test;
 
+import sjc.dissertation.retailer.learn.ActionPredictor;
+import sjc.dissertation.retailer.learn.ActionPredictorImpl;
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.QualityChange;

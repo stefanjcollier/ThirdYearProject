@@ -18,12 +18,12 @@ public class BranchAgentFactory {
 		this.branches = new HashSet<Branch>(5);
 	}
 
-	public BranchAgent createNewAgent(final Branch brainlessRetailer, final Algorithm policy){
+	public CarnivoreBranchAgent createNewAgent(final Branch brainlessRetailer, final Algorithm policy){
 		if(retailerInUse(brainlessRetailer) || policy.hasRetailer()) {
 			return null;
 		}
 		final int id = this.branches.size()+1;
-		final BranchAgent newAgent = new BranchAgent(id, brainlessRetailer, policy);
+		final CarnivoreBranchAgent newAgent = new CarnivoreBranchAgent(id, brainlessRetailer, policy);
 
 		this.branches.add(brainlessRetailer);
 

@@ -1,4 +1,4 @@
-package sjc.dissertation.retailer.carnivore;
+package sjc.dissertation.retailer.learn;
 
 import java.util.List;
 
@@ -7,13 +7,13 @@ import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
-public class GreedyAlgorithm extends Algorithm{
+public class GreedyCarnivoreAlgorithm extends Algorithm{
 
 	private WorldPerceptor eyes;
 	private ActionPredictor brain;
 
 
-	protected GreedyAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
+	protected GreedyCarnivoreAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
 		this.eyes = perceptor;
 		this.brain = predictor;
 	}

@@ -1,9 +1,10 @@
-package sjc.dissertation.retailer.carnivore;
+package sjc.dissertation.retailer.learn;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import sjc.dissertation.retailer.learn.GreedyCarnivoreAlgorithmFactory;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 
@@ -13,7 +14,7 @@ public class GreedyAlgorithmFactoryTest {
 	public void testInitialWeightsGeneration_isCorrectLength() {
 		//GIVEN a factory where the UK pop is 1 million
 		final int pop = 1000000;
-		final GreedyAlgorithmFactory fac = new GreedyAlgorithmFactory(null, pop);
+		final GreedyCarnivoreAlgorithmFactory fac = new GreedyCarnivoreAlgorithmFactory(null, pop);
 
 		//WHEN getting the weights for numbers of competitors
 		final double[] w1 = fac.getInitWeights(1);
@@ -31,7 +32,7 @@ public class GreedyAlgorithmFactoryTest {
 	public void testInitialWeightsGeneration_correctElementValues() {
 		//GIVEN a factory where the UK pop is 1 million
 		final int pop = 1000000;
-		final GreedyAlgorithmFactory fac = new GreedyAlgorithmFactory(null, pop);
+		final GreedyCarnivoreAlgorithmFactory fac = new GreedyCarnivoreAlgorithmFactory(null, pop);
 
 		//AND the cost of shopping (the same for all retailers)
 		final double rawCost = Quality.MediumQuality.getCost();

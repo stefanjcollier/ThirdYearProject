@@ -1,4 +1,4 @@
-package sjc.dissertation.retailer.carnivore;
+package sjc.dissertation.retailer.learn;
 
 import java.util.Arrays;
 
