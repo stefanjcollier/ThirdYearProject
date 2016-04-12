@@ -5,7 +5,7 @@ import java.util.List;
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.model.logging.votes.VoteLogger;
-import sjc.dissertation.retailer.Branch;
+import sjc.dissertation.retailer.branch.Branch;
 
 public class WrappedConsumer implements Consumer, Wrapper{
 
@@ -24,15 +24,15 @@ public class WrappedConsumer implements Consumer, Wrapper{
 	}
 
 	@Override
-	public int chooseRetailer(final List<Branch> retailers) {
-		final int indexChoice = this.me.chooseRetailer(retailers);
+	public int chooseBranch(final List<Branch> branches) {
+		final int indexChoice = this.me.chooseBranch(branches);
 		//Logging
 		if(indexChoice > -1){
-			final Branch retailer = retailers.get(indexChoice);
+			final Branch branch = branches.get(indexChoice);
 
-			this.votesLog.addVote(this.me, retailer);
+			this.votesLog.addVote(this.me, branch);
 			this.logger.debug(this, String.format("%s:: Voted:: %s",
-					this.me.getSocialClass(), retailer.getName()));
+					this.me.getSocialClass(), branch.getBranchName()));
 		}else{
 			//an index choice of -1 indicates a no vote
 			this.votesLog.addVote(this.me, null);

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import sjc.dissertation.consumer.Consumer;
-import sjc.dissertation.retailer.Branch;
+import sjc.dissertation.retailer.branch.Branch;
 
 /**
  * A central place to store the history of votes in the simulation.

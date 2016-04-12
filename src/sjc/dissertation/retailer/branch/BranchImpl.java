@@ -1,12 +1,13 @@
-package sjc.dissertation.retailer;
+package sjc.dissertation.retailer.branch;
 
 import sjc.dissertation.model.logging.LoggerFactory;
+import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 
 /**
- * This is the Retailer, it is what a customer can see if they walked into a shop or
+ * This is the Branch, it is what a customer can see if they walked into a shop or
  * found retailer online.
  *
  * @author Stefan Collier
@@ -14,16 +15,13 @@ import sjc.dissertation.retailer.state.quality.Quality;
  */
 public class BranchImpl implements Branch{
 	private final InternalRetailerState state;
-	private final String name;
+	private final Retailer retailer;
+	private final int id;
 
-	public BranchImpl(final String name){
+	public BranchImpl(final Retailer owner, final int id){
 		this.state = new InternalRetailerState();
-		this.name = name;
-	}
-
-	@Override
-	public String getName(){
-		return this.name;
+		this.retailer = owner;
+		this.id = id;
 	}
 
 	@Override
@@ -37,7 +35,7 @@ public class BranchImpl implements Branch{
 	}
 
 	/**
-	 * Under the abstraction that retailers offer a single 'weekly shop',
+	 * Under the abstraction that branches offer a single 'weekly shop',
 	 * returns the price of that 'shop'.
 	 *
 	 * @return The cost of shopping at given retailer
@@ -51,9 +49,9 @@ public class BranchImpl implements Branch{
 
 
 	/**
-	 * Informs the retailer how many consumers it had this week based on the actions it made.
+	 * Informs the branch how many consumers it had this week based on the actions it made.
 	 *
-	 * @param customers --  the number of people who shopped with this retailer.
+	 * @param customers --  the number of people who shopped with this branch.
 	 * @return profit based on customers
 	 */
 	@Override
@@ -67,18 +65,30 @@ public class BranchImpl implements Branch{
 		final double margin = this.state.getProfitMargin().getProfitMargin();
 		LoggerFactory.getSingleton().getMasterLogger().trace(String.format(
 				"RetailerImpl(%s)::Profit:: Customers*(margin * cost) = %d * (%f * %f) = %f",
-				this.name,customers, margin, cost, (customers*margin*cost)));
+				this.getBranchName(),customers, margin, cost, (customers*margin*cost)));
 		return customers * (margin*cost);
 	}
 
+
+	@Override
+	public String getBranchName(){
+		return String.format("%s[%d]", this.retailer.getName(), this.id);
+	}
+
+
 	@Override
 	public String toString(){
-		return String.format("%s: %s", this.name, this.state.getSymbol());
+		return String.format("%s: %s", this.getBranchName(), this.state.getSymbol());
 	}
 
 	@Override
 	public ProfitMargin getProfiMargin() {
 		return this.state.getProfitMargin();
+	}
+
+	@Override
+	public Retailer getRetailer() {
+		return this.retailer;
 	}
 
 }

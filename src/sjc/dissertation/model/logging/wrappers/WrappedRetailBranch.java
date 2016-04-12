@@ -1,8 +1,9 @@
 package sjc.dissertation.model.logging.wrappers;
 
 import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.retailer.Branch;
-import sjc.dissertation.retailer.state.RetailState;
+import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.branch.Branch;
+import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.Currency;
@@ -43,8 +44,8 @@ public class WrappedRetailBranch implements Branch, Wrapper{
 	}
 
 	@Override
-	public String getName() {
-		return this.me.getName();
+	public String getBranchName() {
+		return this.me.getBranchName();
 	}
 
 	@Override
@@ -54,17 +55,22 @@ public class WrappedRetailBranch implements Branch, Wrapper{
 
 	@Override
 	public String getWrapperId(){
-		return String.format("Branch(%s)", this.me.getName());
+		return String.format("Branch(%s)", this.me.getBranchName());
 	}
 
 	@Override
-	public RetailState getState() {
+	public BranchState getState() {
 		return this.me.getState();
 	}
 
 	@Override
 	public ProfitMargin getProfiMargin() {
 		return this.me.getProfiMargin();
+	}
+
+	@Override
+	public Retailer getRetailer() {
+		return this.me.getRetailer();
 	}
 
 }

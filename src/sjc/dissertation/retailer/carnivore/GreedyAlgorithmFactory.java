@@ -2,7 +2,7 @@ package sjc.dissertation.retailer.carnivore;
 
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedActionPredictor;
-import sjc.dissertation.retailer.Algorithm;
+import sjc.dissertation.retailer.branch.Algorithm;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.Quality;

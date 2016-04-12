@@ -3,9 +3,9 @@ package sjc.dissertation.model.logging.wrappers;
 import java.util.List;
 
 import sjc.dissertation.model.logging.MasterLogger;
-import sjc.dissertation.retailer.Algorithm;
-import sjc.dissertation.retailer.Branch;
-import sjc.dissertation.retailer.state.RetailState;
+import sjc.dissertation.retailer.branch.Algorithm;
+import sjc.dissertation.retailer.branch.Branch;
+import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
 public class WrappedAlgorithm extends Algorithm implements Wrapper{
@@ -22,7 +22,7 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 	}
 
 	@Override
-	public RetailerAction determineAction(final RetailState state, final List<Branch> competitors) {
+	public RetailerAction determineAction(final BranchState state, final List<Branch> competitors) {
 		final RetailerAction action = this.me.determineAction(state, competitors);
 
 		final String line = String.format(" At state:%s\tchose:%s", state.getSymbol(), action.getSymbol());
@@ -39,7 +39,7 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 
 	@Override
 	public String getWrapperId() {
-		return String.format("%s::Algorithm(%s)", this.me.toString(), (this.hasRetailer())?this.getAgent().getRetailer().getName():"-");
+		return String.format("%s::Algorithm(%s)", this.me.toString(), (this.hasRetailer())?this.getAgent().getBranch().getBranchName():"-");
 	}
 
 	@Override

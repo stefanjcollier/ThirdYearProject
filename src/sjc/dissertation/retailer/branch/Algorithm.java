@@ -1,24 +1,24 @@
-package sjc.dissertation.retailer;
+package sjc.dissertation.retailer.branch;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.state.RetailState;
+import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
 public abstract class Algorithm {
-	private RetailerAgent agent;
+	private BranchAgent agent;
 
-	public abstract RetailerAction determineAction(RetailState state, List<Branch> competitors);
+	public abstract RetailerAction determineAction(BranchState state, List<Branch> competitors);
 
 	public abstract void informOfReward(double profit);
 
-	protected void giveRetailerAgent(final RetailerAgent agent){
+	protected void giveRetailerAgent(final BranchAgent agent){
 		if(!hasRetailer()){
 			this.agent = agent;
 		}
 	}
 
-	public RetailerAgent getAgent(){
+	public BranchAgent getAgent(){
 		return this.agent;
 	}
 

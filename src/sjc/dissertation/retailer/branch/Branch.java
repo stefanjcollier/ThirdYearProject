@@ -1,14 +1,13 @@
-package sjc.dissertation.retailer;
+package sjc.dissertation.retailer.branch;
 
-import java.util.List;
-
-import sjc.dissertation.retailer.state.RetailState;
+import sjc.dissertation.retailer.Retailer;
+import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.quality.Quality;
 
 public interface Branch {
 	/**
-	 * Informs the retailer the number of customers shopped with them this week.
+	 * Informs the branch the number of customers shopped with them this week.
 	 *  And returns the amount of profit earned this week.
 	 *
 	 * @param customers -- The number of UK citizens that shopped with this retailer
@@ -20,10 +19,12 @@ public interface Branch {
 
 	public double getCostOfShopping();
 
-	public String getName();
+	public String getBranchName();
 
-	public RetailState getState();
+	public BranchState getState();
 
 	public ProfitMargin getProfiMargin();
+
+	public Retailer getRetailer();
 
 }

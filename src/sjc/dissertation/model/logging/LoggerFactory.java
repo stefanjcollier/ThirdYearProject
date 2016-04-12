@@ -5,8 +5,8 @@ import sjc.dissertation.model.logging.votes.VoteLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedAlgorithm;
 import sjc.dissertation.model.logging.wrappers.WrappedConsumer;
 import sjc.dissertation.model.logging.wrappers.WrappedRetailBranch;
-import sjc.dissertation.retailer.Algorithm;
-import sjc.dissertation.retailer.Branch;
+import sjc.dissertation.retailer.branch.Algorithm;
+import sjc.dissertation.retailer.branch.Branch;
 
 public class LoggerFactory {
 

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
-import sjc.dissertation.retailer.Branch;
-import sjc.dissertation.retailer.RetailerAgent;
+import sjc.dissertation.retailer.branch.Branch;
+import sjc.dissertation.retailer.branch.BranchAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.util.MyTools;
 
 public class ModelController {
 
 	private final List<Consumer> consumsers;
-	private final List<RetailerAgent> retailerAgents;
+	private final List<BranchAgent> retailerAgents;
 	private final int voteWeight;
 
 	/**
@@ -22,7 +22,7 @@ public class ModelController {
 	 * @param consumers -- A discrete number of consumer agents
 	 * @param ukPopulation -- The actual UK population
 	 */
-	public ModelController(final List<RetailerAgent> retailers, final List<Consumer> consumers, final int ukPopulation){
+	public ModelController(final List<BranchAgent> retailers, final List<Consumer> consumers, final int ukPopulation){
 		this.retailerAgents = retailers;
 		this.consumsers = consumers;
 		this.voteWeight = ukPopulation / consumers.size();
@@ -47,12 +47,12 @@ public class ModelController {
 	private List<Branch> demmandRetailerActions(){
 		final List<Branch> retailers = new ArrayList<>(this.retailerAgents.size());
 
-		for(final RetailerAgent agent : this.retailerAgents){
-			retailers.add(agent.getRetailer());
+		for(final BranchAgent agent : this.retailerAgents){
+			retailers.add(agent.getBranch());
 		}
 
 		int retailerIndex = 0;
-		for(final RetailerAgent agent : this.retailerAgents){
+		for(final BranchAgent agent : this.retailerAgents){
 			try {
 				final List<Branch> competitors = MyTools.skipIndex(retailerIndex, retailers);
 				agent.demandAction(competitors);
@@ -78,7 +78,7 @@ public class ModelController {
 		final int[] choices = new int[retailers.size()+1];
 
 		for(final Consumer consumer : this.consumsers){
-			final int choice = consumer.chooseRetailer(retailers);
+			final int choice = consumer.chooseBranch(retailers);
 			if(choice != -1) {
 				choices[choice]++;
 			}else{

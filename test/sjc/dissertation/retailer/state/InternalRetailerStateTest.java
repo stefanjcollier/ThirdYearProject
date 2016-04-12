@@ -28,7 +28,7 @@ public class InternalRetailerStateTest {
 	@Test
 	public void testInstantiatesWithCorrectValues() {
 		//GIVEN a state MQ,P+
-		final RetailState state = new InternalRetailerState();
+		final BranchState state = new InternalRetailerState();
 
 
 		//WHEN getting it's quality

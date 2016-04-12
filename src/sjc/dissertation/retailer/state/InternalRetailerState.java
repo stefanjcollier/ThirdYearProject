@@ -11,7 +11,7 @@ import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
 /**
- * An implementation of {@link RetailState} that allows state
+ * An implementation of {@link BranchState} that allows state
  * change, via the mutator {@link InternalRetailerState#computeAction(RetailerAction)}..
  *
  * Due to the size of Java Objects each retailer should contain their own
@@ -22,7 +22,7 @@ import sjc.dissertation.retailer.state.quality.QualityChange;
  * @author Stefan Collier
  *
  */
-public class InternalRetailerState implements RetailState{
+public class InternalRetailerState implements BranchState{
 	static final int INITIAL_VALUE = -111;
 	static final int NOT_INFORMED_OF_CUSTOMERS = -999;
 

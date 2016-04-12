@@ -17,7 +17,7 @@ import sjc.dissertation.retailer.state.quality.Quality;
  * @author Stefan Collier
  *
  */
-public interface RetailState {
+public interface BranchState {
 
 	public Set<RetailerAction> getActions();
 

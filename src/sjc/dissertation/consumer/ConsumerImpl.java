@@ -2,7 +2,7 @@ package sjc.dissertation.consumer;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.Branch;
+import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.util.RandomToolbox;
 
@@ -149,7 +149,7 @@ public class ConsumerImpl implements Consumer{
 	 * @return the chosen retailer
 	 */
 	@Override
-	public int chooseRetailer(final List<Branch> retailers){
+	public int chooseBranch(final List<Branch> retailers){
 		//Find the chance for choosing each retailer
 		final double[] chances = new double[retailers.size()];
 		for (int re = 0; re < retailers.size(); re++){

@@ -2,11 +2,11 @@ package sjc.dissertation.consumer;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.Branch;
+import sjc.dissertation.retailer.branch.Branch;
 
 public interface Consumer {
 
-	public int chooseRetailer(final List<Branch> RetailBranches);
+	public int chooseBranch(final List<Branch> RetailBranches);
 
 	public String getSocialClass();
 

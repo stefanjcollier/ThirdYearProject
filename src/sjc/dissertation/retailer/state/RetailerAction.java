@@ -10,7 +10,7 @@ import sjc.dissertation.retailer.state.quality.QualityChange;
  * The action a retailer can make, an action composes of changing the {@link Quality} and {@link ProfitMargin},
  * using a {@link QualityChange} and {@link ProfitMarginChange}.
  *
- * {@link RetailerAction} are consumed by {@link RetailState}s to change state.
+ * {@link RetailerAction} are consumed by {@link BranchState}s to change state.
  *
  * @author Stefan Collier
  *

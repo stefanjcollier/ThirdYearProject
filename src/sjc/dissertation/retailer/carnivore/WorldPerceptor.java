@@ -2,8 +2,8 @@ package sjc.dissertation.retailer.carnivore;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.Branch;
-import sjc.dissertation.retailer.state.RetailState;
+import sjc.dissertation.retailer.branch.Branch;
+import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.Quality;
@@ -122,7 +122,7 @@ public class WorldPerceptor {
 	 *
 	 * @return A numerical vector representation of how the agent views the world
 	 */
-	public double[] percieveWorld(final RetailState me, final List<Branch> others){
+	public double[] percieveWorld(final BranchState me, final List<Branch> others){
 		final int variables = 2 + others.size()*2;
 		final double[] perception = new double[variables];
 
