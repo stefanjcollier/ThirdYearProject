@@ -8,13 +8,13 @@ import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.Quality;
 import sjc.dissertation.retailer.state.quality.QualityChange;
 
-public class GreedyCarnivoreAlgorithmFactory {
+public class GreedyAlgorithmFactory {
 
 	private final int ukPop;
 	private final MasterLogger logger;
 	private int currentId;
 
-	public GreedyCarnivoreAlgorithmFactory(final MasterLogger logger, final int populationOfUK) {
+	public GreedyAlgorithmFactory(final MasterLogger logger, final int populationOfUK) {
 		this.logger = logger;
 		this.currentId = 0;
 		this.ukPop = populationOfUK;
@@ -23,14 +23,14 @@ public class GreedyCarnivoreAlgorithmFactory {
 	public Algorithm createGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
 		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
-		return new GreedyCarnivoreAlgorithm(world, predictor);
+		return new GreedyAlgorithm(world, predictor);
 	}
 
 	public Algorithm createWrappedGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
 		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
 		final ActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, this.currentId++);
-		return new GreedyCarnivoreAlgorithm(world, wrappedpredictor);
+		return new GreedyAlgorithm(world, wrappedpredictor);
 	}
 
 

@@ -23,7 +23,7 @@ public class CarnivoreBranchAgent implements BranchAgent {
 		this.id = uniqueId;
 		this.branch = branch;
 		this.policy = controller;
-		this.policy.giveRetailerAgent(this);
+		this.policy.giveBranchAgent(this);
 	}
 
 	/**

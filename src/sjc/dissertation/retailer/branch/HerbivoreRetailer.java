@@ -3,9 +3,9 @@ package sjc.dissertation.retailer.branch;
 import java.util.List;
 import java.util.Map;
 
+import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.retailer.CarnivoreRetailer;
 import sjc.dissertation.retailer.Retailer;
-import sjc.dissertation.retailer.learn.GreedyCarnivoreAlgorithm;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 import sjc.dissertation.retailer.state.RetailerAction;
@@ -15,11 +15,13 @@ public class HerbivoreRetailer extends CarnivoreRetailer implements Retailer{
 	private final InternalRetailerState state;
 	private boolean decidedOnAction;
 
-	protected HerbivoreRetailer(final String name, final GreedyCarnivoreAlgorithm policy)  {
+	public HerbivoreRetailer(final String name, final Algorithm policy)  {
 		super(name);
 		this.policy = policy;
 		this.state = new InternalRetailerState();
 		this.decidedOnAction = false;
+
+		this.policy.giveRetailer(this);
 	}
 
 	@Override
@@ -58,7 +60,9 @@ public class HerbivoreRetailer extends CarnivoreRetailer implements Retailer{
 	 * @param competitors
 	 */
 	protected void determineAction(final List<Branch> competitors){
+		//If has already decided on an action
 		if(this.decidedOnAction){
+			LoggerFactory.getSingleton().getMasterLogger().trace(String.format("Herbivore(%s):: already decided on action", this.name));
 			return;
 		}
 
@@ -71,13 +75,12 @@ public class HerbivoreRetailer extends CarnivoreRetailer implements Retailer{
 		}
 
 		this.decidedOnAction = true;
+		LoggerFactory.getSingleton().getMasterLogger().trace(String.format("Herbivore(%s):: decided on action: %b", this.name, this.decidedOnAction));
+
 	}
 
 	protected InternalRetailerState getState(){
 		return this.state;
 	}
-
-
-
 
 }

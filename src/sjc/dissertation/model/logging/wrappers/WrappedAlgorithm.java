@@ -39,7 +39,13 @@ public class WrappedAlgorithm extends Algorithm implements Wrapper{
 
 	@Override
 	public String getWrapperId() {
-		return String.format("%s::Algorithm(%s)", this.me.toString(), (this.hasRetailer())?this.getAgent().getBranch().getBranchName():"-");
+		String identifier = "-";
+		if(this.hasBranchAgent()){
+			identifier = this.getBranchAgent().getBranch().getBranchName();
+		}else if (this.hasRetailerAgent()){
+			identifier = this.getRetailerAgent().getName();
+		}
+		return String.format("%s::Algorithm(%s)", this.me.toString(), identifier);
 	}
 
 	@Override

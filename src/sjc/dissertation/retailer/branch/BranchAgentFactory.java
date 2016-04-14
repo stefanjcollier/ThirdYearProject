@@ -19,7 +19,7 @@ public class BranchAgentFactory {
 	}
 
 	public CarnivoreBranchAgent createNewCarnivoreAgent(final Branch brainlessRetailer, final Algorithm policy){
-		if(retailerInUse(brainlessRetailer) || policy.hasRetailer()) {
+		if(retailerInUse(brainlessRetailer) || policy.hasBranchAgent()) {
 			return null;
 		}
 		final int id = this.branches.size()+1;
@@ -32,14 +32,13 @@ public class BranchAgentFactory {
 
 	public HerbivoreBranchAgent createNewHerbivoreAgent(final Branch brainlessRetailer){
 		//If the branch has a agent or is not a herbivoreBranchImpl
-		if(retailerInUse(brainlessRetailer) ||
-				!brainlessRetailer.getClass().getName().equals(HerbivoreBranchImpl.class.getName())) {
+		if(retailerInUse(brainlessRetailer)) {
 			return null;
 		}
 
 
 		final int id = this.branches.size()+1;
-		final HerbivoreBranchAgent newAgent = new HerbivoreBranchAgent(id, (HerbivoreBranchImpl)brainlessRetailer);
+		final HerbivoreBranchAgent newAgent = new HerbivoreBranchAgent(id, brainlessRetailer);
 
 		this.branches.add(brainlessRetailer);
 

@@ -7,13 +7,13 @@ import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.state.BranchState;
 import sjc.dissertation.retailer.state.RetailerAction;
 
-public class GreedyCarnivoreAlgorithm extends Algorithm{
+public class GreedyAlgorithm extends Algorithm{
 
 	private WorldPerceptor eyes;
 	private ActionPredictor brain;
 
 
-	protected GreedyCarnivoreAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
+	protected GreedyAlgorithm(final WorldPerceptor perceptor, final ActionPredictor predictor){
 		this.eyes = perceptor;
 		this.brain = predictor;
 	}

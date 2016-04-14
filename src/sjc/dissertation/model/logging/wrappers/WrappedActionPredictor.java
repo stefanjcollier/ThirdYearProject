@@ -42,7 +42,7 @@ public class WrappedActionPredictor implements Wrapper, ActionPredictor{
 		final double error = this.predicted - actualProfit;
 		final double errorPercent = error/ actualProfit *100.0;
 
-		this.log.print(this, String.format("Error was %f (%.2f%%), Weights updated to: %s", error, errorPercent ,Arrays.toString(newW)));
+		this.log.debug(this, String.format("Error was %f (%.2f%%), Weights updated to: %s", error, errorPercent ,Arrays.toString(newW)));
 
 		return newW;
 	}

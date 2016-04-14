@@ -6,9 +6,9 @@ import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 
 public class HerbivoreBranchAgent implements BranchAgent{
 	private final int id;
-	private final HerbivoreBranchImpl branch;
+	private final Branch branch;
 
-	protected HerbivoreBranchAgent(final int uniqueId, final HerbivoreBranchImpl branch) {
+	protected HerbivoreBranchAgent(final int uniqueId, final Branch branch) {
 		this.id = uniqueId;
 		this.branch = branch;
 	}
