@@ -13,9 +13,9 @@ import sjc.dissertation.model.logging.votes.VoteLogger;
 import sjc.dissertation.retailer.CarnivoreRetailer;
 import sjc.dissertation.retailer.Retailer;
 import sjc.dissertation.retailer.branch.Branch;
+import sjc.dissertation.retailer.branch.BranchAgentFactory;
 import sjc.dissertation.retailer.branch.CarnivoreBranchAgent;
 import sjc.dissertation.retailer.learn.GreedyCarnivoreAlgorithmFactory;
-import sjc.dissertation.retailer.branch.BranchAgentFactory;
 import sjc.dissertation.retailer.state.MaintainAlgorithm;
 import sjc.dissertation.util.FileUtils;
 
@@ -71,19 +71,32 @@ public class ModelRunner {
 		final BranchAgentFactory agentFactory = BranchAgentFactory.getSingleton();
 		final List<CarnivoreBranchAgent> agents = new ArrayList<>(2);
 
-		//Make Control Agent
+		//------------------------------
+		////Make Control Agent
 		final Retailer control_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Control"));
-		final Branch con_retailer = wrapper.wrapBranch(control_retailer.createBranch(0, 0));
-		final CarnivoreBranchAgent con_agent = agentFactory.createNewCarnivoreAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
-		agents.add(con_agent);
+		//Control Branch 1
+		final Branch con_branch_1 = wrapper.wrapBranch(control_retailer.createBranch(0, 0));
+		final CarnivoreBranchAgent con_agent_1 = agentFactory.createNewCarnivoreAgent(con_branch_1, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
+		agents.add(con_agent_1);
 
-		//Make Greedy Agent
-		final Retailer carn_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Greedy"));
+		//------------------------------
+		////Make Greedy Agent
 		final GreedyCarnivoreAlgorithmFactory greedy_factory = new GreedyCarnivoreAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
-		final Branch greedy_retailer = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
-		final CarnivoreBranchAgent greedy_agent = agentFactory.createNewCarnivoreAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
-		agents.add(greedy_agent);
+		final Retailer carn_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Greedy"));
+		//Carn Branch 1
+		final Branch carn_branch_1 = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
+		final CarnivoreBranchAgent carn_agent_1 = agentFactory.createNewCarnivoreAgent(carn_branch_1,
+				wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(2)));
+		agents.add(carn_agent_1);
 
+		//Carn Branch 2
+		final Branch carn_branch_2 = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
+		final CarnivoreBranchAgent carn_agent_2 = agentFactory.createNewCarnivoreAgent(carn_branch_2,
+				wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(2)));
+		agents.add(carn_agent_2);
+
+		//------------------------------
+		//Add the retailers (previously added branches)
 		retaiers.add(carn_retailer);
 		retaiers.add(control_retailer);
 

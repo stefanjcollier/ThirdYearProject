@@ -34,10 +34,10 @@ public class VoteLogger {
 
 	private final VoteFileWriter files;
 
-	public VoteLogger(final String filePath, final List<Branch> retailers, final String[] classes){
+	public VoteLogger(final String filePath, final List<Branch> branches, final String[] classes){
 		//Populate index converters
 		this.classToIndex = generateClassIds(classes);
-		this.retailerToIndex = generateRetailerIds(retailers);
+		this.retailerToIndex = generateRetailerIds(branches);
 
 		//Create table for first round
 		this.roundScores = new HashMap<Integer, int[][]>(100);
@@ -45,7 +45,7 @@ public class VoteLogger {
 		this.incrementRound();
 
 		//Create file stores
-		this.files = new VoteFileWriter(filePath, classes, retailers.size());
+		this.files = new VoteFileWriter(filePath, classes, branches.size());
 	}
 
 	/**

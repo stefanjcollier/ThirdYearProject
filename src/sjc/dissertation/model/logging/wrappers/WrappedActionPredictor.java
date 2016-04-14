@@ -15,7 +15,7 @@ public class WrappedActionPredictor implements Wrapper, ActionPredictor{
 
 	public WrappedActionPredictor(final MasterLogger logger, final ActionPredictor observedObject, final int id) {
 		this.me = observedObject;
-		this.id = String.format("LinReg(%d)", id*10);
+		this.id = String.format("LinReg(%d0)", id);
 		this.log = logger;
 
 		//Logging
@@ -40,8 +40,9 @@ public class WrappedActionPredictor implements Wrapper, ActionPredictor{
 	public double[] feedback(final double actualProfit) {
 		final double[] newW = this.me.feedback(actualProfit);
 		final double error = this.predicted - actualProfit;
+		final double errorPercent = error/ actualProfit *100.0;
 
-		this.log.print(this, String.format("Error was %f, Weights updated to: %s", error ,Arrays.toString(newW)));
+		this.log.print(this, String.format("Error was %f (%.2f%%), Weights updated to: %s", error, errorPercent ,Arrays.toString(newW)));
 
 		return newW;
 	}
