@@ -1,12 +1,10 @@
-package sjc.dissertation.retailer.herbivore;
+package sjc.dissertation.retailer.branch;
 
 import java.util.List;
 import java.util.Map;
 
 import sjc.dissertation.retailer.CarnivoreRetailer;
 import sjc.dissertation.retailer.Retailer;
-import sjc.dissertation.retailer.branch.Algorithm;
-import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.learn.GreedyCarnivoreAlgorithm;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;

@@ -1,9 +1,7 @@
-package sjc.dissertation.retailer.herbivore;
+package sjc.dissertation.retailer.branch;
 
 import java.util.List;
 
-import sjc.dissertation.retailer.branch.Branch;
-import sjc.dissertation.retailer.branch.BranchAgent;
 import sjc.dissertation.retailer.state.InvalidRetailerActionException;
 
 public class HerbivoreBranchAgent implements BranchAgent{

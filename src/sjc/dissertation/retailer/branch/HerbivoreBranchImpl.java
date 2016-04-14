@@ -1,8 +1,7 @@
-package sjc.dissertation.retailer.herbivore;
+package sjc.dissertation.retailer.branch;
 
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.retailer.CarnivoreBranchImpl;
-import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.state.InternalRetailerState;
 
 public class HerbivoreBranchImpl extends CarnivoreBranchImpl implements Branch {

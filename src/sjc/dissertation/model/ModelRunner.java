@@ -74,14 +74,14 @@ public class ModelRunner {
 		//Make Control Agent
 		final Retailer control_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Control"));
 		final Branch con_retailer = wrapper.wrapBranch(control_retailer.createBranch(0, 0));
-		final CarnivoreBranchAgent con_agent = agentFactory.createNewAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
+		final CarnivoreBranchAgent con_agent = agentFactory.createNewCarnivoreAgent(con_retailer, wrapper.wrapAlgorithm(new MaintainAlgorithm()));
 		agents.add(con_agent);
 
 		//Make Greedy Agent
 		final Retailer carn_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Greedy"));
 		final GreedyCarnivoreAlgorithmFactory greedy_factory = new GreedyCarnivoreAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
 		final Branch greedy_retailer = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
-		final CarnivoreBranchAgent greedy_agent = agentFactory.createNewAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
+		final CarnivoreBranchAgent greedy_agent = agentFactory.createNewCarnivoreAgent(greedy_retailer, wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(1)));
 		agents.add(greedy_agent);
 
 		retaiers.add(carn_retailer);
