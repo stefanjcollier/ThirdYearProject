@@ -7,6 +7,7 @@ import java.util.List;
 
 import sjc.dissertation.consumer.Consumer;
 import sjc.dissertation.consumer.ConsumerFactory;
+import sjc.dissertation.consumer.LocationFactory;
 import sjc.dissertation.model.logging.LoggerFactory;
 import sjc.dissertation.model.logging.MasterLogger.Level;
 import sjc.dissertation.model.logging.votes.VoteLogger;
@@ -23,41 +24,43 @@ import sjc.dissertation.util.FileUtils;
 
 public class ModelRunner {
 
-	/** ref:{@link http://countrymeters.info/en/United_Kingdom_(UK)} */
-	static final int UK_POPULATION = 200;//65086445;
-
 	/** Location to save the files */
 	static String PATH = "C:\\Users\\Stefa\\Desktop\\DissResults\\";
 
 	/** Rounds to be played*/
 	static final int ROUNDS = 500;
 
-
 	static final List<Retailer> retaiers = new ArrayList<Retailer>(4);
 
 	public static void main(final String[] args){
+		//Set the path for files
 		genPATH();
-		//		final String[] names = {"Tesco", "ASDA"};
-		final String[] classes = ConsumerFactory.getSingleton().getSocialClasses();
 
 		//Text Logger
 		LoggerFactory.initiateLoggerFactory(PATH);
 		final LoggerFactory wrapper = LoggerFactory.getSingleton();
-		wrapper.getMasterLogger().setDisplayLevel(Level.Print);
-
+		wrapper.getMasterLogger().setDisplayLevel(Level.Log);
 
 		//Retailer Agents
 		//		final List<RetailerAgent> retailers = makeRetailers(names, wrapper);
 		final List<BranchAgent> branches = TEST_1Control_1Herb(wrapper);
 
 		//Data Loggers
+		final String[] classes = ConsumerFactory.getSingleton().getSocialClasses();
 		final VoteLogger voteLog = new VoteLogger(PATH, extractBranches(branches), classes);
 
-		//Consumer Agents
-		final List<Consumer> consumers = makeConsumers(100, wrapper, voteLog);
+		//Consumer Agents and Settlements
+		final LocationFactory locFac = ConsumerFactory.getSingleton().getLocationFactory();
+		locFac.addSettlement(4,  17, 30000);
+		locFac.addSettlement(5,  5, 7000);
+		locFac.addSettlement(9,  13, 80000);
+		locFac.addSettlement(13, 8, 160000);
+		locFac.addSettlement(16, 15, 50000);
+
+		final List<Consumer> consumers = makeConsumers(500, wrapper, voteLog);
 
 		//Model
-		final ModelController model = new ModelController(retaiers, branches, consumers, UK_POPULATION);
+		final ModelController model = new ModelController(retaiers, branches, consumers, locFac.getTotalPopulation());
 
 		//Time to play the game
 		for(int round = 1; round <= ROUNDS; round++){
@@ -66,8 +69,9 @@ public class ModelRunner {
 					"\n------------------------------------------------------------",
 					round, Arrays.toString(voteLog.getCurrentRoundResults())));
 			voteLog.startNextRound();
-
 		}
+
+		wrapper.getMasterLogger().log(ConsumerFactory.getSingleton().printResults());
 
 	}
 	static List<BranchAgent> TEST_1Control_1Carn(final LoggerFactory wrapper){
@@ -96,7 +100,7 @@ public class ModelRunner {
 
 		//------------------------------
 		////Make Carnivore Agent
-		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
+		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), ConsumerFactory.getSingleton().getLocationFactory().getTotalPopulation());
 		final Retailer carn_retailer = wrapper.wrapRetailer(new CarnivoreRetailer("Carnivore"));
 		//Carn Branch 1
 		final Branch carn_branch_1 = wrapper.wrapBranch(carn_retailer.createBranch(10, 10));
@@ -155,7 +159,7 @@ public class ModelRunner {
 
 		//------------------------------
 		////Make Herbivore Agent
-		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), UK_POPULATION);
+		final GreedyAlgorithmFactory greedy_factory = new GreedyAlgorithmFactory(wrapper.getMasterLogger(), ConsumerFactory.getSingleton().getLocationFactory().getTotalPopulation());
 		final Retailer herb_retailer = wrapper.wrapRetailer(new HerbivoreRetailer("Herbivore", wrapper.wrapAlgorithm(greedy_factory.createWrappedGreedyAlgorithm(total_agents-1))));
 
 		//Herbivore Branch 1

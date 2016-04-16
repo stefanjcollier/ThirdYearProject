@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import sjc.dissertation.model.logging.results.PrintResultsInterface;
 import sjc.dissertation.util.RandomToolbox;
 //JAVADOC CoFac
 /**
@@ -12,7 +13,7 @@ import sjc.dissertation.util.RandomToolbox;
  * @author Stefan Collier
  *
  */
-public class ConsumerFactory {
+public class ConsumerFactory implements PrintResultsInterface{
 
 	/** The ratio of choosing between the 5 classes */
 	private final double[] classRatios;
@@ -28,8 +29,12 @@ public class ConsumerFactory {
 	/** Used in generating budgets */
 	private final Random rng;
 
-	/** The size of the area we are working with */
-	private final int width;
+	/** The size of the area we are working with (in km). */
+
+	/** The travel cost per km in pounds */
+	private final double travelCost;
+
+	private final LocationFactory locGen;
 
 	public static ConsumerFactory getSingleton(){
 		if(singleton == null){
@@ -44,19 +49,21 @@ public class ConsumerFactory {
 					"Established Middle Class",
 					"Elite"
 			};
-			final int mapWidth = 100;
-			ConsumerFactory.singleton = new ConsumerFactory(names, ratios, spending, mapWidth);
+			final int mapWidth = 20;
+			final double travellingCostPerKm = 0.20;//Pounds
+			ConsumerFactory.singleton = new ConsumerFactory(names, ratios, spending, mapWidth, travellingCostPerKm);
 		}
 		return ConsumerFactory.singleton;
 	}
 
-	protected ConsumerFactory(final String[] classNames, final double[] classRatios, final double[] spendingAvgs, final int width){
+	protected ConsumerFactory(final String[] classNames, final double[] classRatios, final double[] spendingAvgs, final int width, final double travelCost){
 		this.classNames = classNames;
 		this.classRatios = classRatios;
 		this.budgetAvgs = spendingAvgs;
 		this.consumers = new ArrayList<Consumer>(200);
 		this.rng = new Random();
-		this.width = width;
+		this.travelCost = travelCost;
+		this.locGen = new LocationFactory(width);
 	}
 
 
@@ -96,8 +103,9 @@ public class ConsumerFactory {
 		final int id = this.consumers.size()+1;
 
 		//Location
-		final int x = this.rng.nextInt(this.width);
-		final int y = this.rng.nextInt(this.width);
+		final double[] location = this.locGen.generateLocation();
+		final double x = location[0];
+		final double y = location[1];
 
 		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget, x, y);
 		this.consumers.add(con);
@@ -108,7 +116,23 @@ public class ConsumerFactory {
 		return this.classNames;
 	}
 
+	public double getCostOfTravelPerKm(){
+		return this.travelCost;
+	}
 
+	public LocationFactory getLocationFactory(){
+		return this.locGen;
+	}
+
+	@Override
+	public String printResults() {
+		String locations = "------------------------------"+System.lineSeparator()
+		+ "Consumer Locations"+System.lineSeparator();
+		for (final Consumer con : this.consumers){
+			locations += String.format("%f,%f,"+System.lineSeparator(), con.getX(), con.getY());
+		}
+		return locations;
+	}
 
 
 }

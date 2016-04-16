@@ -83,4 +83,5 @@ public class HerbivoreRetailer extends CarnivoreRetailer implements Retailer{
 		return this.state;
 	}
 
+
 }

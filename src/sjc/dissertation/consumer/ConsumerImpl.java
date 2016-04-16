@@ -15,7 +15,7 @@ public class ConsumerImpl implements Consumer{
 	private final String socClass;
 	private final double budget, x, y;
 
-	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget, final int x, final int y){
+	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget, final double x, final double y){
 		this.id = unseenId;
 		this.socClass = socialClass;
 		this.budget = budget;
@@ -41,12 +41,12 @@ public class ConsumerImpl implements Consumer{
 	/**
 	 * Determines whether this consumer can purchase their shop from the given retailer.
 	 *
-	 * @param retailer -- The retailer whom's price we are assessing
+	 * @param branch -- The branch whom's price we are assessing
 	 * @return true if the consumer can purchase their shop from the retailer.
 	 */
 	@Override
-	public boolean canAfford(final Branch retailer){
-		return costOfShop(retailer) <= this.budget;
+	public boolean canAfford(final Branch branch){
+		return (costOfShop(branch)+costOfTravel(branch)) <= this.budget;
 	}
 
 	/**
@@ -105,11 +105,36 @@ public class ConsumerImpl implements Consumer{
 	 * This is determined by the interpreted reward of the shop
 	 *  compared to cost of the 'shop'
 	 *
-	 * @param re -- The retailer we are considering
-	 * @return The value for money of shopping at retailer 're' (vfm >= 0)
+	 *  vfm = reward * distance multiplier / (cost to shop + cost of travel)
+	 *
+	 * @param branch -- The retailer we are considering
+	 * @return The value for money of shopping at branch (vfm >= 0)
 	 */
-	private double valueForMoney(final Branch re){
-		return rewardOfShop(re) / costOfShop(re);
+	private double valueForMoney(final Branch branch){
+		final double cost = costOfShop(branch) + costOfTravel(branch);
+
+		//Determine how the distance affects the reward
+		// dm = (d / (D/2))^2
+		final double halfMapWidth = ConsumerFactory.getSingleton().getLocationFactory().getMapWidth()/2;
+		final double distanceRewardMultiplier = Math.pow(distanceFromBranch(branch)/halfMapWidth,2);
+
+		return rewardOfShop(branch) * distanceRewardMultiplier  / cost;
+	}
+
+	protected double distanceFromBranch(final Branch branch){
+		final double dx = branch.getX() - this.getX();
+		final double dy = branch.getY() - this.getY();
+		return Math.sqrt(dx*dx + dy*dy);
+	}
+
+	/**
+	 * The cost for this consumer to travel to the given branch (in pounds).
+	 */
+	protected double costOfTravel(final Branch branch) {
+		final double diagonalDistance = distanceFromBranch(branch);
+		final double costPerKm = ConsumerFactory.getSingleton().getCostOfTravelPerKm();
+
+		return diagonalDistance * costPerKm;
 	}
 
 	/**
