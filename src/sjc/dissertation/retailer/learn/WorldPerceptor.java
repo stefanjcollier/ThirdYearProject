@@ -4,6 +4,8 @@ import java.util.List;
 
 import sjc.dissertation.retailer.branch.Branch;
 import sjc.dissertation.retailer.state.BranchState;
+import sjc.dissertation.retailer.state.InvalidRetailerActionException;
+import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.retailer.state.profit.ProfitMargin;
 import sjc.dissertation.retailer.state.profit.ProfitMarginChange;
 import sjc.dissertation.retailer.state.quality.Quality;
@@ -56,11 +58,18 @@ public class WorldPerceptor {
 		case NoProfitMargin: {
 			return 0;
 		}
-		case LowProfitMargin: {
+		case VeryLowProfitMargin: {
 			return 1;
 		}
-		case HighProfitMargin: {
+		case LowProfitMargin: {
 			return 2;
+		}
+
+		case MediumProfitMargin: {
+			return 3;
+		}
+		case HighProfitMargin: {
+			return 4;
 		}
 		default:{
 			//So large we'd notice it (also different to the quality to indicate difference)
@@ -122,13 +131,19 @@ public class WorldPerceptor {
 	 *
 	 * @return A numerical vector representation of how the agent views the world
 	 */
-	public double[] percieveWorld(final BranchState me, final List<Branch> others){
+	public double[] percieveWorld(final BranchState me, final List<Branch> others, final RetailerAction action){
 		final int variables = 2 + others.size()*2;
 		final double[] perception = new double[variables];
 
-		//Handle perception of self
-		perception[0] = convertQuality(me.getQuality());
-		perception[1] = convertProfitMargin(me.getProfitMargin());
+		//Handle perception of self (after move)
+		BranchState newState = null;
+		try {
+			newState = me.createNewState(action);
+		} catch (final InvalidRetailerActionException e) {
+			e.printStackTrace();
+		}
+		perception[0] = convertQuality(newState.getQuality());
+		perception[1] = convertProfitMargin(newState.getProfitMargin());
 
 		//Interpret competitors
 		int index = 2;

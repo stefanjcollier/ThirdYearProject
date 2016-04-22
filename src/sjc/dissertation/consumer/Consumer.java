@@ -23,4 +23,6 @@ public interface Consumer {
 	public double getX();
 
 	public double getY();
+
+	public int getSettlementId();
 }

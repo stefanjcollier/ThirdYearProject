@@ -14,19 +14,22 @@ public class ConsumerImpl implements Consumer{
 	private final int id;
 	private final String socClass;
 	private final double budget, x, y;
+	private final int settlementId;
 
-	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget, final double x, final double y){
+	protected ConsumerImpl(final int unseenId, final String socialClass, final double budget, final double x, final double y, final int settlementId){
 		this.id = unseenId;
 		this.socClass = socialClass;
 		this.budget = budget;
 		this.x = x;
 		this.y = y;
+		this.settlementId = settlementId;
 	}
 
 	@Override
 	public int getId(){
 		return this.id;
 	}
+
 
 	@Override
 	public String getSocialClass(){
@@ -114,9 +117,9 @@ public class ConsumerImpl implements Consumer{
 		final double cost = costOfShop(branch) + costOfTravel(branch);
 
 		//Determine how the distance affects the reward
-		// dm = (d / (D/2))^2
-		final double halfMapWidth = ConsumerFactory.getSingleton().getLocationFactory().getMapWidth()/2;
-		final double distanceRewardMultiplier = Math.pow(distanceFromBranch(branch)/halfMapWidth,2);
+		// dm = 1 - (d/D_diag)^2
+		final double mapDiagonal = ConsumerFactory.getSingleton().getLocationFactory().getMapWidth()*Math.sqrt(2);
+		final double distanceRewardMultiplier = 1.0 - Math.pow(distanceFromBranch(branch)/mapDiagonal,2);
 
 		return rewardOfShop(branch) * distanceRewardMultiplier  / cost;
 	}
@@ -217,6 +220,11 @@ public class ConsumerImpl implements Consumer{
 	@Override
 	public double getY() {
 		return this.y;
+	}
+
+	@Override
+	public int getSettlementId() {
+		return this.settlementId;
 	}
 
 

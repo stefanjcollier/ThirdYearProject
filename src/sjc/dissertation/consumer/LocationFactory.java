@@ -36,14 +36,22 @@ public class LocationFactory {
 		return this.mapWidth;
 	}
 
-	private int selectSettlement(){
+	public int getNumberOfSettlements(){
+		return this.populations.size();
+	}
+
+	public int selectSettlement(){
 		final double[] chances = new double[this.xs.size()];
+		//find total pop
 		final double total  = this.populations.stream().mapToInt(Integer::intValue).sum();
+
+		//use total pop to find the % that each settlement has of the population
 		for(int index = 0; index < this.xs.size(); index++){
 			final double pop = this.populations.get(index);
 			chances[index] = pop / total;
 		}
 
+		//choose a settlement based on these odds
 		return RandomToolbox.probabilisticlyChoose(chances);
 	}
 
@@ -66,22 +74,17 @@ public class LocationFactory {
 		return Math.abs(this.rng.nextGaussian()*r);
 	}
 
-	public double[] generateLocation(){
+
+	public double[] generateLocationArroundSettlement(final int settlement){
 		if(this.populations.size()==0){
 			throw new RuntimeException("There are no settlements for a consumer to populate.");
 		}
-		final int settlement = selectSettlement();
+
+		final double angle = genRandomAngle();
+		final double distance = genDistance(settlement);
 
 		final double midX = this.xs.get(settlement);
 		final double midY = this.ys.get(settlement);
-
-		return generateLocationArroundLocation(settlement, midX, midY);
-
-	}
-
-	private double[] generateLocationArroundLocation(final int settlement, final double midX, final double midY){
-		final double angle = genRandomAngle();
-		final double distance = genDistance(settlement);
 
 		final double x = midX + distance*Math.cos(angle);
 		final double y = midY + distance*Math.sin(angle);
@@ -94,12 +97,15 @@ public class LocationFactory {
 		}else{
 			LoggerFactory.getSingleton().getMasterLogger().trace(String.format(
 					"Location Factory:: Generated x,y: %f, %f :: OUT OF RANGE", x,y));
-			return generateLocationArroundLocation(settlement, midX, midY);
+			return generateLocationArroundSettlement(settlement);
 		}
 	}
 
 	public int getTotalPopulation(){
 		return this.populations.stream().mapToInt(Integer::intValue).sum();
+	}
+	public int getPopulation(final int settlementId){
+		return this.populations.get(settlementId);
 	}
 
 	private boolean inRange(final double scalar){

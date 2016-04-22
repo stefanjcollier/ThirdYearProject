@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import sjc.dissertation.model.logging.results.PrintResultsInterface;
+import sjc.dissertation.util.FileUtils;
 import sjc.dissertation.util.RandomToolbox;
 //JAVADOC CoFac
 /**
@@ -103,11 +104,12 @@ public class ConsumerFactory implements PrintResultsInterface{
 		final int id = this.consumers.size()+1;
 
 		//Location
-		final double[] location = this.locGen.generateLocation();
+		final int settlementId = this.locGen.selectSettlement();
+		final double[] location = this.locGen.generateLocationArroundSettlement(settlementId);
 		final double x = location[0];
 		final double y = location[1];
 
-		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget, x, y);
+		final Consumer con = new ConsumerImpl(id, this.classNames[socClass], budget, x, y, settlementId);
 		this.consumers.add(con);
 		return con;
 	}
@@ -125,11 +127,11 @@ public class ConsumerFactory implements PrintResultsInterface{
 	}
 
 	@Override
-	public String printResults() {
+	public String printResults(final FileUtils futil) {
 		String locations = "------------------------------"+System.lineSeparator()
 		+ "Consumer Locations"+System.lineSeparator();
 		for (final Consumer con : this.consumers){
-			locations += String.format("%f,%f,"+System.lineSeparator(), con.getX(), con.getY());
+			locations += String.format("%f,%f,%d"+System.lineSeparator(), con.getX(), con.getY(), con.getSettlementId());
 		}
 		return locations;
 	}

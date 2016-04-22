@@ -36,7 +36,7 @@ public class GreedyAlgorithmFactoryTest {
 
 		//AND the cost of shopping (the same for all retailers)
 		final double rawCost = Quality.MediumQuality.getCost();
-		final double profitMultiplier = 1 + ProfitMargin.LowProfitMargin.getProfitMargin();
+		final double profitMultiplier = 1 + ProfitMargin.MediumProfitMargin.getProfitMargin();
 		final double costOfShop = rawCost * profitMultiplier;
 
 

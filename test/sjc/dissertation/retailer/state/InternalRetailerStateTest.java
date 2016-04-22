@@ -42,7 +42,7 @@ public class InternalRetailerStateTest {
 		assertEquals("Quality should be medium", Quality.MediumQuality, q);
 
 		//AND the profit margin should be medium
-		assertEquals("profit margin should be Low", ProfitMargin.LowProfitMargin, pm);
+		assertEquals("profit margin should be Low", ProfitMargin.MediumProfitMargin, pm);
 
 	}
 	/**
@@ -76,7 +76,7 @@ public class InternalRetailerStateTest {
 
 		//AND state2should be MQ P+
 		assertEquals("State1: Quality should be Medium", Quality.MediumQuality, state2.getQuality());
-		assertEquals("State1: profit margin should be Low", ProfitMargin.LowProfitMargin, state2.getProfitMargin());
+		assertEquals("State1: profit margin should be Low", ProfitMargin.MediumProfitMargin, state2.getProfitMargin());
 
 		//THEN state1 should be LQ 0P
 		assertEquals("State1: Quality should be Low", Quality.LowQuality, state3.getQuality());

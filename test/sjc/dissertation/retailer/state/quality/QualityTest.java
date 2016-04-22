@@ -11,9 +11,9 @@ import org.junit.Test;
 
 public class QualityTest {
 
-	final double HIGH_QUALITY_COST = 3;
-	final double MEDIUM_QUALITY_COST = 2;
-	final double LOW_QUALITY_COST = 1;
+	final double HIGH_QUALITY_COST = 100;
+	final double MEDIUM_QUALITY_COST = 66;
+	final double LOW_QUALITY_COST = 44.44;
 
 
 	/**

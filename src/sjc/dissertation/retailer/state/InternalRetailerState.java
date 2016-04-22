@@ -32,9 +32,16 @@ public class InternalRetailerState implements BranchState{
 
 	public InternalRetailerState(){
 		this.quality = Quality.MediumQuality;
-		this.profit = ProfitMargin.LowProfitMargin;
+		this.profit = ProfitMargin.VeryLowProfitMargin;
 		this.numberOfCustomers = INITIAL_VALUE;
 	}
+
+	protected InternalRetailerState(final Quality q, final ProfitMargin pm){
+		this.quality = q;
+		this.profit = pm;
+		this.numberOfCustomers = INITIAL_VALUE;
+	}
+
 
 	/**
 	 * Combine all permutations of quality and profit margin changes to provide all possible actions.
@@ -63,6 +70,20 @@ public class InternalRetailerState implements BranchState{
 			this.quality = this.quality.changeQuality(action.getQualityChange());
 			this.profit = this.profit.changeProfitMargin(action.getProfitMarginChange());
 			//Consider: (RtlrImpl) Reset number of customers? <- But it works buddy :P
+
+		} catch (final InvalidQualityException e) {
+			throw new InvalidRetailerActionException(action, this, e);
+		} catch (final InvalidProfitMarginException e) {
+			throw new InvalidRetailerActionException(action, this, e);
+		}
+	}
+	@Override
+	public BranchState createNewState(final RetailerAction action) throws InvalidRetailerActionException{
+		try {
+			final Quality q = this.quality.changeQuality(action.getQualityChange());
+			final ProfitMargin pm = this.profit.changeProfitMargin(action.getProfitMarginChange());
+
+			return new InternalRetailerState(q, pm);
 
 		} catch (final InvalidQualityException e) {
 			throw new InvalidRetailerActionException(action, this, e);

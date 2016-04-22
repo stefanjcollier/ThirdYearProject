@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import sjc.dissertation.util.FileUtils;
+import sjc.dissertation.util.TimedFileUtils;
 
 public class LogFileWriter {
 
@@ -49,7 +49,7 @@ public class LogFileWriter {
 
 
 	protected File generateFile(final String parentFilePath, final String filename, final String ext){
-		return FileUtils.createDatedFile(parentFilePath, filename, ext);
+		return TimedFileUtils.createDatedFile(parentFilePath, filename, ext);
 
 	}
 

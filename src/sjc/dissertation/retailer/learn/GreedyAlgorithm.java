@@ -21,15 +21,15 @@ public class GreedyAlgorithm extends Algorithm{
 
 	@Override
 	public RetailerAction determineAction(final BranchState state, final List<Branch> competitors) {
-		//Percieve World
-		final double[] world = this.eyes.percieveWorld(state, competitors);
-
-
 		//Estimate the consequence of every action and select the best action (highest profit wielding)
 		double bestProfit = Double.NEGATIVE_INFINITY;
 		RetailerAction bestAction = null;
 		for (final RetailerAction action : state.getActions()){
-			final double predictedProfit = this.brain.predictProfit(action, world);
+			//Percieve World
+			final double[] worldWithAction = this.eyes.percieveWorld(state, competitors, action);
+
+			//Predict profit
+			final double predictedProfit = this.brain.predictProfit(worldWithAction);
 			if(predictedProfit > bestProfit){
 				bestProfit = predictedProfit;
 				bestAction = action;
@@ -37,7 +37,8 @@ public class GreedyAlgorithm extends Algorithm{
 		}
 
 		//Inform brain of decision to allow for feedback loop later
-		this.brain.informOfAction(bestAction, bestProfit, world);
+		final double[] worldWithBestAction = this.eyes.percieveWorld(state, competitors, bestAction);
+		this.brain.informOfAction(bestAction, bestProfit, worldWithBestAction);
 
 		return bestAction;
 	}

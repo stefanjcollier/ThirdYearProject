@@ -19,7 +19,7 @@ public class FileUtilsTest {
 
 	@Before
 	public void setup(){
-		final File oldFile = new File(FileUtils.getFileName(dir, name, 0, ext));
+		final File oldFile = new File(TimedFileUtils.getFileName(dir, name, 0, ext));
 		if(oldFile.exists() && oldFile.isFile()){
 			oldFile.delete();
 		}
@@ -29,7 +29,7 @@ public class FileUtilsTest {
 	public void test() {
 		// GIVEN a path
 		// WHEN making a file
-		final File createdFile  = FileUtils.createDatedFile(path, name, ext);
+		final File createdFile  = TimedFileUtils.createDatedFile(path, name, ext);
 
 		//THEN ...
 		//The returned file is not null
@@ -40,13 +40,13 @@ public class FileUtilsTest {
 
 		//A file has been created in the right place
 		assertEquals("The file name is not correct",
-				createdFile.getAbsolutePath(), FileUtils.getFileName(dir, name, 0, ext));
+				createdFile.getAbsolutePath(), TimedFileUtils.getFileName(dir, name, 0, ext));
 
 	}
 
 	@After
 	public void breakDown(){
-		final File oldFile = new File(FileUtils.getFileName(dir, name, 0, ext));
+		final File oldFile = new File(TimedFileUtils.getFileName(dir, name, 0, ext));
 		if(oldFile.exists() && oldFile.isFile()){
 			oldFile.delete();
 		}

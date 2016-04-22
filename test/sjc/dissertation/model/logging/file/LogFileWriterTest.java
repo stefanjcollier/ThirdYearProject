@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import sjc.dissertation.util.FileUtils;
+import sjc.dissertation.util.TimedFileUtils;
 
 public class LogFileWriterTest {
 	static String dir = "./test_resources";
@@ -22,9 +22,9 @@ public class LogFileWriterTest {
 	@Before
 	@After
 	public void setupAndTearDown() {
-		final File file0 = new File(FileUtils.getFileName(new File(dir), fileName, 0, extension));
-		final File file1 = new File(FileUtils.getFileName(new File(dir), fileName, 1, extension));
-		final File file2 = new File(FileUtils.getFileName(new File(dir), fileName, 2, extension));
+		final File file0 = new File(TimedFileUtils.getFileName(new File(dir), fileName, 0, extension));
+		final File file1 = new File(TimedFileUtils.getFileName(new File(dir), fileName, 1, extension));
+		final File file2 = new File(TimedFileUtils.getFileName(new File(dir), fileName, 2, extension));
 
 		if(file0.exists() && file0.isFile()){
 			file0.delete();

@@ -3,7 +3,7 @@ package sjc.dissertation.retailer.learn;
 import sjc.dissertation.retailer.state.RetailerAction;
 
 public interface ActionPredictor {
-	public double predictProfit(final RetailerAction action, final double[] world);
+	public double predictProfit(final double[] worldWithAction);
 
 	public void informOfAction(final RetailerAction action, final double predProf, final double[] world);
 

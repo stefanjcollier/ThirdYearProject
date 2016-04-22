@@ -1,5 +1,8 @@
 package sjc.dissertation.retailer.learn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sjc.dissertation.model.logging.MasterLogger;
 import sjc.dissertation.model.logging.wrappers.WrappedActionPredictor;
 import sjc.dissertation.retailer.branch.Algorithm;
@@ -13,11 +16,13 @@ public class GreedyAlgorithmFactory {
 	private final int ukPop;
 	private final MasterLogger logger;
 	private int currentId;
+	private List<WrappedActionPredictor> actionPreds;
 
 	public GreedyAlgorithmFactory(final MasterLogger logger, final int populationOfUK) {
 		this.logger = logger;
 		this.currentId = 0;
 		this.ukPop = populationOfUK;
+		this.actionPreds = new ArrayList<>(10);
 	}
 
 	public Algorithm createGreedyAlgorithm(final int noOfCompetitors){
@@ -29,7 +34,8 @@ public class GreedyAlgorithmFactory {
 	public Algorithm createWrappedGreedyAlgorithm(final int noOfCompetitors){
 		final WorldPerceptor world = new WorldPerceptor();
 		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
-		final ActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, this.currentId++);
+		final WrappedActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, this.currentId++);
+		this.actionPreds.add(wrappedpredictor);
 		return new GreedyAlgorithm(world, wrappedpredictor);
 	}
 
@@ -48,19 +54,19 @@ public class GreedyAlgorithmFactory {
 	 * @return
 	 */
 	protected double[] getInitWeights(final int noOfCompetitors){
-		final double[] w = new double[4 + 2*noOfCompetitors];
+		final double[] w = new double[2 + 2*noOfCompetitors];
 
 		//Create an array and sum it {Q_me, P_me, Q_1, P_1, ..., Q_N, P_N, Qact, Pact}
 		//Where all qualities and profit margins are the same
 		double totalW = (noOfCompetitors+1) *
-				(WorldPerceptor.convertQuality(Quality.MediumQuality)+WorldPerceptor.convertProfitMargin(ProfitMargin.LowProfitMargin));
+				(WorldPerceptor.convertQuality(Quality.MediumQuality)+WorldPerceptor.convertProfitMargin(ProfitMargin.MediumProfitMargin));
 
 		totalW += WorldPerceptor.convertQualityChange(QualityChange.MaintainQuality)
 				+WorldPerceptor.convertProfitChange(ProfitMarginChange.MaintainProfitMargin);
 
 		//Work out cost of shop
 		final double rawCost = Quality.MediumQuality.getCost();
-		final double profitMultiplier = 1 + ProfitMargin.LowProfitMargin.getProfitMargin();
+		final double profitMultiplier = 1 + ProfitMargin.MediumProfitMargin.getProfitMargin();
 		final double costOfShop = rawCost * profitMultiplier;
 
 		//population / noOfRetailers * cost of a shop with retailer
@@ -72,6 +78,10 @@ public class GreedyAlgorithmFactory {
 			w[i] = defaultWvalue;
 		}
 		return w;
+	}
+
+	public List<WrappedActionPredictor> getWrappedActionPredictors(){
+		return this.actionPreds;
 	}
 
 }

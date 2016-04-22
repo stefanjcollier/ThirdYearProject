@@ -35,4 +35,6 @@ public interface BranchState {
 	 * @return A few characted determining the state.
 	 */
 	public String getSymbol();
+
+	BranchState createNewState(RetailerAction action) throws InvalidRetailerActionException;
 }

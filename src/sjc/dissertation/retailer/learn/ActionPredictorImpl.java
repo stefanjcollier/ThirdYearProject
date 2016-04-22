@@ -1,7 +1,5 @@
 package sjc.dissertation.retailer.learn;
 
-import java.util.Arrays;
-
 import sjc.dissertation.retailer.state.RetailerAction;
 import sjc.dissertation.util.VectorToolbox;
 
@@ -33,22 +31,16 @@ public class ActionPredictorImpl implements ActionPredictor{
 	}
 
 	@Override
-	public double predictProfit(final RetailerAction action, final double[] world){
-		return VectorToolbox.multiplyVectors(addActionsToList(action, world), this.w);
+	public double predictProfit(final double[] world){
+		return VectorToolbox.multiplyVectors(world, this.w);
 	}
 
-	protected double[] addActionsToList(final RetailerAction action, final double[] world){
-		final double[] worldWithActions = Arrays.copyOf(world, world.length+2);
-		worldWithActions[world.length] = WorldPerceptor.convertProfitChange(action.getProfitMarginChange());
-		worldWithActions[world.length+1] = WorldPerceptor.convertQualityChange(action.getQualityChange());
-		return worldWithActions;
-	}
 
 
 	@Override
 	public void informOfAction(final RetailerAction action, final double predProf, final double[] world){
 		this.predProf = predProf;
-		this.x_n = addActionsToList(action, world);
+		this.x_n = world;
 	}
 
 	/**
