@@ -16,7 +16,7 @@ public class WrappedRetailer implements Retailer, Wrapper, PrintResultsInterface
 
 	private final MasterLogger logger;
 	private final Retailer me;
-	private final List<Double[]> weeklyBreakdown;
+	public final List<Double[]> weeklyBreakdown;
 
 	public WrappedRetailer(final MasterLogger logger, final Retailer retailer) {
 		this.logger = logger;
@@ -25,6 +25,10 @@ public class WrappedRetailer implements Retailer, Wrapper, PrintResultsInterface
 
 		//Acknowledge instantiation
 		this.logger.trace(this, "Instantiated");
+	}
+
+	public Retailer getTrueRetailer(){
+		return this.me;
 	}
 
 	@Override
@@ -43,8 +47,8 @@ public class WrappedRetailer implements Retailer, Wrapper, PrintResultsInterface
 	}
 
 	@Override
-	public Branch createBranch(final double x, final double y) {
-		return this.me.createBranch(x, y);
+	public Branch createBranch(final double x, final double y, final int settlment) {
+		return this.me.createBranch(x, y, settlment);
 	}
 
 	@Override
@@ -68,18 +72,30 @@ public class WrappedRetailer implements Retailer, Wrapper, PrintResultsInterface
 	public String printResults(final FileUtils futil) {
 		final String out = "Retailer Results for "+getWrapperId()+System.lineSeparator();
 
-		String earnt = "";
+		String earnt = this.getName()+",";
+		for(final Branch b : getBranches()){
+			earnt += b.getBranchName()+",";
+		}
+		//Remove last comma
+		earnt = earnt.substring(0, earnt.length()-1)+System.lineSeparator();
+
+
 		for (final Double[] week : this.weeklyBreakdown){
 			final double total = Arrays.asList(week).stream().mapToDouble(Double::doubleValue).sum();
-			earnt += total+","+Arrays.toString(week).replace("[", "").replace("]", ",").replaceAll("\\s+", "");
+			earnt += total+","+Arrays.toString(week).replace("[", "").replace("]", "").replaceAll("\\s+", "");
 			earnt += System.lineSeparator();
 		}
 
 		//write to disk
 		final String dir = "retailers/"+getWrapperId();
 		futil.makeFolder(dir);
-		futil.writeStringToFile(earnt, dir+"/EarningBreakdown.csv");
+		futil.writeStringToFile(earnt, dir+"/"+getWrapperId()+"EarningBreakdown.csv");
 
+		final String locPath = "retailers/locations.csv";
+		futil.touchFile(locPath);
+		for(final Branch b : getBranches()){
+			futil.appendStringToFile(String.format("%f,%f,%s"+System.lineSeparator(), b.getX(), b.getY(), b.getBranchName()), locPath);
+		}
 
 
 		return out+earnt;

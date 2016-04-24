@@ -158,7 +158,7 @@ public class ConsumerImpl implements Consumer{
 			return 3;
 		}
 		case LowQuality: {
-			return 1;
+			return 1.5;
 		}
 		default: {
 			//This is an error state as no other quality should exist

@@ -15,12 +15,10 @@ public class GreedyAlgorithmFactory {
 
 	private final int ukPop;
 	private final MasterLogger logger;
-	private int currentId;
 	private List<WrappedActionPredictor> actionPreds;
 
 	public GreedyAlgorithmFactory(final MasterLogger logger, final int populationOfUK) {
 		this.logger = logger;
-		this.currentId = 0;
 		this.ukPop = populationOfUK;
 		this.actionPreds = new ArrayList<>(10);
 	}
@@ -31,10 +29,10 @@ public class GreedyAlgorithmFactory {
 		return new GreedyAlgorithm(world, predictor);
 	}
 
-	public Algorithm createWrappedGreedyAlgorithm(final int noOfCompetitors){
+	public Algorithm createWrappedGreedyAlgorithm(final int noOfCompetitors, final String id){
 		final WorldPerceptor world = new WorldPerceptor();
 		final ActionPredictor predictor = new ActionPredictorImpl(getInitWeights(noOfCompetitors));
-		final WrappedActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, this.currentId++);
+		final WrappedActionPredictor wrappedpredictor = new WrappedActionPredictor(this.logger, predictor, id);
 		this.actionPreds.add(wrappedpredictor);
 		return new GreedyAlgorithm(world, wrappedpredictor);
 	}

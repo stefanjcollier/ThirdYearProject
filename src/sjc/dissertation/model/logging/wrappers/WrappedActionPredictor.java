@@ -20,9 +20,9 @@ public class WrappedActionPredictor implements Wrapper, ActionPredictor, PrintRe
 	private final List<Double> error;
 	private final List<Double> errPer;
 
-	public WrappedActionPredictor(final MasterLogger logger, final ActionPredictor observedObject, final int id) {
+	public WrappedActionPredictor(final MasterLogger logger, final ActionPredictor observedObject, final String id) {
 		this.me = observedObject;
-		this.id = String.format("LinReg(%d)", id);
+		this.id = String.format("LinReg(%s)", id);
 		this.log = logger;
 
 		//Logging

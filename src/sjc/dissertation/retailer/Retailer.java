@@ -17,7 +17,7 @@ public interface Retailer {
 
 	public List<Branch> getBranches();
 
-	public Branch createBranch(double x, double y);
+	public Branch createBranch(double x, double y, int settlment);
 
 	public void informOfProfit(Branch branch, double profit);
 

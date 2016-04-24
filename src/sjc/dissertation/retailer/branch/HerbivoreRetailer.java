@@ -25,8 +25,8 @@ public class HerbivoreRetailer extends CarnivoreRetailer implements Retailer{
 	}
 
 	@Override
-	public Branch createBranch(final double x, final double y) {
-		final Branch newBranch = new HerbivoreBranchImpl(this, this.myBranches.size(), x, y);
+	public Branch createBranch(final double x, final double y, final int settlment) {
+		final Branch newBranch = new HerbivoreBranchImpl(this, this.myBranches.size(), x, y,settlment);
 		this.myBranches.add(newBranch);
 		return newBranch;
 	}
@@ -83,5 +83,8 @@ public class HerbivoreRetailer extends CarnivoreRetailer implements Retailer{
 		return this.state;
 	}
 
+	public Algorithm getAlgorithm(){
+		return this.policy;
+	}
 
 }

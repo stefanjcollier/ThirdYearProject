@@ -13,7 +13,7 @@ import java.util.Set;
  *
  */
 public enum Quality {
-	HighQuality("<HQ>","High Quality", 100){
+	HighQuality("<HQ>","High Quality", 108){
 		@Override
 		public Set<QualityChange> getActions(){
 			final Set<QualityChange> actions = new HashSet<>(2);
@@ -63,7 +63,7 @@ public enum Quality {
 			}
 		}
 	},
-	LowQuality("<LQ>","Low Quality", 44.44){
+	LowQuality("<LQ>","Low Quality", 37){
 		@Override
 		public Set<QualityChange> getActions(){
 			final Set<QualityChange> actions = new HashSet<>(2);

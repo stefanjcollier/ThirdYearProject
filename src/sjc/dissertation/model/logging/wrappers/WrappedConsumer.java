@@ -103,22 +103,26 @@ public class WrappedConsumer implements Consumer, Wrapper, PrintResultsInterface
 	@Override
 	public String printResults(final FileUtils futil) {
 		final String out = "Consumer["+this.getId()+"] votes:"+System.lineSeparator();
-		String res = "";
-		int round = 1;
+		final String res = "";
+		/*int round = 1;
 		for(final Integer vote: this.myVotes){
 			res += String.format("%d,%d,%d,%f,"+"%s,%d,%f,%f"+System.lineSeparator(),
 					round, vote, this.me.getId(), this.me.getBudget(),
 					this.me.getSocialClass(), this.me.getSettlementId(), this.me.getX(),this.me.getY());
 			round++;
 		}
-
+		 */
 		//save to disk
 		final String dir = "consumer/";
 		futil.makeFolder(dir);
-
+		/*
 		final String filename = dir+"/AllConsumerVotes.csv";
-		futil.touchFile(filename);
+		futil.touchFile(filename,"round,vote,id,budget,class,settlement,x,y");
 		futil.appendStringToFile(res, filename);
+		 */
+		final String locationFile = dir+"/ConsumerLocations.csv";
+		futil.touchFile(locationFile,"x,y"+System.lineSeparator());
+		futil.appendStringToFile(this.me.getX()+","+this.me.getY()+System.lineSeparator(), locationFile);
 
 		return out+res;
 	}

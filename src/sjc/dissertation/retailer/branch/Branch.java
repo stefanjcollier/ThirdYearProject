@@ -31,4 +31,5 @@ public interface Branch {
 
 	public double getY();
 
+	public int getSettlementId();
 }

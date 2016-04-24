@@ -5,6 +5,7 @@ import java.util.List;
 
 import sjc.dissertation.model.logging.file.LogFileWriter;
 import sjc.dissertation.model.logging.file.LogFileWritingException;
+import sjc.dissertation.retailer.branch.Branch;
 
 /**
  * Creates a .csv file for each social class and stores the votes for each retailer in the files per round
@@ -24,7 +25,7 @@ public class VoteFileWriter {
 
 	final String fileExtension = ".csv";
 	final List<LogFileWriter> allFiles;
-	final int numOfRetailers;
+	final int numOfBranches;
 
 	/**
 	 * Create the VoteFileWriter instance.
@@ -32,14 +33,30 @@ public class VoteFileWriter {
 	 * Assumes that the socialClasses list is the same given as in the VoteLogger
 	 * @param socialClasses -- All the social classes in the models
 	 */
-	protected VoteFileWriter(final String filePath, final String[] socialClasses, final int maxRetailers){
+	protected VoteFileWriter(final String filePath, final String[] socialClasses, final  List<Branch> branches){
 		//Fill with files ready for a good writing
 		this.allFiles = new ArrayList<LogFileWriter>(socialClasses.length);
 		for(final String socClass : socialClasses){
 			this.allFiles.add(new LogFileWriter(filePath, makeName(socClass), this.fileExtension));
 		}
 		//Store max
-		this.numOfRetailers = maxRetailers;
+		this.numOfBranches = branches.size();
+
+		////write first line
+		//Find all names
+		String nameLine = "";
+		for(final Branch b : branches){
+			nameLine += b.getBranchName()+",";
+		}
+		nameLine += "No Vote";
+		//write the name line to each file
+		for(int socClass = 0; socClass < this.allFiles.size(); socClass++){
+			try {
+				this.allFiles.get(socClass).writeLine(nameLine);
+			} catch (final LogFileWritingException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	protected String makeName(final String socClass){
@@ -65,6 +82,7 @@ public class VoteFileWriter {
 		for(int retailer = 0; retailer < classVotes.length; retailer++){
 			line += String.format("%d,", classVotes[retailer]);
 		}
+		line = line.substring(0, line.length()-1);
 		return line;
 
 	}

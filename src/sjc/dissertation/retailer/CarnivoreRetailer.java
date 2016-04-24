@@ -29,8 +29,8 @@ public class CarnivoreRetailer implements Retailer{
 	}
 
 	@Override
-	public Branch createBranch(final double x, final double y) {
-		final Branch newBranch = new CarnivoreBranchImpl(this, this.myBranches.size(), x, y);
+	public Branch createBranch(final double x, final double y, final int settlment) {
+		final Branch newBranch = new CarnivoreBranchImpl(this, this.myBranches.size(), x, y, settlment);
 		this.myBranches.add(newBranch);
 		return newBranch;
 	}

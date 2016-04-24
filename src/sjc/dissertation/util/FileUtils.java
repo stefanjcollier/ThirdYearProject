@@ -34,6 +34,14 @@ public class FileUtils {
 		}
 	}
 
+	public void touchFile(final String filename, final String firstLine){
+		final String location = this.base.getAbsolutePath()+"/"+filename;
+		final File file = new File(location);
+		if(!file.exists()){
+			writeStringToFile(firstLine, filename);
+		}
+	}
+
 	public void writeStringToFile(final String text, final String filename){
 		Writer writer = null;
 		final String location = this.base.getAbsolutePath()+"/"+filename;
@@ -42,7 +50,7 @@ public class FileUtils {
 					new FileOutputStream(location), "utf-8"));
 			writer.write(text);
 		} catch (final IOException ex) {
-			// report
+			ex.printStackTrace();
 		} finally {
 			try {writer.close();} catch (final Exception ex) { ex.printStackTrace(); /*ignore*/}
 		}

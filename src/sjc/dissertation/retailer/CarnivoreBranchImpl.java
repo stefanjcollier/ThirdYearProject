@@ -18,13 +18,15 @@ public class CarnivoreBranchImpl implements Branch{
 	private final Retailer retailer;
 	private final int id;
 	private final double x,y;
+	private final int settlementId;
 
-	protected CarnivoreBranchImpl(final Retailer owner, final int id, final double x, final double y){
+	protected CarnivoreBranchImpl(final Retailer owner, final int id, final double x, final double y, final int settlement){
 		this.state = new InternalRetailerState();
 		this.retailer = owner;
 		this.id = id;
 		this.x = x;
 		this.y = y;
+		this.settlementId = settlement;
 	}
 
 	@Override
@@ -108,6 +110,11 @@ public class CarnivoreBranchImpl implements Branch{
 	@Override
 	public double getY(){
 		return this.y;
+	}
+
+	@Override
+	public int getSettlementId(){
+		return this.settlementId;
 	}
 
 }

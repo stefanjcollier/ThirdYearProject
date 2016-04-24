@@ -22,6 +22,8 @@ public class WrappedRetailBranch implements Branch, Wrapper{
 
 	}
 
+
+
 	@Override
 	public double informOfCustomers(final int customers) {
 		final double profit = this.me.informOfCustomers(customers);
@@ -81,6 +83,11 @@ public class WrappedRetailBranch implements Branch, Wrapper{
 	@Override
 	public double getY() {
 		return this.me.getY();
+	}
+
+	@Override
+	public int getSettlementId() {
+		return this.me.getSettlementId();
 	}
 
 }

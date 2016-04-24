@@ -6,8 +6,8 @@ import sjc.dissertation.retailer.state.InternalRetailerState;
 
 public class HerbivoreBranchImpl extends CarnivoreBranchImpl implements Branch {
 
-	protected HerbivoreBranchImpl(final HerbivoreRetailer owner, final int id, final double x, final double y){
-		super(owner, id, x, y);
+	protected HerbivoreBranchImpl(final HerbivoreRetailer owner, final int id, final double x, final double y, final int settlment){
+		super(owner, id, x, y, settlment);
 	}
 
 	@Override
